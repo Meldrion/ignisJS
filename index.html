@@ -1,0 +1,157 @@
+<html>
+
+
+    <header>
+        <style type="text/css">
+            html body {
+                padding: 0;
+                margin: 0;
+                overflow-x:hidden;
+                overflow-y:hidden;
+            }
+
+/*            canvas {
+                image-rendering: optimizeSpeed;             !* Older versions of FF          *!
+                image-rendering: -moz-crisp-edges;          !* FF 6.0+                       *!
+                image-rendering: -webkit-optimize-contrast; !* Safari                        *!
+                image-rendering: -o-crisp-edges;            !* OS X & Windows Opera (12.02+) *!
+                image-rendering: pixelated;                 !* Awesome future-browsers       *!
+                -ms-interpolation-mode: nearest-neighbor;   !* IE                            *!
+            }*/
+
+            #leftSection {
+                position: absolute;
+                left: 100px;
+                top:0;
+                box-shadow: 20px -1px 24px 0px rgba(0,0,0,0.75);
+                height: 100%;
+            }
+
+            #mapCanvasScroller {
+                position: absolute;
+                left: 400px;
+                top:0;
+                overflow-y: scroll;
+                overflow-x: scroll;
+            }
+
+            #tilesetCanvasScroller {
+                width: 300px;
+                height: 500px;
+                overflow-y: scroll;
+                overflow-x: hidden;
+            }
+
+            #mainTabber {
+                position: absolute;
+                left: 0;
+                top:0;
+                width: 100px;
+                height: 100%;
+                background: linear-gradient(to right,rgb(64,64,64), rgb(128,128,128)); /* Standard syntax */
+            }
+
+            #logo {
+                margin-top: 20px;
+                margin-left: 20px;
+            }
+
+        </style>
+    </header>
+
+    <body>
+
+        <div id="mainTabber">
+            <img src="assets/calci-64x64.png" alt="ignis logo" id="logo"/>
+        </div>
+
+        <div id="leftSection">
+
+            <div id="tilesetCanvasScroller">
+                <canvas id="tilesetCanvas" width="300" height="768" style="border:1px solid #d3d3d3;background:#ffffff;">
+                    Your browser does not support the HTML5 canvas tag.
+                </canvas>
+            </div>
+        </div>
+
+        <div id="mapCanvasScroller">
+            <canvas id="mapCanvas" width="1024" height="768" style="border:1px solid #d3d3d3;background:#ffffff;">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+        </div>
+
+        <!-- Include -->
+        <script language="JavaScript" src="js/Tileset.js" ></script>
+        <script language="JavaScript" src="js/TilesetCell.js" ></script>
+        <script language="JavaScript" src="js/Layer.js" ></script>
+        <script language="JavaScript" src="js/TilesetLayer.js" ></script>
+        <script language="JavaScript" src="js/Map.js" ></script>
+        <script language="JavaScript" src="js/TilesetCanvas.js" ></script>
+        <!-- Include End -->
+
+        <script language="JavaScript">
+            // Instance of Layer
+
+            var img = new Image();
+            var tileset = new Tileset();
+            var map = new Map();
+
+            var tilesetCanvas = new TilesetCanvas(document.getElementById("tilesetCanvas"));
+
+            window.onload = function() {
+                img.onload = function() {
+
+                    tileset.setImage(img);
+                    tilesetCanvas.setTileset(tileset);
+                    map.setSize(200,200);
+
+                    var c = document.getElementById("mapCanvas");
+                    c.style.width = map.width * 32;
+                    c.style.height = map.height * 32;
+                    c.width = c.offsetWidth;
+                    c.height = c.offsetHeight;
+
+                    map.setTileset(tileset);
+
+                    for (var x=0;x<map.width;x++) {
+                        for (var y=0;y<map.height;y++) {
+                            map.setTile(0,x,y,0,0);
+                            map.setTile(1,x,y,1,1);
+                            map.setTile(2,x,y,1,0);
+                        }
+                    }
+
+                    var canvas = document.getElementById("tilesetCanvas");
+                    canvas.style.height = img.height;
+                    canvas.height = img.height;
+
+                    render();
+                };
+                img.src = 'assets/cave.png';
+                onresize();
+            };
+
+
+            window.onresize = function() {
+
+                var ms = document.getElementById("mapCanvasScroller");
+                ms.style.width = window.innerWidth - 400;
+                ms.style.height = window.innerHeight;
+
+            };
+
+            function render() {
+
+                var canvas = document.getElementById("mapCanvas");
+                var ctx = canvas.getContext("2d");
+                var cellSize = 32;
+
+                map.render(ctx);
+            }
+
+        </script>
+
+    </body>
+
+
+</html>
