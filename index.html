@@ -2,7 +2,10 @@
 
 
     <header>
+
         <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
+
         <style type="text/css">
             html body {
                 padding: 0;
@@ -39,7 +42,7 @@
             #tilesetCanvasScroller {
                 width: 300px;
                 height: 500px;
-                overflow-y: scroll;
+                overflow-y: auto;
                 overflow-x: hidden;
             }
 
@@ -71,8 +74,13 @@
                 background-color: rgba(200,200,200,0.75);
             }
 
+
             canvas{
                 box-sizing: content-box;
+            }
+
+            #mapTree {
+                overflow-y: scroll;
             }
 
         </style>
@@ -95,6 +103,9 @@
                     Your browser does not support the HTML5 canvas tag.
                 </canvas>
             </div>
+
+            <div id="mapTree"></div>
+
         </div>
 
         <div id="mapCanvasScroller">
@@ -106,6 +117,7 @@
         <!-- Include -->
         <script language="JavaScript" src="node_modules/jquery/dist/jquery.js"></script>
         <script language="JavaScript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <script language="JavaScript" src="node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
 
         <!-- Ignis Engine Include -->
         <script language="JavaScript" src="js/Tileset.js" ></script>
@@ -118,7 +130,7 @@
 
         <script language="JavaScript">
             // Instance of Layer
-    
+
             var img = new Image();
             var tileset = new Tileset();
             var map = new Map();
@@ -169,6 +181,10 @@
                 var tsScroller= document.getElementById("tilesetCanvasScroller");
                 tsScroller.style.height = window.innerHeight * 0.7;
 
+                var mtScroller= document.getElementById("mapTree");
+                console.log(window.innerHeight * 0.3);
+                mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight;
+
             };
 
             function render() {
@@ -179,6 +195,46 @@
 
                 map.render(ctx);
             }
+
+
+            // Test for tree
+            var tree = [
+                {
+                    text: "Parent 1",
+                    nodes: [
+                        {
+                            text: "Child 1",
+                            nodes: [
+                                {
+                                    text: "Grandchild 1"
+                                },
+                                {
+                                    text: "Grandchild 2"
+                                }
+                            ]
+                        },
+                        {
+                            text: "Child 2"
+                        }
+                    ]
+                },
+                {
+                    text: "Parent 2"
+                },
+                {
+                    text: "Parent 3"
+                },
+                {
+                    text: "Parent 4"
+                },
+                {
+                    text: "Parent 5"
+                }
+            ];
+
+            $('#mapTree').treeview({
+                data: tree
+            });
 
         </script>
 
