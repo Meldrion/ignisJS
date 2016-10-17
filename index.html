@@ -21,7 +21,7 @@
 
             #leftSection {
                 position: absolute;
-                left: 100px;
+                left: 64px;
                 top:0;
                 box-shadow: 20px -1px 24px 0px rgba(0,0,0,0.75);
                 height: 100%;
@@ -29,7 +29,7 @@
 
             #mapCanvasScroller {
                 position: absolute;
-                left: 400px;
+                left: 364px;
                 top:0;
                 overflow-y: scroll;
                 overflow-x: scroll;
@@ -46,14 +46,28 @@
                 position: absolute;
                 left: 0;
                 top:0;
-                width: 100px;
+                width: 64px;
                 height: 100%;
                 background: linear-gradient(to right,rgb(64,64,64), rgb(128,128,128)); /* Standard syntax */
             }
 
             #logo {
                 margin-top: 20px;
-                margin-left: 20px;
+                width: 56px;
+                height: 56px;
+                margin-left: 4px;
+            }
+
+            .mainMenuTab {
+                width: 56px;
+                height: 56px;
+                margin-top: 20px;
+                margin-left: 4px;
+            }
+
+            .marked {
+                border: 1px solid red;
+                background-color: rgba(200,200,200,0.75);
             }
 
         </style>
@@ -63,6 +77,10 @@
 
         <div id="mainTabber">
             <img src="assets/calci-64x64.png" alt="ignis logo" id="logo"/>
+            <img src="assets/mapIcon.png" alt="map editor" id="projectManager" class="mainMenuTab "/>
+            <img src="assets/mapIcon.png" alt="map editor" id="mapEditorTab" class="mainMenuTab marked"/>
+            <img src="assets/mapIcon.png" alt="map editor" id="mapEditorTab" class="mainMenuTab "/>
+            <img src="assets/mapIcon.png" alt="map editor" id="mapEditorTab" class="mainMenuTab "/>
         </div>
 
         <div id="leftSection">
@@ -135,7 +153,7 @@
             window.onresize = function() {
 
                 var ms = document.getElementById("mapCanvasScroller");
-                ms.style.width = window.innerWidth - 400;
+                ms.style.width = window.innerWidth - 364;
                 ms.style.height = window.innerHeight;
 
                 var tsScroller= document.getElementById("tilesetCanvasScroller");
