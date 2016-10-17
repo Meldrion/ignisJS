@@ -21,10 +21,11 @@ app.on('window-all-closed', function() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
+
     // Create the browser window and disable integration with node
     mainWindow = new BrowserWindow({
-        width: 1024,
-        height: 768,
+        width: 800,
+        height: 600,
         nodeIntegration: false
     });
 
