@@ -46,6 +46,20 @@ TilesetCanvas.prototype.render = function() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     if (this.tileset != null) {
+
+        for (var i=0;i<this.canvas.width / 16;i++) {
+            for (var j=0;j<this.canvas.height / 16;j++) {
+                        
+                if ((i + j) % 2 == 0) {
+                    this.ctx.fillStyle = "#FFFFFF";
+                } else {
+                    this.ctx.fillStyle = "#ADADAD";
+                }
+
+                this.ctx.fillRect(i*16,j*16,16,16);
+            }
+        }
+
         this.ctx.drawImage(this.tileset.getTilesetImage(),0,0);
 
         if (this.selectionStartX >= 0 && this.selectionStartY >= 0) {

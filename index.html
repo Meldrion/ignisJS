@@ -79,8 +79,8 @@
             <img src="assets/calci-64x64.png" alt="ignis logo" id="logo"/>
             <img src="assets/mapIcon.png" alt="map editor" id="projectManager" class="mainMenuTab "/>
             <img src="assets/mapIcon.png" alt="map editor" id="mapEditorTab" class="mainMenuTab marked"/>
-            <img src="assets/mapIcon.png" alt="map editor" id="mapEditorTab" class="mainMenuTab "/>
-            <img src="assets/mapIcon.png" alt="map editor" id="mapEditorTab" class="mainMenuTab "/>
+            <img src="assets/mapIcon.png" alt="map editor" id="gamedatabaseTab" class="mainMenuTab "/>
+            <img src="assets/mapIcon.png" alt="map editor" id="scriptEditorTab" class="mainMenuTab "/>
         </div>
 
         <div id="leftSection">
@@ -144,6 +144,7 @@
                     canvas.height = img.height;
 
                     render();
+                    tilesetCanvas.render();
                 };
                 img.src = 'assets/cave.png';
                 onresize();
