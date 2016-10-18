@@ -22,15 +22,15 @@ function TilesetCanvas(canvas) {
         self.mouseIsDown = true;
         self.selectionStartX = parseInt( event.offsetX / 32);
         self.selectionStartY = parseInt( event.offsetY / 32);
-        self.selectionEndX = self.selectionStartX + 1;
-        self.selectionEndY = self.selectionStartY + 1;
+        self.selectionEndX = self.selectionStartX;
+        self.selectionEndY = self.selectionStartY;
         self.render();
     }, false);
 
     this.canvas.addEventListener("mousemove", function(event) {
         if (self.mouseIsDown == true) {
-            self.selectionEndX = parseInt(event.offsetX / 32) + 1;
-            self.selectionEndY = parseInt(event.offsetY  / 32) + 1;
+            self.selectionEndX = parseInt(event.offsetX / 32);
+            self.selectionEndY = parseInt(event.offsetY  / 32);
             self.render();
         }
     },false);
@@ -42,7 +42,6 @@ function TilesetCanvas(canvas) {
 
 }
 
-TilesetCanvas.prototype = new ActiveMapListener();
 
 TilesetCanvas.prototype.render = function() {
 
@@ -68,14 +67,14 @@ TilesetCanvas.prototype.render = function() {
         if (this.selectionStartX >= 0 && this.selectionStartY >= 0) {
 
             var fixedCoords = fixCoords(this.selectionStartX,this.selectionStartY,
-                this.selectionEndX,this.selectionEndX);
+                this.selectionEndX,this.selectionEndY);
 
             var w = fixedCoords.x2 - fixedCoords.x1;
-            var h = fixedCoords.y1 - fixedCoords.y1;
+            var h = fixedCoords.y2 - fixedCoords.y1;
 
             this.ctx.fillStyle="#FF0000";
             this.ctx.globalAlpha = 0.5;
-            this.ctx.fillRect(this.selectionStartX * 32,this.selectionStartY * 32,w * 32,h * 32);
+            this.ctx.fillRect(fixedCoords.x1 * 32,fixedCoords.y1 * 32,w * 32,h * 32);
             this.ctx.globalAlpha = 1.0;
         }
     }
@@ -108,7 +107,7 @@ TilesetCanvas.prototype.addSelectionListener = function(listener) {
 TilesetCanvas.prototype.fireUpdate = function() {
 
     var fixedCoords = fixCoords(this.selectionStartX,this.selectionStartY,
-        this.selectionEndX,this.selectionEndX);
+        this.selectionEndX,this.selectionEndY);
 
     this.selectionListeners.forEach(function (listener) {
         listener.selectionChanged(fixedCoords.x1,fixedCoords.y1,fixedCoords.x2,fixedCoords.y2);

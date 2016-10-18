@@ -47,8 +47,6 @@ function MapCanvas(canvas) {
 
 }
 
-MapCanvas.prototype = new ActiveMapListener();
-
 MapCanvas.prototype.render = function() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.map.render(this.ctx);

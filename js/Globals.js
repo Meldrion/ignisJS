@@ -11,7 +11,7 @@ function fixCoords(x1,y1,x2,y2) {
         x2 += 1;
     }
 
-    if (end.y < start.y) {
+    if (y2 < y1) {
         swap = y2;
         y2 = y1;
         y1 = swap;
