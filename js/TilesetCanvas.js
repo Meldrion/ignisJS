@@ -100,8 +100,8 @@ TilesetCanvas.prototype.activeMapChanged = function(map) {
 
 
 TilesetCanvas.prototype.addSelectionListener = function(listener) {
-    if (!this.selectionListeners.contains(listener)) {
-        this.selectionListeners.append(listener);
+    if (this.selectionListeners.indexOf(listener) == -1) {
+        this.selectionListeners.push(listener);
     }
 };
 

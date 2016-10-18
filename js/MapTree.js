@@ -5,8 +5,8 @@ function MapTree() {
 
 
 MapTree.prototype.addListener = function (mapListener) {
-    if (!this.activeMapListeners.contains(mapListener)) {
-        this.activeMapListeners.append(mapListener);
+    if (this.activeMapListeners.indexOf(mapListener) == -1) {
+        this.activeMapListeners.push(mapListener);
     }
 };
 
