@@ -63,5 +63,5 @@ MapCanvas.prototype.activeMapChanged = function(map) {
 };
 
 MapCanvas.prototype.selectionChanged = function(x1,y1,x2,y2) {
-
+    console.log("Changed Selection: ");
 };

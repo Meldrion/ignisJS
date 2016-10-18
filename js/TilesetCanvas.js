@@ -38,6 +38,7 @@ function TilesetCanvas(canvas) {
     this.canvas.addEventListener("mouseup",function(event) {
         self.mouseIsDown = false;
         self.render();
+        self.fireUpdate();
     }, false);
 
 }
