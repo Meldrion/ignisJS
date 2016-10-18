@@ -2,146 +2,31 @@
 
 
     <header>
-
         <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-        <link href="node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
+        <link href="css/dark.css" rel="stylesheet">
 
-        <style type="text/css">
-            html body {
-                padding: 0;
-                margin: 0;
-                overflow-x:hidden;
-                overflow-y:hidden;
-            }
+        <!-- Insert this line above script imports  -->
+        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
-/*            canvas {
-                image-rendering: optimizeSpeed;             !* Older versions of FF          *!
-                image-rendering: -moz-crisp-edges;          !* FF 6.0+                       *!
-                image-rendering: -webkit-optimize-contrast; !* Safari                        *!
-                image-rendering: -o-crisp-edges;            !* OS X & Windows Opera (12.02+) *!
-                image-rendering: pixelated;                 !* Awesome future-browsers       *!
-                -ms-interpolation-mode: nearest-neighbor;   !* IE                            *!
-            }*/
+        <!-- Include -->
+        <script language="JavaScript" src="node_modules/jquery/dist/jquery.js"></script>
+        <script language="JavaScript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
-            #leftSection {
-                position: absolute;
-                left: 0;
-                top:40px;
-                height: 100%;
-            }
+        <!-- Insert this line after script imports -->
+        <script>if (window.module) module = window.module;</script>
 
-            #mapCanvasScroller {
-                position: absolute;
-                left: 300px;
-                top:40px;
-                overflow-y: scroll;
-                overflow-x: scroll;
-            }
+        <script language="JavaScript" src="node_modules/bootstrap-treeview/src/js/bootstrap-treeview.js"></script>
 
-            #tilesetCanvasScroller {
-                width: 300px;
-                height: 500px;
-                overflow-y: auto;
-                overflow-x: hidden;
-                border-bottom: 3px solid lightgrey;
-            }
-
-
-            #logo {
-                margin-top: 20px;
-                width: 56px;
-                height: 56px;
-                margin-left: 4px;
-            }
-
-            .mainMenuTab {
-                width: 56px;
-                height: 56px;
-                margin-top: 20px;
-                margin-left: 4px;
-            }
-
-            .marked {
-                border: 1px solid red;
-                background-color: rgba(200,200,200,0.75);
-            }
-
-
-            canvas{
-                box-sizing: content-box;
-            }
-
-            #mapTree {
-                overflow-y: scroll;
-            }
-
-            #toolbar {
-                min-height: 40px;
-                height: 40px;
-                width: 100%;
-                position: absolute;
-                top: 0;
-                left:0;
-                background-color: rgb(64,64,64);
-
-                padding-left: 3px;
-                border-top: 1px solid orange;
-                border-bottom: 1px solid orange;
-            }
-
-
-            .customButtonIconButton {
-                margin-top:3px;
-                margin-left:2px;
-                width:32px;
-                height:32px;
-                background: no-repeat center;
-                display:inline-block;
-                position:relative;
-            }
-
-            .customButtonIconButton:hover {
-                border: 1px solid orange;
-                background-color: rgb(48,48,48);
-            }
-
-            #newProjectButton {
-                background-image: url(assets/icons/Document-Blank-icon-24.png);
-            }
-            #loadProjectButton {
-                background-image: url(assets/icons/Files-icon-24.png);
-            }
-            #saveProjectButton {
-                background-image: url(assets/icons/Actions-document-save-icon.png);
-            }
-            #penButton {
-                background-image: url(assets/icons/draw-line-2.png);
-            }
-            #brushButton {
-                background-image: url(assets/icons/draw-brush.png);
-            }
-            #fillButton {
-                background-image: url(assets/icons/draw-fill-2.png);
-            }
-            #eraseButton {
-                background-image: url(assets/icons/draw-eraser-2.png);
-            }
-
-            .disabled-toolbutton {
-                filter: grayscale(100%);
-                border: none !important;
-                background-color: rgb(64,64,64) !important;
-            }
-
-            .spacer {
-                width:40px;
-                display:inline-block;
-                position:relative;
-                margin-top:3px;
-                margin-left:2px;
-            }
-
+        <style type="text/css" id="mapTree-style">
+            .treeview .list-group-item{cursor:pointer}
+            .treeview span.indent{margin-left:10px;margin-right:10px}
+            .treeview span.icon{width:12px;margin-right:5px}
+            .treeview .node-disabled{color:silver;cursor:not-allowed}
+            .node-mapTree{color:#FFFFFF;border:none; background-color: rgb(64,64,64)}
+            .node-mapTree:not(.node-disabled):hover{background-color:rgb(96,96,96);}
         </style>
+
+
     </header>
 
     <body>
@@ -158,12 +43,6 @@
             <div id="fillButton" class="customButtonIconButton disabled-toolbutton"></div>
             <div id="eraseButton" class="customButtonIconButton disabled-toolbutton"></div>
 
-<!--            <img src="assets/Document-Blank-icon-24.png" class="toolButton" />
-            <img src="assets/Files-icon-24.png" class="toolButton" />
-            <img src="assets/Actions-document-save-icon.png" class="toolButton" />
-            <img class="spacer" />
-            <img src="assets/Document-Blank-icon-24.png" class="toolButton" />
-            <img src="assets/Document-Blank-icon-24.png" class="toolButton" />-->
         </div>
 
         <div id="leftSection">
@@ -174,8 +53,18 @@
                 </canvas>
             </div>
 
-            <div id="mapTree"></div>
-
+            <div id="mapTree" ></div>
+            <script>
+                $(document).ready(function() {
+                    $('#mapTree').treeview({
+                        showBorder: false,
+                        showTags: true,
+                        selectedBackColor: "orange",
+                        highlightSelected: true,
+                        data: mapTree.getTree()
+                    });
+                });
+            </script>
         </div>
 
         <div id="mapCanvasScroller">
@@ -184,14 +73,6 @@
             </canvas>
         </div>
 
-        <!-- Insert this line above script imports  -->
-        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-
-        <!-- Include -->
-        <script language="JavaScript" src="node_modules/jquery/dist/jquery.js"></script>
-        <script language="JavaScript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-        <script language="JavaScript" src="node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
-
         <!-- Ignis Engine Include -->
         <script language="JavaScript" src="js/Tileset.js" ></script>
         <script language="JavaScript" src="js/TilesetCell.js" ></script>
@@ -199,10 +80,8 @@
         <script language="JavaScript" src="js/TilesetLayer.js" ></script>
         <script language="JavaScript" src="js/Map.js" ></script>
         <script language="JavaScript" src="js/TilesetCanvas.js" ></script>
+        <script language="JavaScript" src="js/MapTree.js" ></script>
         <!-- Include End -->
-
-        <!-- Insert this line after script imports -->
-        <script>if (window.module) module = window.module;</script>
 
         <script language="JavaScript">
             // Instance of Layer
@@ -212,8 +91,10 @@
             var map = new Map();
 
             var tilesetCanvas = new TilesetCanvas(document.getElementById("tilesetCanvas"));
+            var mapTree = new MapTree();
 
             window.onload = function() {
+
                 img.onload = function() {
 
                     tileset.setImage(img);
@@ -243,22 +124,18 @@
                     render();
                     tilesetCanvas.render();
                 };
+
                 img.src = 'assets/cave.png';
                 onresize();
             };
 
-
             window.onresize = function() {
-
                 var ms = document.getElementById("mapCanvasScroller");
                 ms.style.width = window.innerWidth - 300;
-                ms.style.height = window.innerHeight;
-
+                ms.style.height = window.innerHeight - 40;
                 var tsScroller= document.getElementById("tilesetCanvasScroller");
                 tsScroller.style.height = window.innerHeight * 0.7;
-
                 var mtScroller= document.getElementById("mapTree");
-
                 mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight - 45;
             };
 
@@ -270,46 +147,6 @@
 
                 map.render(ctx);
             }
-
-
-            // Test for tree
-            var tree = [
-                {
-                    text: "Parent 1",
-                    nodes: [
-                        {
-                            text: "Child 1",
-                            nodes: [
-                                {
-                                    text: "Grandchild 1"
-                                },
-                                {
-                                    text: "Grandchild 2"
-                                }
-                            ]
-                        },
-                        {
-                            text: "Child 2"
-                        }
-                    ]
-                },
-                {
-                    text: "Parent 2"
-                },
-                {
-                    text: "Parent 3"
-                },
-                {
-                    text: "Parent 4"
-                },
-                {
-                    text: "Parent 5"
-                }
-            ];
-
-            $('#mapTree').treeview({
-                data: tree
-            });
 
         </script>
 

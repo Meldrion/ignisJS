@@ -1,0 +1,135 @@
+html body {
+    padding: 0;
+    margin: 0;
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+
+/*            canvas {
+                image-rendering: optimizeSpeed;             !* Older versions of FF          *!
+                image-rendering: -moz-crisp-edges;          !* FF 6.0+                       *!
+                image-rendering: -webkit-optimize-contrast; !* Safari                        *!
+                image-rendering: -o-crisp-edges;            !* OS X & Windows Opera (12.02+) *!
+                image-rendering: pixelated;                 !* Awesome future-browsers       *!
+                -ms-interpolation-mode: nearest-neighbor;   !* IE                            *!
+            }*/
+
+#leftSection {
+    position: absolute;
+    left: 0;
+    top:40px;
+    height: 100%;
+    background-color: rgb(64,64,64);
+}
+
+#mapCanvasScroller {
+    position: absolute;
+    left: 300px;
+    top:40px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+}
+
+#tilesetCanvasScroller {
+    width: 300px;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-bottom: 3px solid lightgrey;
+}
+
+
+#logo {
+    margin-top: 20px;
+    width: 56px;
+    height: 56px;
+    margin-left: 4px;
+}
+
+.mainMenuTab {
+    width: 56px;
+    height: 56px;
+    margin-top: 20px;
+    margin-left: 4px;
+}
+
+.marked {
+    border: 1px solid red;
+    background-color: rgba(200,200,200,0.75);
+}
+
+
+canvas{
+    box-sizing: content-box;
+}
+
+#mapTree {
+    overflow-y: auto;
+}
+
+#toolbar {
+    min-height: 40px;
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left:0;
+    background-color: rgb(64,64,64);
+
+    padding-left: 3px;
+    border-top: 1px solid orange;
+    border-bottom: 1px solid orange;
+}
+
+
+.customButtonIconButton {
+    margin-top:3px;
+    margin-left:2px;
+    width:32px;
+    height:32px;
+    background: no-repeat center;
+    display:inline-block;
+    position:relative;
+}
+
+.customButtonIconButton:hover {
+    border: 1px solid orange;
+    background-color: rgb(48,48,48);
+}
+
+#newProjectButton {
+    background-image: url(../assets/icons/Document-Blank-icon-24.png);
+}
+#loadProjectButton {
+    background-image: url(../assets/icons/Files-icon-24.png);
+}
+#saveProjectButton {
+    background-image: url(../assets/icons/Actions-document-save-icon.png);
+}
+#penButton {
+    background-image: url(../assets/icons/draw-line-2.png);
+}
+#brushButton {
+    background-image: url(../assets/icons/draw-brush.png);
+}
+#fillButton {
+    background-image: url(../assets/icons/draw-fill-2.png);
+}
+#eraseButton {
+    background-image: url(../assets/icons/draw-eraser-2.png);
+}
+
+.disabled-toolbutton {
+    filter: grayscale(100%);
+    border: none !important;
+    background-color: rgb(64,64,64) !important;
+}
+
+.spacer {
+    width:40px;
+    display:inline-block;
+    position:relative;
+    margin-top:3px;
+    margin-left:2px;
+}
+
