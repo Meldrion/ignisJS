@@ -1,6 +1,7 @@
 const electron = require('electron');
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
+const {ipcMain} = require('electron');
 
 // Report crashes to our server.
 //electron.crashReporter.start();
@@ -8,6 +9,7 @@ const BrowserWindow = electron.BrowserWindow;  // Module to create native browse
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
+var newProjectWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -29,17 +31,44 @@ app.on('ready', function() {
         nodeIntegration: false
     });
 
+
     // and load the index.html of the app.
     mainWindow.loadURL('file://'  + __dirname  + '/../index.html');
+
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
+
     mainWindow.on('closed', function() {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
+    });
+
+    ipcMain.on("openNewProjectWindow",function() {
+
+        newProjectWindow = new BrowserWindow({
+            modal: true,
+            parent:mainWindow,
+            width: 320,
+            height: 240,
+            nodeIntegration: false,
+            title: "New Project",
+            resizable:  false,
+            'skip-taskbar': true,
+            show: false,
+            center:false
+        });
+
+        newProjectWindow.loadURL('file://'  + __dirname  + '/../view/newproject.html');
+
+        newProjectWindow.on('closed', function() {
+            newProjectWindow = null;
+        });
+
+        newProjectWindow.show();
     });
 });

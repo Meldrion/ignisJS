@@ -33,7 +33,7 @@
 
         <div id="toolbar">
 
-            <div id="newProjectButton" class="customButtonIconButton"></div>
+            <div id="newProjectButton" class="customButtonIconButton" onclick="openNewProjectWindow()"></div>
             <div id="loadProjectButton" class="customButtonIconButton"></div>
             <div id="saveProjectButton" class="customButtonIconButton"></div>
 
@@ -79,6 +79,7 @@
         </div>
 
         <!-- Ignis Engine Include -->
+        <script language="JavaScript" src="js/Globals.js"></script>
         <script language="JavaScript" src="js/Tileset.js" ></script>
         <script language="JavaScript" src="js/TilesetCell.js" ></script>
         <script language="JavaScript" src="js/Layer.js" ></script>
@@ -86,9 +87,12 @@
         <script language="JavaScript" src="js/Map.js" ></script>
         <script language="JavaScript" src="js/TilesetCanvas.js" ></script>
         <script language="JavaScript" src="js/MapTree.js" ></script>
+        <script language="JavaScript" src="js/MapCanvas.js"></script>
         <!-- Include End -->
 
         <script language="JavaScript">
+
+
             // Instance of Layer
 
             var img = new Image();
@@ -96,7 +100,14 @@
             var map = new Map();
 
             var tilesetCanvas = new TilesetCanvas(document.getElementById("tilesetCanvas"));
+            var mapCanvas = new MapCanvas(document.getElementById("mapCanvas"));
             var mapTree = new MapTree();
+            // In renderer process (web page).
+            const ipc = require('electron').ipcRenderer;
+
+            function openNewProjectWindow() {
+                ipc.send("openNewProjectWindow");
+            }
 
             window.onload = function() {
 
@@ -104,7 +115,7 @@
 
                     tileset.setImage(img);
                     tilesetCanvas.setTileset(tileset);
-                    map.setSize(200,200);
+                    map.setSize(50,50);
 
                     var c = document.getElementById("mapCanvas");
                     c.style.width = map.width * 32;
@@ -125,6 +136,8 @@
                     var canvas = document.getElementById("tilesetCanvas");
                     canvas.style.height = img.height;
                     canvas.height = img.height;
+
+                    mapCanvas.setMap(map);
 
                     render();
                     tilesetCanvas.render();

@@ -56,3 +56,18 @@ TileLayer.prototype.setTile = function(x,y,tile) {
 TileLayer.prototype.getTile = function(x,y) {
     return this.layerMatrix[x][y];
 };
+
+
+/**
+ *
+ * @param ctx
+ * @param x
+ * @param y
+ */
+TileLayer.prototype.renderPosition = function(ctx,x,y) {
+    var tile = this.getTile(x,y);
+
+    if (tile != null) {
+        tileset.drawTileTo(tile.getX(),tile.getY(),x,y,ctx);
+    }
+};

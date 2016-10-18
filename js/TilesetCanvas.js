@@ -5,6 +5,7 @@
  */
 function TilesetCanvas(canvas) {
 
+    this.selectionListeners = [];
     this.mouseIsDown = false;
 
     this.selectionStartX = -1;
@@ -34,12 +35,14 @@ function TilesetCanvas(canvas) {
         }
     },false);
 
-
     this.canvas.addEventListener("mouseup",function(event) {
         self.mouseIsDown = false;
         self.render();
     }, false);
+
 }
+
+TilesetCanvas.prototype = new ActiveMapListener();
 
 TilesetCanvas.prototype.render = function() {
 
@@ -64,8 +67,11 @@ TilesetCanvas.prototype.render = function() {
 
         if (this.selectionStartX >= 0 && this.selectionStartY >= 0) {
 
-            var w = this.selectionEndX - this.selectionStartX;
-            var h = this.selectionEndY - this.selectionStartY;
+            var fixedCoords = fixCoords(this.selectionStartX,this.selectionStartY,
+                this.selectionEndX,this.selectionEndX);
+
+            var w = fixedCoords.x2 - fixedCoords.x1;
+            var h = fixedCoords.y1 - fixedCoords.y1;
 
             this.ctx.fillStyle="#FF0000";
             this.ctx.globalAlpha = 0.5;
@@ -82,4 +88,30 @@ TilesetCanvas.prototype.setTileset = function(tileset) {
         this.canvas.height = img.height;
     }
     this.render();
+};
+
+TilesetCanvas.prototype.activeMapChanged = function(map) {
+    if (map != null) {
+        this.setTileset(map.getTileset());
+    } else {
+        this.setTileset(null);
+    }
+};
+
+
+TilesetCanvas.prototype.addSelectionListener = function(listener) {
+    if (!this.selectionListeners.contains(listener)) {
+        this.selectionListeners.append(listener);
+    }
+};
+
+TilesetCanvas.prototype.fireUpdate = function() {
+
+    var fixedCoords = fixCoords(this.selectionStartX,this.selectionStartY,
+        this.selectionEndX,this.selectionEndX);
+
+    this.selectionListeners.forEach(function (listener) {
+        listener.selectionChanged(fixedCoords.x1,fixedCoords.y1,fixedCoords.x2,fixedCoords.y2);
+    });
+
 };
