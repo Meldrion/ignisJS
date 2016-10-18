@@ -35,7 +35,6 @@ app.on('ready', function() {
     // and load the index.html of the app.
     mainWindow.loadURL('file://'  + __dirname  + '/../index.html');
 
-
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
 
@@ -58,17 +57,26 @@ app.on('ready', function() {
             nodeIntegration: false,
             title: "New Project",
             resizable:  false,
-            'skip-taskbar': true,
+            skipTaskbar: true,
             show: false,
             center:false
         });
 
+        // No Menubar for this window
+        newProjectWindow.setMenu(null);
+
+        // HTML File used by the window
         newProjectWindow.loadURL('file://'  + __dirname  + '/../view/newproject.html');
 
+        // The on close Event
         newProjectWindow.on('closed', function() {
             newProjectWindow = null;
         });
 
-        newProjectWindow.show();
+        // Wait until the page is rendered before showing the window
+        newProjectWindow.once('ready-to-show', function () {
+            newProjectWindow.show();
+        });
+
     });
 });
