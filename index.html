@@ -43,6 +43,11 @@
             <div id="fillButton" class="customButtonIconButton disabled-toolbutton"></div>
             <div id="eraseButton" class="customButtonIconButton disabled-toolbutton"></div>
 
+            <div class="spacer"></div>
+            <div id="layer1" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="layer2" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="layer3" class="customButtonIconButton disabled-toolbutton"></div>
+
         </div>
 
         <div id="leftSection">
@@ -136,7 +141,8 @@
                 var tsScroller= document.getElementById("tilesetCanvasScroller");
                 tsScroller.style.height = window.innerHeight * 0.7;
                 var mtScroller= document.getElementById("mapTree");
-                mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight - 45;
+                mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight - 48;
+                mtScroller.style.minHeight = window.innerHeight - tsScroller.clientHeight - 48;
             };
 
             function render() {
