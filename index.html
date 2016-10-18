@@ -25,16 +25,15 @@
 
             #leftSection {
                 position: absolute;
-                left: 64px;
-                top:0;
-                box-shadow: 20px -1px 24px 0px rgba(0,0,0,0.75);
+                left: 0;
+                top:40px;
                 height: 100%;
             }
 
             #mapCanvasScroller {
                 position: absolute;
-                left: 364px;
-                top:0;
+                left: 300px;
+                top:40px;
                 overflow-y: scroll;
                 overflow-x: scroll;
             }
@@ -44,16 +43,9 @@
                 height: 500px;
                 overflow-y: auto;
                 overflow-x: hidden;
+                border-bottom: 3px solid lightgrey;
             }
 
-            #mainTabber {
-                position: absolute;
-                left: 0;
-                top:0;
-                width: 64px;
-                height: 100%;
-                background: linear-gradient(to right,rgb(64,64,64), rgb(128,128,128)); /* Standard syntax */
-            }
 
             #logo {
                 margin-top: 20px;
@@ -83,17 +75,95 @@
                 overflow-y: scroll;
             }
 
+            #toolbar {
+                min-height: 40px;
+                height: 40px;
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left:0;
+                background-color: rgb(64,64,64);
+
+                padding-left: 3px;
+                border-top: 1px solid orange;
+                border-bottom: 1px solid orange;
+            }
+
+
+            .customButtonIconButton {
+                margin-top:3px;
+                margin-left:2px;
+                width:32px;
+                height:32px;
+                background: no-repeat center;
+                display:inline-block;
+                position:relative;
+            }
+
+            .customButtonIconButton:hover {
+                border: 1px solid orange;
+                background-color: rgb(48,48,48);
+            }
+
+            #newProjectButton {
+                background-image: url(assets/icons/Document-Blank-icon-24.png);
+            }
+            #loadProjectButton {
+                background-image: url(assets/icons/Files-icon-24.png);
+            }
+            #saveProjectButton {
+                background-image: url(assets/icons/Actions-document-save-icon.png);
+            }
+            #penButton {
+                background-image: url(assets/icons/draw-line-2.png);
+            }
+            #brushButton {
+                background-image: url(assets/icons/draw-brush.png);
+            }
+            #fillButton {
+                background-image: url(assets/icons/draw-fill-2.png);
+            }
+            #eraseButton {
+                background-image: url(assets/icons/draw-eraser-2.png);
+            }
+
+            .disabled-toolbutton {
+                filter: grayscale(100%);
+                border: none !important;
+                background-color: rgb(64,64,64) !important;
+            }
+
+            .spacer {
+                width:40px;
+                display:inline-block;
+                position:relative;
+                margin-top:3px;
+                margin-left:2px;
+            }
+
         </style>
     </header>
 
     <body>
 
-        <div id="mainTabber">
-            <img src="assets/calci-64x64.png" alt="ignis logo" id="logo"/>
-            <img src="assets/mapIcon.png" alt="map editor" id="projectManager" class="mainMenuTab "/>
-            <img src="assets/mapIcon.png" alt="map editor" id="mapEditorTab" class="mainMenuTab marked"/>
-            <img src="assets/mapIcon.png" alt="map editor" id="gamedatabaseTab" class="mainMenuTab "/>
-            <img src="assets/mapIcon.png" alt="map editor" id="scriptEditorTab" class="mainMenuTab "/>
+        <div id="toolbar">
+
+            <div id="newProjectButton" class="customButtonIconButton"></div>
+            <div id="loadProjectButton" class="customButtonIconButton"></div>
+            <div id="saveProjectButton" class="customButtonIconButton"></div>
+
+            <div class="spacer"></div>
+            <div id="penButton" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="brushButton" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="fillButton" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="eraseButton" class="customButtonIconButton disabled-toolbutton"></div>
+
+<!--            <img src="assets/Document-Blank-icon-24.png" class="toolButton" />
+            <img src="assets/Files-icon-24.png" class="toolButton" />
+            <img src="assets/Actions-document-save-icon.png" class="toolButton" />
+            <img class="spacer" />
+            <img src="assets/Document-Blank-icon-24.png" class="toolButton" />
+            <img src="assets/Document-Blank-icon-24.png" class="toolButton" />-->
         </div>
 
         <div id="leftSection">
@@ -114,6 +184,9 @@
             </canvas>
         </div>
 
+        <!-- Insert this line above script imports  -->
+        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
         <!-- Include -->
         <script language="JavaScript" src="node_modules/jquery/dist/jquery.js"></script>
         <script language="JavaScript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
@@ -127,6 +200,9 @@
         <script language="JavaScript" src="js/Map.js" ></script>
         <script language="JavaScript" src="js/TilesetCanvas.js" ></script>
         <!-- Include End -->
+
+        <!-- Insert this line after script imports -->
+        <script>if (window.module) module = window.module;</script>
 
         <script language="JavaScript">
             // Instance of Layer
@@ -175,16 +251,15 @@
             window.onresize = function() {
 
                 var ms = document.getElementById("mapCanvasScroller");
-                ms.style.width = window.innerWidth - 364;
+                ms.style.width = window.innerWidth - 300;
                 ms.style.height = window.innerHeight;
 
                 var tsScroller= document.getElementById("tilesetCanvasScroller");
                 tsScroller.style.height = window.innerHeight * 0.7;
 
                 var mtScroller= document.getElementById("mapTree");
-                console.log(window.innerHeight * 0.3);
-                mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight;
 
+                mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight - 45;
             };
 
             function render() {
