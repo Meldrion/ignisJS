@@ -63,9 +63,12 @@ function MapCanvas(canvas,cursorCanvas) {
                     self.tilesetSelectionEndY);
             }
 
+
             self.renderCursor(x * 32,y * 32,
                 (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
                 (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
+
+
 
             self.lastX = x;
             self.lastY = y;
@@ -127,8 +130,10 @@ MapCanvas.prototype.renderCursor = function(x,y,width,height) {
             this.lastCursorRegionWidth,this.lastCursorRegionHeight);
     }
 
+    this.cursorCanvasCTX.globalAlpha = 0.5;
     this.cursorCanvasCTX.fillStyle = "#FF0000";
     this.cursorCanvasCTX.fillRect(x,y,width,height);
+    this.cursorCanvasCTX.globalAlpha = 1;
 
     this.lastCursorRegionX = x;
     this.lastCursorRegionY = y;
