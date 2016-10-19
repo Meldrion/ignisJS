@@ -51,11 +51,9 @@ Map.prototype.render = function (ctx,activeLayer) {
 
     for (var i = 0; i < this.layers.length; i++) {
 
-        if (activeLayer < i) {
-            ctx.globalAlpha = 1;
-        }
+        ctx.globalAlpha = 1;
 
-        if (i == activeLayer) {
+        if (i == activeLayer && i != 0) {
 
             ctx.globalAlpha = 0.5;
             ctx.fillStyle="#000";
