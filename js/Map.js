@@ -45,10 +45,29 @@ Map.prototype.setSize = function (width, height) {
 /**
  *
  * @param ctx
+ * @param activeLayer
  */
-Map.prototype.render = function (ctx) {
+Map.prototype.render = function (ctx,activeLayer) {
 
     for (var i = 0; i < this.layers.length; i++) {
+
+        if (activeLayer < i) {
+            ctx.globalAlpha = 1;
+        }
+
+        if (i == activeLayer) {
+
+            ctx.globalAlpha = 0.5;
+            ctx.fillStyle="#000";
+            ctx.fillRect(0,0,this.width * 32 ,this.height * 32);
+
+            ctx.globalAlpha = 1;
+        }
+
+        if (activeLayer < i) {
+            ctx.globalAlpha = 0.5;
+        }
+
         this.layers[i].render(ctx);
     }
 };

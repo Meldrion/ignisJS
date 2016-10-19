@@ -44,9 +44,9 @@
             <div id="eraseButton" class="customButtonIconButton disabled-toolbutton"></div>
 
             <div class="spacer"></div>
-            <div id="layer1" class="customButtonIconButton disabled-toolbutton"></div>
-            <div id="layer2" class="customButtonIconButton disabled-toolbutton"></div>
-            <div id="layer3" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="layer1" class="customButtonIconButton disabled-toolbutton buttonGroupLayer" onclick="btnLayer1Click()"></div>
+            <div id="layer2" class="customButtonIconButton disabled-toolbutton buttonGroupLayer" onclick="btnLayer2Click()"></div>
+            <div id="layer3" class="customButtonIconButton disabled-toolbutton buttonGroupLayer" onclick="btnLayer3Click()"></div>
 
         </div>
 
@@ -138,8 +138,8 @@
                     canvas.height = img.height;
 
                     mapCanvas.setMap(map);
+                    mapCanvas.render();
 
-                    render();
                     tilesetCanvas.render();
                     tilesetCanvas.addSelectionListener(mapCanvas);
                 };
@@ -159,13 +159,20 @@
                 mtScroller.style.minHeight = window.innerHeight - tsScroller.clientHeight - 48;
             };
 
-            function render() {
 
-                var canvas = document.getElementById("mapCanvas");
-                var ctx = canvas.getContext("2d");
-                var cellSize = 32;
+            function btnLayer1Click() {
+                mapCanvas.setActiveLayer(0);
+                mapCanvas.render();
+            }
 
-                map.render(ctx);
+            function btnLayer2Click() {
+                mapCanvas.setActiveLayer(1);
+                mapCanvas.render();
+            }
+
+            function btnLayer3Click() {
+                mapCanvas.setActiveLayer(2);
+                mapCanvas.render();
             }
 
         </script>

@@ -111,6 +111,10 @@ canvas{
     background-image: url(../assets/icons/layer_top_24.png);
 }
 
+.buttonGroupLayer {
+
+}
+
 
 .disabled-toolbutton {
     filter: grayscale(100%);
