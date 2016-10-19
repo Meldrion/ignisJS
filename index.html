@@ -44,9 +44,9 @@
             <div id="eraseButton" class="customButtonIconButton disabled-toolbutton"></div>
 
             <div class="spacer"></div>
-            <div id="layer1" class="customButtonIconButton disabled-toolbutton buttonGroupLayer" onclick="btnLayer1Click()"></div>
-            <div id="layer2" class="customButtonIconButton disabled-toolbutton buttonGroupLayer" onclick="btnLayer2Click()"></div>
-            <div id="layer3" class="customButtonIconButton disabled-toolbutton buttonGroupLayer" onclick="btnLayer3Click()"></div>
+            <div id="layer1" class="customButtonIconButton buttonGroupLayer" onclick="btnLayer1Click()"></div>
+            <div id="layer2" class="customButtonIconButton buttonGroupLayer" onclick="btnLayer2Click()"></div>
+            <div id="layer3" class="customButtonIconButton buttonGroupLayer" onclick="btnLayer3Click()"></div>
 
         </div>
 
@@ -73,7 +73,10 @@
         </div>
 
         <div id="mapCanvasScroller">
-            <canvas id="mapCanvas" width="1024" height="768" style="border:1px solid #d3d3d3;background:#ffffff;">
+            <canvas class="renderCanvas" id="mapCanvas" width="1024" height="768" style="border:1px solid #d3d3d3;background:#ffffff; z-index: 1">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+            <canvas class="renderCanvas" id="mapTopCanvas" width="1024" height="768" style="border:1px solid #d3d3d3;z-index: 2; background:transparent ">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
         </div>
@@ -100,7 +103,7 @@
             var map = new Map();
 
             var tilesetCanvas = new TilesetCanvas(document.getElementById("tilesetCanvas"));
-            var mapCanvas = new MapCanvas(document.getElementById("mapCanvas"));
+            var mapCanvas = new MapCanvas(document.getElementById("mapCanvas"),document.getElementById("mapTopCanvas"));
             var mapTree = new MapTree();
             // In renderer process (web page).
             const ipc = require('electron').ipcRenderer;
@@ -157,22 +160,76 @@
                 var mtScroller= document.getElementById("mapTree");
                 mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight - 48;
                 mtScroller.style.minHeight = window.innerHeight - tsScroller.clientHeight - 48;
+
+/*                var topLayerCanvas = document.getElementById("mapTopCanvas");
+                var mapLayerCanvas = document.getElementById("mapCanvas");
+                topLayerCanvas.style.width = mapCanvas.clientWidth;
+                topLayerCanvas.style.height = mapCanvas.clientHeight;
+                topLayerCanvas.width = mapCanvas.clientWidth;
+                topLayerCanvas.height = mapCanvas.clientHeight;*/
             };
 
 
             function btnLayer1Click() {
-                mapCanvas.setActiveLayer(0);
-                mapCanvas.render();
+
+                var layer1 = document.getElementById("layer1");
+                if (!containsClass(layer1,"disabled-toolbutton")) {
+                    mapCanvas.setActiveLayer(0);
+                    mapCanvas.render();
+                    removeClass(document.getElementById("layer2"), "marked");
+                    removeClass(document.getElementById("layer3"), "marked");
+                    addClass(layer1, "marked");
+                }
             }
 
             function btnLayer2Click() {
-                mapCanvas.setActiveLayer(1);
-                mapCanvas.render();
+
+                var layer2 = document.getElementById("layer2");
+                if (!containsClass(layer2,"disabled-toolbutton")) {
+                    mapCanvas.setActiveLayer(1);
+                    mapCanvas.render();
+                    removeClass(document.getElementById("layer1"), "marked");
+                    removeClass(document.getElementById("layer3"), "marked");
+                    addClass(layer2, "marked");
+                }
             }
 
             function btnLayer3Click() {
-                mapCanvas.setActiveLayer(2);
-                mapCanvas.render();
+
+                var layer3 = document.getElementById("layer3");
+                if (!containsClass(layer3,"disabled-toolbutton")) {
+                    mapCanvas.setActiveLayer(2);
+                    mapCanvas.render();
+                    removeClass(document.getElementById("layer1"), "marked");
+                    removeClass(document.getElementById("layer2"), "marked");
+                    addClass(layer3, "marked");
+                }
+            }
+
+            function addClass(object,className) {
+                var classes = object.className.split(" ");
+                if (classes.indexOf(className) == -1) {
+                    object.className += " " + className;
+                }
+            }
+
+            function removeClass(object,className) {
+
+                var classes = object.className.split(" ");
+
+                var classString = "";
+                classes.forEach(function(theClass) {
+                    if (theClass != className) {
+                        classString += " " + theClass;
+                    }
+                });
+
+                object.className = classString;
+            }
+
+            function containsClass(object,className) {
+                var classes = object.className.split(" ");
+                return classes.indexOf(className) != -1;
             }
 
         </script>

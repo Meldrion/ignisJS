@@ -115,6 +115,11 @@ canvas{
 
 }
 
+.marked {
+    border: 1px solid orange;
+    background-color: rgb(48,48,48);
+}
+
 
 .disabled-toolbutton {
     filter: grayscale(100%);
@@ -137,3 +142,10 @@ canvas{
 ::-webkit-scrollbar-thumb        { background-color: orange;  }
 ::-webkit-scrollbar-corner       { background-color: rgb(64,64,64); }
 ::-webkit-resizer                { background-color: orange; }
+
+
+.renderCanvas {
+    position:absolute;
+    left:0;
+    top:0;
+}

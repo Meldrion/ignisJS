@@ -3,7 +3,7 @@
  * @param canvas
  * @constructor
  */
-function MapCanvas(canvas) {
+function MapCanvas(canvas,cursorCanvas) {
 
     this.activeLayerId = 0;
 
@@ -12,17 +12,26 @@ function MapCanvas(canvas) {
     this.tilesetSelectionEndX = -1;
     this.tilesetSelectionEndY = -1;
 
+    this.lastCursorRegionX = -1;
+    this.lastCursorRegionY = -1;
+    this.lastCursorRegionWidth = -1;
+    this.lastCursorRegionHeight = -1;
+
     this.lastX = -1;
     this.lastY = -2;
 
     this.canvas = canvas;
+    this.cursorCanvas = cursorCanvas;
+
     this.ctx = canvas.getContext("2d");
+    this.cursorCanvasCTX = this.cursorCanvas.getContext("2d");
+
     this.map = null;
     this.mouseIsDown = false;
 
     var self = this;
 
-    this.canvas.addEventListener("mousedown", function(event) {
+    this.cursorCanvas.addEventListener("mousedown", function(event) {
 
         if (self.tilesetSelectionStartX != -1 && self.tilesetSelectionStartY != -1) {
             var x = parseInt(event.offsetX / 32);
@@ -37,30 +46,36 @@ function MapCanvas(canvas) {
         self.mouseIsDown = true;
     }, false);
 
-    this.canvas.addEventListener("mousemove", function(event) {
+    this.cursorCanvas.addEventListener("mousemove", function(event) {
 
-        if (self.mouseIsDown == true
-            && self.tilesetSelectionStartX != -1 && self.tilesetSelectionStartY != -1) {
+        var x = parseInt( event.offsetX / 32);
+        var y = parseInt( event.offsetY / 32);
 
-            var x = parseInt( event.offsetX / 32);
-            var y = parseInt( event.offsetY / 32);
+        if (self.lastX != x || self.lastY != y) {
 
-            if (self.lastX != x || self.lastY != y) {
+            if (self.mouseIsDown == true
+                && self.tilesetSelectionStartX != -1 && self.tilesetSelectionStartY != -1) {
 
                 self.addSelection(x,y,
                     self.tilesetSelectionStartX,
                     self.tilesetSelectionStartY,
                     self.tilesetSelectionEndX,
                     self.tilesetSelectionEndY);
-
-                self.lastX = x;
-                self.lastY = y;
             }
+
+            self.renderCursor(x * 32,y * 32,
+                (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
+                (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
+
+            self.lastX = x;
+            self.lastY = y;
         }
+
+
 
     },false);
 
-    this.canvas.addEventListener("mouseup",function(event) {
+    this.cursorCanvas.addEventListener("mouseup",function(event) {
         self.mouseIsDown = false;
     }, false);
 
@@ -79,6 +94,7 @@ MapCanvas.prototype.addSelection = function(x,y,tsX1,tsY1,tsX2,tsY2) {
     }
 
 };
+
 
 MapCanvas.prototype.render = function() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -102,4 +118,21 @@ MapCanvas.prototype.selectionChanged = function(x1,y1,x2,y2) {
 
 MapCanvas.prototype.setActiveLayer = function(layerId) {
     this.activeLayerId = layerId;
+};
+
+MapCanvas.prototype.renderCursor = function(x,y,width,height) {
+
+    if (this.lastCursorRegionX > -1 && this.lastCursorRegionY > -1) {
+        this.cursorCanvasCTX.clearRect(this.lastCursorRegionX, this.lastCursorRegionY,
+            this.lastCursorRegionWidth,this.lastCursorRegionHeight);
+    }
+
+    this.cursorCanvasCTX.fillStyle = "#FF0000";
+    this.cursorCanvasCTX.fillRect(x,y,width,height);
+
+    this.lastCursorRegionX = x;
+    this.lastCursorRegionY = y;
+    this.lastCursorRegionWidth = width;
+    this.lastCursorRegionHeight = height;
+
 };
