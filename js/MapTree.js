@@ -11,18 +11,18 @@ MapTree.prototype.addListener = function (mapListener) {
 };
 
 
-MapTree.prototype.fireUpdate = function() {
-    this.activeMapListeners.forEach(function(listener) {
+MapTree.prototype.fireUpdate = function () {
+    this.activeMapListeners.forEach(function (listener) {
         listener.activeMapChanged(this.activeMap);
     });
 };
 
-MapTree.prototype.setActiveMap = function(activeMap) {
+MapTree.prototype.setActiveMap = function (activeMap) {
     this.activeMap = activeMap;
     this.fireUpdate();
 };
 
-MapTree.prototype.getTree = function() {
+MapTree.prototype.getTree = function () {
 
     return [{
         text: "Project",

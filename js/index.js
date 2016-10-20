@@ -12,7 +12,7 @@ var mainWindow = null;
 var newProjectWindow = null;
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function() {
+app.on('window-all-closed', function () {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd   Q
     if (process.platform != 'darwin') {
@@ -22,7 +22,7 @@ app.on('window-all-closed', function() {
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.on('ready', function() {
+app.on('ready', function () {
 
     // Create the browser window and disable integration with node
     mainWindow = new BrowserWindow({
@@ -33,43 +33,43 @@ app.on('ready', function() {
 
 
     // and load the index.html of the app.
-    mainWindow.loadURL('file://'  + __dirname  + '/../index.html');
+    mainWindow.loadURL('file://' + __dirname + '/../index.html');
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
 
-    mainWindow.on('closed', function() {
+    mainWindow.on('closed', function () {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
     });
 
-    ipcMain.on("openNewProjectWindow",function() {
+    ipcMain.on("openNewProjectWindow", function () {
 
         newProjectWindow = new BrowserWindow({
             modal: true,
-            parent:mainWindow,
+            parent: mainWindow,
             width: 320,
             height: 240,
             nodeIntegration: false,
             title: "New Project",
-            resizable:  false,
+            resizable: false,
             skipTaskbar: true,
             show: false,
-            center:false
+            center: false
         });
 
         // No Menubar for this window
         newProjectWindow.setMenu(null);
 
         // HTML File used by the window
-        newProjectWindow.loadURL('file://'  + __dirname  + '/../view/newproject.html');
+        newProjectWindow.loadURL('file://' + __dirname + '/../view/newproject.html');
 
         // The on close Event
-        newProjectWindow.on('closed', function() {
+        newProjectWindow.on('closed', function () {
             newProjectWindow = null;
         });
 

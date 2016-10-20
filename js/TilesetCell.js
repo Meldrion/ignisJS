@@ -4,7 +4,7 @@
  * @param tsY
  * @constructor
  */
-function TilesetLayerCell(tsX,tsY) {
+function TilesetLayerCell(tsX, tsY) {
     this.tilesetX = tsX;
     this.tilesetY = tsY;
 }

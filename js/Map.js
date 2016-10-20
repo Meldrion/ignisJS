@@ -23,6 +23,7 @@ Map.prototype.setTileset = function (tileset) {
     for (var i = 0; i < this.layers.length; i++) {
         this.layers[i].setTileset(tileset);
     }
+    this.tileset = tileset;
 };
 
 Map.prototype.getTileset = function () {
@@ -47,7 +48,7 @@ Map.prototype.setSize = function (width, height) {
  * @param ctx
  * @param activeLayer
  */
-Map.prototype.render = function (ctx,activeLayer) {
+Map.prototype.render = function (ctx, activeLayer) {
 
     for (var i = 0; i < this.layers.length; i++) {
 
@@ -56,8 +57,8 @@ Map.prototype.render = function (ctx,activeLayer) {
         if (i == activeLayer && i != 0) {
 
             ctx.globalAlpha = 0.5;
-            ctx.fillStyle="#000";
-            ctx.fillRect(0,0,this.width * 32 ,this.height * 32);
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, this.width * 32, this.height * 32);
 
             ctx.globalAlpha = 1;
         }

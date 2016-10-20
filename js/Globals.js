@@ -1,4 +1,4 @@
-function fixCoords(x1,y1,x2,y2) {
+function fixCoords(x1, y1, x2, y2) {
 
     var swap;
 
@@ -20,6 +20,6 @@ function fixCoords(x1,y1,x2,y2) {
         y2 += 1;
     }
 
-    return {x1:x1,y1:y1,x2:x2,y2:y2};
+    return {x1: x1, y1: y1, x2: x2, y2: y2};
 
 }
