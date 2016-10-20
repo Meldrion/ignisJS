@@ -11,6 +11,11 @@ function MapCanvas(canvas, cursorCanvas) {
     this.activeLayerId = 0;
     this.activeToolId = MapCanvas.TOOL_PEN;
 
+    this.brushStartX = -1;
+    this.brushStartY = -1;
+    this.brushEndX = -1;
+    this.brushEndY = -1;
+
     this.tilesetSelectionStartX = -1;
     this.tilesetSelectionStartY = -1;
     this.tilesetSelectionEndX = -1;
@@ -56,6 +61,11 @@ function MapCanvas(canvas, cursorCanvas) {
 
                     break;
 
+                case MapCanvas.TOOL_BRUSH:
+                    self.brushStartX = x;
+                    self.brushStartY = y;
+                    break;
+
                 case MapCanvas.TOOL_ERASE:
                     self.removeAtCursor(x,y);
                     break;
@@ -91,6 +101,11 @@ function MapCanvas(canvas, cursorCanvas) {
                         self.renderCursor(x * 32, y * 32,
                             (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
                             (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
+                        break;
+
+                    case MapCanvas.TOOL_BRUSH:
+                        self.brushEndX = x;
+                        self.brushEndY = y;
                         break;
 
                     case MapCanvas.TOOL_ERASE:
