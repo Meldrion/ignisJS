@@ -134,6 +134,7 @@
     // In renderer process (web page).
     const ipc = require('electron').ipcRenderer;
 
+
     function openNewProjectWindow() {
         ipc.send("openNewProjectWindow");
     }

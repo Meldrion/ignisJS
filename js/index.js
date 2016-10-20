@@ -83,4 +83,8 @@ app.on('ready', function () {
     ipcMain.on("closeProjectWindow", function () {
         newProjectWindow.close();
     });
+
+    ipcMain.on("newProjectWindowOpenFolderDialog", function () {
+        newProjectWindow.close();
+    });
 });
