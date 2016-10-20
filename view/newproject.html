@@ -2,9 +2,102 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../css/dark.css" rel="stylesheet">
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }</script>
+
+    <!-- Include -->
+    <script language="JavaScript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script language="JavaScript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script language="JavaScript" src="../js/view/CreateProjectView.js"></script>
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+
+    <title>New Project</title>
+
 </head>
+
 <body>
-<h1>Project</h1>
+
+<div class="container" style="margin-top:30px">
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Basic Details</h3>
+                </div>
+                <div class="panel-body">
+                    <form>
+
+                        <div>
+
+                            <label for="exampleInputEmail1">Project Root Path</label>
+                            <div class="input-group">
+
+                                <input type="text" class="form-control" placeholder="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">...</button>
+                                </span>
+                            </div><!-- /input-group -->
+
+
+                            <div class="form-group" style="margin-top: 20px;">
+                                <label for="exampleInputEmail1">Project Name</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Untitled">
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div><!-- /.col-sm-4 -->
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">User Details</h3>
+                </div>
+
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="createdBy">Created by</label>
+                            <input type="email" class="form-control" id="createdBy" placeholder="Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="companyName">Company name</label>
+                            <input type="email" class="form-control" id="companyName" placeholder="Company">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.col-sm-4 -->
+    </div>
+
+
+    <div class="pull-right">
+        <button type="button" class="btn btn btn-default" onclick="createButtonClicked()">Create</button>
+        <button type="button" class="btn btn btn-default" onclick="cancelButtonClicked()">Cancel</button>
+    </div>
+
+</div>
+
+
 </body>
+
 </html>

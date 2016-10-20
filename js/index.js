@@ -52,8 +52,8 @@ app.on('ready', function () {
         newProjectWindow = new BrowserWindow({
             modal: true,
             parent: mainWindow,
-            width: 320,
-            height: 240,
+            width: 480,
+            height: 560,
             nodeIntegration: false,
             title: "New Project",
             resizable: false,
@@ -78,5 +78,9 @@ app.on('ready', function () {
             newProjectWindow.show();
         });
 
+    });
+
+    ipcMain.on("closeProjectWindow", function () {
+        newProjectWindow.close();
     });
 });

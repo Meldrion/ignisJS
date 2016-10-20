@@ -3,6 +3,7 @@ html body {
     margin: 0;
     overflow-x: hidden;
     overflow-y: hidden;
+    background-color: rgb(96,96,96);
 }
 
 /*            canvas {
@@ -13,6 +14,7 @@ html body {
                 image-rendering: pixelated;                 !* Awesome future-browsers       *!
                 -ms-interpolation-mode: nearest-neighbor;   !* IE                            *!
             }*/
+
 
 #leftSection {
     position: absolute;

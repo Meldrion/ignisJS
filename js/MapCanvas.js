@@ -29,6 +29,7 @@ function MapCanvas(canvas, cursorCanvas) {
 
     this.map = null;
     this.mouseIsDown = false;
+    this.mouseIsInside = false;
 
     var self = this;
 
@@ -64,7 +65,6 @@ function MapCanvas(canvas, cursorCanvas) {
                     self.tilesetSelectionEndY);
             }
 
-
             self.renderCursor(x * 32, y * 32,
                 (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
                 (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
@@ -74,11 +74,21 @@ function MapCanvas(canvas, cursorCanvas) {
             self.lastY = y;
         }
 
-
     }, false);
 
     this.cursorCanvas.addEventListener("mouseup", function (event) {
         self.mouseIsDown = false;
+    }, false);
+
+
+    this.cursorCanvas.addEventListener("mouseleave", function (event) {
+        self.mouseIsInside = false;
+        self.renderCursor(0,0,0,0);
+    }, false);
+
+
+    this.cursorCanvas.addEventListener("mouseenter", function (event) {
+        self.mouseIsInside = true;
     }, false);
 
 }
@@ -96,7 +106,6 @@ MapCanvas.prototype.addSelection = function (x, y, tsX1, tsY1, tsX2, tsY2) {
     }
 
 };
-
 
 MapCanvas.prototype.render = function () {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -129,24 +138,25 @@ MapCanvas.prototype.renderCursor = function (x, y, width, height) {
             this.lastCursorRegionWidth, this.lastCursorRegionHeight);
     }
 
-    this.cursorCanvasCTX.globalAlpha = 0.5;
-    this.cursorCanvasCTX.fillStyle = "#FF0000";
-    this.cursorCanvasCTX.fillRect(x, y, width, height);
+    if (this.mouseIsInside == true) {
 
+        this.cursorCanvasCTX.globalAlpha = 0.5;
+        this.cursorCanvasCTX.fillStyle = "#FF0000";
+        this.cursorCanvasCTX.fillRect(x, y, width, height);
 
-    // Draw Cursor Selection
-    var tileset = this.map.getTileset();
+        // Draw Cursor Selection
+        var tileset = this.map.getTileset();
 
-    for (var i = 0; i < this.tilesetSelectionEndX - this.tilesetSelectionStartX; i++) {
-        for (var j = 0; j < this.tilesetSelectionEndY - this.tilesetSelectionStartY; j++) {
+        for (var i = 0; i < this.tilesetSelectionEndX - this.tilesetSelectionStartX; i++) {
+            for (var j = 0; j < this.tilesetSelectionEndY - this.tilesetSelectionStartY; j++) {
 
-            tileset.drawTileTo(this.tilesetSelectionStartX + i,
-                this.tilesetSelectionStartY + j, (x / 32) + i, (y / 32) + j, this.cursorCanvasCTX);
-
+                tileset.drawTileTo(this.tilesetSelectionStartX + i,
+                    this.tilesetSelectionStartY + j, (x / 32) + i, (y / 32) + j, this.cursorCanvasCTX);
+            }
         }
-    }
 
-    this.cursorCanvasCTX.globalAlpha = 1;
+        this.cursorCanvasCTX.globalAlpha = 1;
+    }
 
     this.lastCursorRegionX = x;
     this.lastCursorRegionY = y;
