@@ -1,5 +1,13 @@
 // Instance of Layer
 
+// In renderer process (web page).
+const ipc = require('electron').ipcRenderer;
+const remote = require('electron').remote;
+
+// Init the Project Manager
+ProjectManager.getInstance().init();
+remote.getGlobal('sharedObject').projectManager = ProjectManager.getInstance();
+
 var img = new Image();
 var tileset = new Tileset();
 var map = new Map();
@@ -7,8 +15,7 @@ var map = new Map();
 var tilesetCanvas = new TilesetCanvas(document.getElementById("tilesetCanvas"));
 var mapCanvas = new MapCanvas(document.getElementById("mapCanvas"), document.getElementById("mapTopCanvas"));
 var mapTree = new MapTree();
-// In renderer process (web page).
-const ipc = require('electron').ipcRenderer;
+
 
 
 function openNewProjectWindow() {
@@ -37,14 +44,6 @@ window.onload = function () {
         topLayerCanvas.height = map.height * 32;
 
         map.setTileset(tileset);
-
-/*        for (var x = 0; x < map.width; x++) {
-            for (var y = 0; y < map.height; y++) {
-                map.setTile(0, x, y, 0, 0);
-                map.setTile(1, x, y, 1, 1);
-                map.setTile(2, x, y, 1, 0);
-            }
-        }*/
 
         var canvas = document.getElementById("tilesetCanvas");
         canvas.style.height = img.height;

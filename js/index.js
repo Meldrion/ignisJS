@@ -5,6 +5,9 @@ const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
 const {ipcMain} = require('electron');
 
+global.sharedObject = {};
+
+
 // Report crashes to our server.
 //electron.crashReporter.start();
 
@@ -35,8 +38,8 @@ app.on('ready', function () {
 
 
     // and load the index.html of the app.
-    //mainWindow.loadURL('file://' + __dirname + '/../index.html');
-    mainWindow.loadURL('file://' + __dirname + '/../test.html');
+    mainWindow.loadURL('file://' + __dirname + '/../index.html');
+
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
@@ -56,7 +59,7 @@ app.on('ready', function () {
             modal: true,
             parent: mainWindow,
             width: 480,
-            height: 560,
+            height: 600,
             nodeIntegration: false,
             title: "New Project",
             resizable: false,
