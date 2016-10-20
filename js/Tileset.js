@@ -1,3 +1,5 @@
+"use strict";
+
 // Tileset Object
 function Tileset() {
     this.tilesetImage = null;

@@ -83,7 +83,60 @@ $(document).ready(function () {
     });
 });
 
+// Tools
+function btnPenClicked() {
 
+    var penButton = document.getElementById("penButton");
+    if (!containsClass(penButton, "disabled-toolbutton")) {
+        //mapCanvas.setActiveLayer(0);
+        //mapCanvas.render();
+        removeClass(document.getElementById("brushButton"), "marked");
+        removeClass(document.getElementById("fillButton"), "marked");
+        removeClass(document.getElementById("eraseButton"), "marked");
+        addClass(penButton, "marked");
+    }
+}
+
+function btnBrushClicked() {
+
+    var brushButton = document.getElementById("brushButton");
+    if (!containsClass(brushButton, "disabled-toolbutton")) {
+        //mapCanvas.setActiveLayer(0);
+        //mapCanvas.render();
+        removeClass(document.getElementById("penButton"), "marked");
+        removeClass(document.getElementById("fillButton"), "marked");
+        removeClass(document.getElementById("eraseButton"), "marked");
+        addClass(brushButton, "marked");
+    }
+}
+
+function btnFillClicked() {
+
+    var fillButton = document.getElementById("fillButton");
+    if (!containsClass(fillButton, "disabled-toolbutton")) {
+        //mapCanvas.setActiveLayer(0);
+        //mapCanvas.render();
+        removeClass(document.getElementById("brushButton"), "marked");
+        removeClass(document.getElementById("penButton"), "marked");
+        removeClass(document.getElementById("eraseButton"), "marked");
+        addClass(fillButton, "marked");
+    }
+}
+
+function btnEraseClicked() {
+
+    var eraseButton = document.getElementById("eraseButton");
+    if (!containsClass(eraseButton, "disabled-toolbutton")) {
+        //mapCanvas.setActiveLayer(0);
+        //mapCanvas.render();
+        removeClass(document.getElementById("brushButton"), "marked");
+        removeClass(document.getElementById("fillButton"), "marked");
+        removeClass(document.getElementById("penButton"), "marked");
+        addClass(eraseButton, "marked");
+    }
+}
+
+// Layers
 function btnLayer1Click() {
 
     var layer1 = document.getElementById("layer1");

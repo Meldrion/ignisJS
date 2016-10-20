@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * @author Fabien Steines
  * @param canvas
@@ -7,6 +9,7 @@
 function MapCanvas(canvas, cursorCanvas) {
 
     this.activeLayerId = 0;
+    this.activeToolId = 0;
 
     this.tilesetSelectionStartX = -1;
     this.tilesetSelectionStartY = -1;
@@ -138,7 +141,7 @@ MapCanvas.prototype.renderCursor = function (x, y, width, height) {
             this.lastCursorRegionWidth, this.lastCursorRegionHeight);
     }
 
-    if (this.mouseIsInside == true) {
+    if (this.mouseIsInside == true && this.map != null) {
 
         this.cursorCanvasCTX.globalAlpha = 0.5;
         this.cursorCanvasCTX.fillStyle = "#FF0000";
@@ -164,3 +167,8 @@ MapCanvas.prototype.renderCursor = function (x, y, width, height) {
     this.lastCursorRegionHeight = height;
 
 };
+
+MapCanvas.TOOL_PEN = 0x0;
+MapCanvas.TOOL_BRUSH = 0x1;
+MapCanvas.TOOL_FILL = 0x2;
+MapCanvas.TOOL_ERASE = 0x3;

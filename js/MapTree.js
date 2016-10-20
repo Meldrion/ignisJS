@@ -1,3 +1,5 @@
+"use strict";
+
 function MapTree() {
     this.activeMap = null;
     this.activeMapListeners = [];

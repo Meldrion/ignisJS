@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  *
  * @constructor
@@ -24,7 +26,6 @@ TileLayer.prototype.render = function (ctx) {
             if (tile != null) {
                 tileset.drawTileTo(tile.getX(), tile.getY(), i, j, ctx);
             }
-
         }
     }
 };

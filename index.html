@@ -59,10 +59,10 @@
             <div id="saveProjectButton" class="customButtonIconButton"></div>
 
             <div class="spacer"></div>
-            <div id="penButton" class="customButtonIconButton disabled-toolbutton"></div>
-            <div id="brushButton" class="customButtonIconButton disabled-toolbutton"></div>
-            <div id="fillButton" class="customButtonIconButton disabled-toolbutton"></div>
-            <div id="eraseButton" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="penButton" class="customButtonIconButton marked" onclick="btnPenClicked()"></div>
+            <div id="brushButton" class="customButtonIconButton" onclick="btnBrushClicked()"></div>
+            <div id="fillButton" class="customButtonIconButton" onclick="btnFillClicked()"></div>
+            <div id="eraseButton" class="customButtonIconButton" onclick="btnEraseClicked()"></div>
 
             <div class="spacer"></div>
             <div id="layer1" class="customButtonIconButton buttonGroupLayer marked" onclick="btnLayer1Click()"></div>
@@ -81,14 +81,17 @@
         </div>
 
         <div id="mapCanvasScroller">
+
             <canvas class="renderCanvas" id="mapCanvas" width="1024" height="768"
                     style="border:1px solid #d3d3d3;background:#ffffff; z-index: 1">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
+
             <canvas class="renderCanvas" id="mapTopCanvas" width="1024" height="768"
                     style="border:1px solid #d3d3d3;z-index: 2; background:transparent ">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
+
         </div>
 
         <!-- Ignis Engine Include -->
