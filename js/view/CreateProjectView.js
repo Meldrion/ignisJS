@@ -8,8 +8,8 @@ function createButtonClicked() {
 
     var projectManager = ProjectManager.getInstance();
 
-    var rootPath;
-    var projectName;
+    var rootPath = document.getElementById("projectRootPath").value;
+    var projectName = document.getElementById("projectName").value;;
     var projectTitle;
     var author;
     var company;
@@ -24,7 +24,8 @@ function cancelButtonClicked() {
 
 function lookForProjectRootClicked() {
     var projectRootPath = document.getElementById("projectRootPath");
-    dialog.showOpenDialog({title:"Select Project Root",defaultPath:projectRootPath.value, properties: ['openDirectory']})
+    var folder = dialog.showOpenDialog({title:"Select Project Root",
+        defaultPath:projectRootPath.value, properties: ['openDirectory']});
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {

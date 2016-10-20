@@ -60,7 +60,7 @@ app.on('ready', function () {
             modal: true,
             parent: mainWindow,
             width: 480,
-            height: 600,
+            height: 670,
             nodeIntegration: false,
             title: "New Project",
             resizable: false,
