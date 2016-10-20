@@ -101,7 +101,7 @@ MapCanvas.prototype.addSelection = function (x, y, tsX1, tsY1, tsX2, tsY2) {
     for (var tX = 0; tX < w; tX++) {
         for (var tY = 0; tY < h; tY++) {
             this.map.setTile(this.activeLayerId, x + tX, y + tY, tsX1 + tX, tsY1 + tY);
-            this.map.renderPosition(this.ctx, x + tX, y + tY);
+            this.map.renderPosition(this.ctx, x + tX, y + tY,this.activeLayerId);
         }
     }
 

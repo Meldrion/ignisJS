@@ -1,268 +1,110 @@
 <html>
 
+    <header>
+        <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="css/dark.css" rel="stylesheet">
 
-<header>
-    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link href="css/dark.css" rel="stylesheet">
+        <!-- Insert this line above script imports  -->
+        <script>if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }</script>
 
-    <!-- Insert this line above script imports  -->
-    <script>if (typeof module === 'object') {
-        window.module = module;
-        module = undefined;
-    }</script>
+        <!-- Include -->
+        <script language="JavaScript" src="node_modules/jquery/dist/jquery.js"></script>
+        <script language="JavaScript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
-    <!-- Include -->
-    <script language="JavaScript" src="node_modules/jquery/dist/jquery.js"></script>
-    <script language="JavaScript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <!-- Insert this line after script imports -->
+        <script>if (window.module) module = window.module;</script>
 
-    <!-- Insert this line after script imports -->
-    <script>if (window.module) module = window.module;</script>
+        <script language="JavaScript" src="node_modules/bootstrap-treeview/src/js/bootstrap-treeview.js"></script>
 
-    <script language="JavaScript" src="node_modules/bootstrap-treeview/src/js/bootstrap-treeview.js"></script>
-
-    <style type="text/css" id="mapTree-style">
-        .treeview .list-group-item {
-            cursor: pointer
-        }
-
-        .treeview span.indent {
-            margin-left: 10px;
-            margin-right: 10px
-        }
-
-        .treeview span.icon {
-            width: 12px;
-            margin-right: 5px
-        }
-
-        .treeview .node-disabled {
-            color: silver;
-            cursor: not-allowed
-        }
-
-        .node-mapTree {
-            color: #FFFFFF;
-            border: none;
-            background-color: rgb(64, 64, 64)
-        }
-
-        .node-mapTree:not(.node-disabled):hover {
-            background-color: rgb(96, 96, 96);
-        }
-    </style>
-
-</header>
-
-<body>
-
-<div id="toolbar">
-
-    <div id="newProjectButton" class="customButtonIconButton" onclick="openNewProjectWindow()"></div>
-    <div id="loadProjectButton" class="customButtonIconButton"></div>
-    <div id="saveProjectButton" class="customButtonIconButton"></div>
-
-    <div class="spacer"></div>
-    <div id="penButton" class="customButtonIconButton disabled-toolbutton"></div>
-    <div id="brushButton" class="customButtonIconButton disabled-toolbutton"></div>
-    <div id="fillButton" class="customButtonIconButton disabled-toolbutton"></div>
-    <div id="eraseButton" class="customButtonIconButton disabled-toolbutton"></div>
-
-    <div class="spacer"></div>
-    <div id="layer1" class="customButtonIconButton buttonGroupLayer" onclick="btnLayer1Click()"></div>
-    <div id="layer2" class="customButtonIconButton buttonGroupLayer" onclick="btnLayer2Click()"></div>
-    <div id="layer3" class="customButtonIconButton buttonGroupLayer" onclick="btnLayer3Click()"></div>
-
-</div>
-
-<div id="leftSection">
-
-    <div id="tilesetCanvasScroller">
-        <canvas id="tilesetCanvas" width="300" height="768" style="border:1px solid #d3d3d3;background:#ffffff;">
-            Your browser does not support the HTML5 canvas tag.
-        </canvas>
-    </div>
-
-    <div id="mapTree"></div>
-    <script>
-        $(document).ready(function () {
-            $('#mapTree').treeview({
-                showBorder: false,
-                showTags: true,
-                selectedBackColor: "orange",
-                highlightSelected: true,
-                data: mapTree.getTree()
-            });
-        });
-    </script>
-</div>
-
-<div id="mapCanvasScroller">
-    <canvas class="renderCanvas" id="mapCanvas" width="1024" height="768"
-            style="border:1px solid #d3d3d3;background:#ffffff; z-index: 1">
-        Your browser does not support the HTML5 canvas tag.
-    </canvas>
-    <canvas class="renderCanvas" id="mapTopCanvas" width="1024" height="768"
-            style="border:1px solid #d3d3d3;z-index: 2; background:transparent ">
-        Your browser does not support the HTML5 canvas tag.
-    </canvas>
-</div>
-
-<!-- Ignis Engine Include -->
-<script language="JavaScript" src="js/Globals.js"></script>
-<script language="JavaScript" src="js/Tileset.js"></script>
-<script language="JavaScript" src="js/TilesetCell.js"></script>
-<script language="JavaScript" src="js/Layer.js"></script>
-<script language="JavaScript" src="js/TilesetLayer.js"></script>
-<script language="JavaScript" src="js/Map.js"></script>
-<script language="JavaScript" src="js/TilesetCanvas.js"></script>
-<script language="JavaScript" src="js/MapTree.js"></script>
-<script language="JavaScript" src="js/MapCanvas.js"></script>
-<!-- Include End -->
-
-<script language="JavaScript">
-
-
-    // Instance of Layer
-
-    var img = new Image();
-    var tileset = new Tileset();
-    var map = new Map();
-
-    var tilesetCanvas = new TilesetCanvas(document.getElementById("tilesetCanvas"));
-    var mapCanvas = new MapCanvas(document.getElementById("mapCanvas"), document.getElementById("mapTopCanvas"));
-    var mapTree = new MapTree();
-    // In renderer process (web page).
-    const ipc = require('electron').ipcRenderer;
-
-
-    function openNewProjectWindow() {
-        ipc.send("openNewProjectWindow");
-    }
-
-    window.onload = function () {
-
-        img.onload = function () {
-
-            tileset.setImage(img);
-            tilesetCanvas.setTileset(tileset);
-            map.setSize(50, 50);
-
-            var c = document.getElementById("mapCanvas");
-            c.style.width = map.width * 32;
-            c.style.height = map.height * 32;
-            c.width = c.offsetWidth;
-            c.height = c.offsetHeight;
-
-
-            var topLayerCanvas = document.getElementById("mapTopCanvas");
-            topLayerCanvas.style.width = map.width * 32;
-            topLayerCanvas.style.height = map.height * 32;
-            topLayerCanvas.width = map.width * 32;
-            topLayerCanvas.height = map.height * 32;
-
-            map.setTileset(tileset);
-
-            for (var x = 0; x < map.width; x++) {
-                for (var y = 0; y < map.height; y++) {
-                    map.setTile(0, x, y, 0, 0);
-                    map.setTile(1, x, y, 1, 1);
-                    map.setTile(2, x, y, 1, 0);
-                }
+        <style type="text/css" id="mapTree-style">
+            .treeview .list-group-item {
+                cursor: pointer
             }
 
-            var canvas = document.getElementById("tilesetCanvas");
-            canvas.style.height = img.height;
-            canvas.height = img.height;
-
-            mapCanvas.setMap(map);
-            mapCanvas.render();
-
-            tilesetCanvas.render();
-            tilesetCanvas.addSelectionListener(mapCanvas);
-        };
-
-        img.src = 'assets/cave.png';
-        onresize();
-    };
-
-    window.onresize = function () {
-        var ms = document.getElementById("mapCanvasScroller");
-        ms.style.width = window.innerWidth - 300;
-        ms.style.height = window.innerHeight - 40;
-        var tsScroller = document.getElementById("tilesetCanvasScroller");
-        tsScroller.style.height = window.innerHeight * 0.7;
-        var mtScroller = document.getElementById("mapTree");
-        mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight - 48;
-        mtScroller.style.minHeight = window.innerHeight - tsScroller.clientHeight - 48;
-
-    };
-
-
-    function btnLayer1Click() {
-
-        var layer1 = document.getElementById("layer1");
-        if (!containsClass(layer1, "disabled-toolbutton")) {
-            mapCanvas.setActiveLayer(0);
-            mapCanvas.render();
-            removeClass(document.getElementById("layer2"), "marked");
-            removeClass(document.getElementById("layer3"), "marked");
-            addClass(layer1, "marked");
-        }
-    }
-
-    function btnLayer2Click() {
-
-        var layer2 = document.getElementById("layer2");
-        if (!containsClass(layer2, "disabled-toolbutton")) {
-            mapCanvas.setActiveLayer(1);
-            mapCanvas.render();
-            removeClass(document.getElementById("layer1"), "marked");
-            removeClass(document.getElementById("layer3"), "marked");
-            addClass(layer2, "marked");
-        }
-    }
-
-    function btnLayer3Click() {
-
-        var layer3 = document.getElementById("layer3");
-        if (!containsClass(layer3, "disabled-toolbutton")) {
-            mapCanvas.setActiveLayer(2);
-            mapCanvas.render();
-            removeClass(document.getElementById("layer1"), "marked");
-            removeClass(document.getElementById("layer2"), "marked");
-            addClass(layer3, "marked");
-        }
-    }
-
-    function addClass(object, className) {
-        var classes = object.className.split(" ");
-        if (classes.indexOf(className) == -1) {
-            object.className += " " + className;
-        }
-    }
-
-    function removeClass(object, className) {
-
-        var classes = object.className.split(" ");
-
-        var classString = "";
-        classes.forEach(function (theClass) {
-            if (theClass != className) {
-                classString += " " + theClass;
+            .treeview span.indent {
+                margin-left: 10px;
+                margin-right: 10px
             }
-        });
 
-        object.className = classString;
-    }
+            .treeview span.icon {
+                width: 12px;
+                margin-right: 5px
+            }
 
-    function containsClass(object, className) {
-        var classes = object.className.split(" ");
-        return classes.indexOf(className) != -1;
-    }
+            .treeview .node-disabled {
+                color: silver;
+                cursor: not-allowed
+            }
 
-</script>
+            .node-mapTree {
+                color: #FFFFFF;
+                border: none;
+                background-color: rgb(64, 64, 64)
+            }
 
-</body>
+            .node-mapTree:not(.node-disabled):hover {
+                background-color: rgb(96, 96, 96);
+            }
+        </style>
+
+    </header>
+
+    <body>
+        <div id="toolbar">
+            <div id="newProjectButton" class="customButtonIconButton" onclick="openNewProjectWindow()"></div>
+            <div id="loadProjectButton" class="customButtonIconButton"></div>
+            <div id="saveProjectButton" class="customButtonIconButton"></div>
+
+            <div class="spacer"></div>
+            <div id="penButton" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="brushButton" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="fillButton" class="customButtonIconButton disabled-toolbutton"></div>
+            <div id="eraseButton" class="customButtonIconButton disabled-toolbutton"></div>
+
+            <div class="spacer"></div>
+            <div id="layer1" class="customButtonIconButton buttonGroupLayer marked" onclick="btnLayer1Click()"></div>
+            <div id="layer2" class="customButtonIconButton buttonGroupLayer" onclick="btnLayer2Click()"></div>
+            <div id="layer3" class="customButtonIconButton buttonGroupLayer" onclick="btnLayer3Click()"></div>
+        </div>
+
+        <div id="leftSection">
+            <div id="tilesetCanvasScroller">
+                <canvas id="tilesetCanvas" width="300" height="768" style="border:1px solid #d3d3d3;background:#ffffff;">
+                    Your browser does not support the HTML5 canvas tag.
+                </canvas>
+            </div>
+
+            <div id="mapTree"></div>
+        </div>
+
+        <div id="mapCanvasScroller">
+            <canvas class="renderCanvas" id="mapCanvas" width="1024" height="768"
+                    style="border:1px solid #d3d3d3;background:#ffffff; z-index: 1">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+            <canvas class="renderCanvas" id="mapTopCanvas" width="1024" height="768"
+                    style="border:1px solid #d3d3d3;z-index: 2; background:transparent ">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+        </div>
+
+        <!-- Ignis Engine Include -->
+        <script language="JavaScript" src="js/Globals.js"></script>
+        <script language="JavaScript" src="js/Tileset.js"></script>
+        <script language="JavaScript" src="js/TilesetCell.js"></script>
+        <script language="JavaScript" src="js/Layer.js"></script>
+        <script language="JavaScript" src="js/TilesetLayer.js"></script>
+        <script language="JavaScript" src="js/Map.js"></script>
+        <script language="JavaScript" src="js/TilesetCanvas.js"></script>
+        <script language="JavaScript" src="js/MapTree.js"></script>
+        <script language="JavaScript" src="js/MapCanvas.js"></script>
+        <script language="JavaScript" src="js/view/MainView.js"></script>
+        <!-- Include End -->
+
+    </body>
 
 
 </html>

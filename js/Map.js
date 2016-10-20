@@ -69,19 +69,40 @@ Map.prototype.render = function (ctx, activeLayer) {
 
         this.layers[i].render(ctx);
     }
+
+    ctx.globalAlpha = 1;
 };
 
 /**
- *
  * @param ctx
  * @param x
  * @param y
+ * @param activeLayer
  */
-Map.prototype.renderPosition = function (ctx, x, y) {
+Map.prototype.renderPosition = function (ctx, x, y, activeLayer) {
 
     ctx.clearRect(x * 32, y * 32, 32, 32);
     for (var i = 0; i < this.layers.length; i++) {
+
+        ctx.globalAlpha = 1;
+
+        if (i == activeLayer && i != 0) {
+
+            ctx.globalAlpha = 0.5;
+            ctx.fillStyle = "#000";
+            ctx.fillRect(x * 32 , y * 32, 32, 32);
+
+            ctx.globalAlpha = 1;
+        }
+
+        if (activeLayer < i) {
+            ctx.globalAlpha = 0.5;
+        }
+
         this.layers[i].renderPosition(ctx, x, y);
     }
+
+    ctx.globalAlpha = 1;
+
 
 };
