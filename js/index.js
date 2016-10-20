@@ -18,6 +18,7 @@ var newProjectWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
+
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd   Q
     if (process.platform != 'darwin') {
@@ -84,7 +85,6 @@ app.on('ready', function () {
         // Wait until the page is rendered before showing the window
         newProjectWindow.once('ready-to-show', function () {
             newProjectWindow.show();
-            newProjectWindow.openDevTools();
         });
 
     });

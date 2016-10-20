@@ -1,6 +1,7 @@
 var fs = require('fs');
 var jsonfile = require('jsonfile');
 var osenv = require('osenv');
+var os  = require("os");
 
 function FileSystemHandler() {
 
@@ -11,13 +12,21 @@ FileSystemHandler.prototype.concat = function(f1,f2) {
 };
 
 FileSystemHandler.prototype.getUserHomeDir = function() {
-    return this.toLinuxStylePath(osenv.home());
+    return osenv.home();
 };
 
-FileSystemHandler.prototype.toLinuxStylePath = function(inputPath) {
-    while (inputPath.indexOf("\\") != -1) {
-        inputPath = inputPath.replace("\\","/");
+FileSystemHandler.prototype.toOSStylePath = function(inputPath) {
+
+    if (os.platform() == "win32") {
+        while (inputPath.indexOf("/") != -1) {
+            inputPath = inputPath.replace("/","\\");
+        }
+    } else {
+        while (inputPath.indexOf("\\") != -1) {
+            inputPath = inputPath.replace("\\","/");
+        }
     }
+
     return inputPath;
 };
 

@@ -52,10 +52,12 @@ ProjectManager.getInstance = function(otherInstance) {
 
 ProjectManager.prototype.init = function() {
 
-    this.rootFolder = this.filesystem.concat(this.filesystem.getUserHomeDir(),"ignis");
+    this.rootFolder = this.filesystem.toOSStylePath(this.filesystem.concat(this.filesystem.getUserHomeDir(),"ignis"));
 
     // Hidden Folder for config files
-    this.filesystem.createFolder(this.filesystem.concat(this.filesystem.getUserHomeDir(),".ignis"),true);
+    this.filesystem.createFolder(
+        this.filesystem.toOSStylePath(this.filesystem.concat(this.filesystem.getUserHomeDir(),".ignis"),true));
+
     // Project Folder
     this.filesystem.createFolder(this.rootFolder,true);
 };

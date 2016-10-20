@@ -23,8 +23,8 @@ function cancelButtonClicked() {
 }
 
 function lookForProjectRootClicked() {
-//    ipc.send("newProjectWindowOpenFolderDialog");
-    console.log(dialog.showOpenDialog({properties: ['openDirectory']}));
+    var projectRootPath = document.getElementById("projectRootPath");
+    dialog.showOpenDialog({title:"Select Project Root",defaultPath:projectRootPath.value, properties: ['openDirectory']})
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
