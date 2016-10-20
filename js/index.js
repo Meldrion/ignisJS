@@ -35,7 +35,8 @@ app.on('ready', function () {
 
 
     // and load the index.html of the app.
-    mainWindow.loadURL('file://' + __dirname + '/../index.html');
+    //mainWindow.loadURL('file://' + __dirname + '/../index.html');
+    mainWindow.loadURL('file://' + __dirname + '/../test.html');
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
