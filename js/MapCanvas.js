@@ -9,7 +9,7 @@
 function MapCanvas(canvas, cursorCanvas) {
 
     this.activeLayerId = 0;
-    this.activeToolId = 0;
+    this.activeToolId = MapCanvas.TOOL_PEN;
 
     this.tilesetSelectionStartX = -1;
     this.tilesetSelectionStartY = -1;
@@ -39,14 +39,26 @@ function MapCanvas(canvas, cursorCanvas) {
     this.cursorCanvas.addEventListener("mousedown", function (event) {
 
         if (self.tilesetSelectionStartX != -1 && self.tilesetSelectionStartY != -1) {
+
             var x = parseInt(event.offsetX / 32);
             var y = parseInt(event.offsetY / 32);
 
-            self.addSelection(x, y,
-                self.tilesetSelectionStartX,
-                self.tilesetSelectionStartY,
-                self.tilesetSelectionEndX,
-                self.tilesetSelectionEndY);
+
+            switch (self.activeToolId) {
+
+                case MapCanvas.TOOL_PEN:
+
+                    self.addSelection(x, y,
+                        self.tilesetSelectionStartX,
+                        self.tilesetSelectionStartY,
+                        self.tilesetSelectionEndX,
+                        self.tilesetSelectionEndY);
+
+                    break;
+
+                default:
+                    break;
+            }
         }
         self.mouseIsDown = true;
     }, false);
@@ -58,20 +70,30 @@ function MapCanvas(canvas, cursorCanvas) {
 
         if (self.lastX != x || self.lastY != y) {
 
-            if (self.mouseIsDown == true
-                && self.tilesetSelectionStartX != -1 && self.tilesetSelectionStartY != -1) {
+            if (self.tilesetSelectionStartX != -1 && self.tilesetSelectionStartY != -1) {
 
-                self.addSelection(x, y,
-                    self.tilesetSelectionStartX,
-                    self.tilesetSelectionStartY,
-                    self.tilesetSelectionEndX,
-                    self.tilesetSelectionEndY);
+                switch (self.activeToolId) {
+
+                    case MapCanvas.TOOL_PEN:
+
+                        if (self.mouseIsDown == true) {
+                            self.addSelection(x, y,
+                                self.tilesetSelectionStartX,
+                                self.tilesetSelectionStartY,
+                                self.tilesetSelectionEndX,
+                                self.tilesetSelectionEndY);
+                        }
+
+                        self.renderCursor(x * 32, y * 32,
+                            (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
+                            (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
+                        break;
+
+                    default:
+                        break;
+                }
+
             }
-
-            self.renderCursor(x * 32, y * 32,
-                (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
-                (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
-
 
             self.lastX = x;
             self.lastY = y;
@@ -107,7 +129,6 @@ MapCanvas.prototype.addSelection = function (x, y, tsX1, tsY1, tsX2, tsY2) {
             this.map.renderPosition(this.ctx, x + tX, y + tY,this.activeLayerId);
         }
     }
-
 };
 
 MapCanvas.prototype.render = function () {
@@ -166,6 +187,10 @@ MapCanvas.prototype.renderCursor = function (x, y, width, height) {
     this.lastCursorRegionWidth = width;
     this.lastCursorRegionHeight = height;
 
+};
+
+MapCanvas.prototype.setActiveMapTool = function(activeMapTool) {
+    this.activeToolId = activeMapTool;
 };
 
 MapCanvas.TOOL_PEN = 0x0;

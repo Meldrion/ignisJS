@@ -94,6 +94,7 @@ function btnPenClicked() {
         removeClass(document.getElementById("fillButton"), "marked");
         removeClass(document.getElementById("eraseButton"), "marked");
         addClass(penButton, "marked");
+        mapCanvas.setActiveMapTool(MapCanvas.TOOL_PEN);
     }
 }
 
@@ -107,6 +108,7 @@ function btnBrushClicked() {
         removeClass(document.getElementById("fillButton"), "marked");
         removeClass(document.getElementById("eraseButton"), "marked");
         addClass(brushButton, "marked");
+        mapCanvas.setActiveMapTool(MapCanvas.TOOL_BRUSH);
     }
 }
 
@@ -120,6 +122,7 @@ function btnFillClicked() {
         removeClass(document.getElementById("penButton"), "marked");
         removeClass(document.getElementById("eraseButton"), "marked");
         addClass(fillButton, "marked");
+        mapCanvas.setActiveMapTool(MapCanvas.TOOL_FILL);
     }
 }
 
@@ -133,6 +136,7 @@ function btnEraseClicked() {
         removeClass(document.getElementById("fillButton"), "marked");
         removeClass(document.getElementById("penButton"), "marked");
         addClass(eraseButton, "marked");
+        mapCanvas.setActiveMapTool(MapCanvas.TOOL_ERASE);
     }
 }
 
