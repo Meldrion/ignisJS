@@ -52,6 +52,15 @@ TileLayer.prototype.setTile = function (x, y, tile) {
  *
  * @param x
  * @param y
+ */
+TileLayer.prototype.removeTile = function(x,y) {
+    this.layerMatrix[x][y] = null;
+};
+
+/**
+ *
+ * @param x
+ * @param y
  * @returns {*}
  */
 TileLayer.prototype.getTile = function (x, y) {

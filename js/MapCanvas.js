@@ -56,6 +56,10 @@ function MapCanvas(canvas, cursorCanvas) {
 
                     break;
 
+                case MapCanvas.TOOL_ERASE:
+                    self.removeAtCursor(x,y);
+                    break;
+
                 default:
                     break;
             }
@@ -87,6 +91,16 @@ function MapCanvas(canvas, cursorCanvas) {
                         self.renderCursor(x * 32, y * 32,
                             (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
                             (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
+                        break;
+
+                    case MapCanvas.TOOL_ERASE:
+
+                        if (self.mouseIsDown == true) {
+                            self.removeAtCursor(x, y);
+                        }
+
+                        self.renderCursor(x * 32, y * 32, 32, 32);
+
                         break;
 
                     default:
@@ -131,6 +145,11 @@ MapCanvas.prototype.addSelection = function (x, y, tsX1, tsY1, tsX2, tsY2) {
     }
 };
 
+MapCanvas.prototype.removeAtCursor = function (x, y) {
+    this.map.removeTile(this.activeLayerId, x ,y);
+    this.map.renderPosition(this.ctx, x , y ,this.activeLayerId);
+};
+
 MapCanvas.prototype.render = function () {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.map.render(this.ctx, this.activeLayerId);
@@ -169,15 +188,22 @@ MapCanvas.prototype.renderCursor = function (x, y, width, height) {
         this.cursorCanvasCTX.fillRect(x, y, width, height);
 
         // Draw Cursor Selection
-        var tileset = this.map.getTileset();
 
-        for (var i = 0; i < this.tilesetSelectionEndX - this.tilesetSelectionStartX; i++) {
-            for (var j = 0; j < this.tilesetSelectionEndY - this.tilesetSelectionStartY; j++) {
+        if (this.activeToolId == MapCanvas.TOOL_PEN ||
+            (this.activeToolId == MapCanvas.TOOL_BRUSH && !this.mouseIsDown)) {
 
-                tileset.drawTileTo(this.tilesetSelectionStartX + i,
-                    this.tilesetSelectionStartY + j, (x / 32) + i, (y / 32) + j, this.cursorCanvasCTX);
+            var tileset = this.map.getTileset();
+
+            for (var i = 0; i < this.tilesetSelectionEndX - this.tilesetSelectionStartX; i++) {
+                for (var j = 0; j < this.tilesetSelectionEndY - this.tilesetSelectionStartY; j++) {
+
+                    tileset.drawTileTo(this.tilesetSelectionStartX + i,
+                        this.tilesetSelectionStartY + j, (x / 32) + i, (y / 32) + j, this.cursorCanvasCTX);
+                }
             }
         }
+
+
 
         this.cursorCanvasCTX.globalAlpha = 1;
     }

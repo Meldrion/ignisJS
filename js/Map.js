@@ -17,6 +17,10 @@ Map.prototype.setTile = function (layer, x, y, tX, tY) {
     this.layers[layer].setTile(x, y, new TilesetLayerCell(tX, tY));
 };
 
+Map.prototype.removeTile = function(layer,x,y) {
+    this.layers[layer].removeTile(x,y);
+};
+
 /**
  *
  * @param tileset
