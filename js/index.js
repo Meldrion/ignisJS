@@ -5,7 +5,7 @@ const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
 const {ipcMain} = require('electron');
 
-global.sharedObject = {};
+global.sharedObject = {projectManager : null};
 
 
 // Report crashes to our server.
@@ -79,9 +79,12 @@ app.on('ready', function () {
             newProjectWindow = null;
         });
 
+
+
         // Wait until the page is rendered before showing the window
         newProjectWindow.once('ready-to-show', function () {
             newProjectWindow.show();
+            newProjectWindow.openDevTools();
         });
 
     });

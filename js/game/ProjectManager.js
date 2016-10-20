@@ -10,6 +10,7 @@ function ProjectManager() {
     this.currentProject = null;
     this.filesystem = new FileSystemHandler();
     this.rootFolder = "";
+
 }
 
 ProjectManager.prototype.setProject = function(project) {
@@ -36,9 +37,14 @@ ProjectManager.prototype.listAllProjectsInFolder = function(folder) {
 
 ProjectManager.instance = null;
 
-ProjectManager.getInstance = function() {
+ProjectManager.getInstance = function(otherInstance) {
     if (ProjectManager.instance == null ) {
         ProjectManager.instance = new ProjectManager();
+
+        if (otherInstance !== undefined && otherInstance != null) {
+            ProjectManager.instance.currentProject = otherInstance.currentProject;
+            ProjectManager.instance.rootFolder = otherInstance.rootFolder;
+        }
     }
 
     return ProjectManager.instance;

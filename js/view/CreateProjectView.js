@@ -30,7 +30,10 @@ function lookForProjectRootClicked() {
 document.addEventListener("DOMContentLoaded", function(event) {
 
     var projectRootPath = document.getElementById("projectRootPath");
-    var projectManager = remote.getGlobal('sharedObject').projectManager;
+    var jsonProjectManager = remote.getGlobal('sharedObject').projectManager;
+    var projectManager = ProjectManager.getInstance(jsonProjectManager);
+
+    console.log(projectManager);
     projectRootPath.value = projectManager.getRootFolder();
 
 });

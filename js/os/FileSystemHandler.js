@@ -11,7 +11,14 @@ FileSystemHandler.prototype.concat = function(f1,f2) {
 };
 
 FileSystemHandler.prototype.getUserHomeDir = function() {
-    return osenv.home();
+    return this.toLinuxStylePath(osenv.home());
+};
+
+FileSystemHandler.prototype.toLinuxStylePath = function(inputPath) {
+    while (inputPath.indexOf("\\") != -1) {
+        inputPath = inputPath.replace("\\","/");
+    }
+    return inputPath;
 };
 
 FileSystemHandler.prototype.writeJSON = function(filePath,jsonContent) {

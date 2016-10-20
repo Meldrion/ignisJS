@@ -96,7 +96,7 @@ Map.prototype.renderPosition = function (ctx, x, y, activeLayer) {
 
             ctx.globalAlpha = 0.5;
             ctx.fillStyle = "#000";
-            ctx.fillRect(x * 32 , y * 32, 32, 32);
+            ctx.fillRect(x * 32, y * 32, 32, 32);
 
             ctx.globalAlpha = 1;
         }

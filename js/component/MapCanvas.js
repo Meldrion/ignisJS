@@ -192,8 +192,10 @@ MapCanvas.prototype.setActiveLayer = function (layerId) {
 MapCanvas.prototype.renderCursor = function (x, y, width, height) {
 
     if (this.lastCursorRegionX > -1 && this.lastCursorRegionY > -1) {
-        this.cursorCanvasCTX.clearRect(this.lastCursorRegionX, this.lastCursorRegionY,
-            this.lastCursorRegionWidth, this.lastCursorRegionHeight);
+
+        // Add one pixel on each side of the rect, to avoid this strange line behaviour on windows
+        this.cursorCanvasCTX.clearRect(this.lastCursorRegionX - 1, this.lastCursorRegionY - 1,
+            this.lastCursorRegionWidth + 2, this.lastCursorRegionHeight + 2);
     }
 
     if (this.mouseIsInside == true && this.map != null) {
