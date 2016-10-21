@@ -6,12 +6,16 @@
  */
 function Project() {
     this.filesystem = new FileSystemHandler();
+    this.assetStructure = null;
 }
-
 
 Project.prototype.create = function(rootPath,projectName,projectTitle,author,devCompany) {
 
-    if (this.filesystem.createFolder(this.filesystem.concat(rootPath,projectName),false)) {
+    var projRoot = this.filesystem.toOSStylePath(this.filesystem.concat(rootPath,projectName));
+
+    if (this.filesystem.createFolder(projRoot,false)) {
+
+        this.assetStructure = new AssetStructure(projRoot);
 
         var projectJSON = {
             title: projectTitle,
@@ -21,7 +25,10 @@ Project.prototype.create = function(rootPath,projectName,projectTitle,author,dev
 
         this.filesystem.writeJSON(this.filesystem.concat(rootPath,
             this.filesystem.concat(projectName,"project.json")),projectJSON);
-
+        
+        this.filesystem.createFolder(this.assetStructure.asset());
+        this.filesystem.createFolder(this.assetStructure.tileset());
+        
     }
 
 };

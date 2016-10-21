@@ -21,7 +21,6 @@ ProjectManager.prototype.createProject = function(rootPath,projectName,projectTi
     var project = new Project();
     project.create(rootPath,projectName,projectTitle,devName,devCompany);
     this.setProject(project);
-    return project;
 };
 
 ProjectManager.prototype.loadProject = function(path) {

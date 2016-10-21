@@ -9,13 +9,12 @@ function createButtonClicked() {
     var projectManager = ProjectManager.getInstance();
 
     var rootPath = document.getElementById("projectRootPath").value;
-    var projectName = document.getElementById("projectName").value;;
-    var projectTitle;
-    var author;
-    var company;
+    var projectName = document.getElementById("projectFolderName").value;
+    var projectTitle = document.getElementById("projectTitle").value;
+    var author = document.getElementById("author").value;
+    var company = document.getElementById("companyName").value;
 
     projectManager.createProject(rootPath,projectName,projectTitle,author,company);
-
 }
 
 function cancelButtonClicked() {
@@ -26,6 +25,10 @@ function lookForProjectRootClicked() {
     var projectRootPath = document.getElementById("projectRootPath");
     var folder = dialog.showOpenDialog({title:"Select Project Root",
         defaultPath:projectRootPath.value, properties: ['openDirectory']});
+
+    if (folder != null) {
+        projectRootPath.value = folder;
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {

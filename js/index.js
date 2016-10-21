@@ -85,6 +85,7 @@ app.on('ready', function () {
         // Wait until the page is rendered before showing the window
         newProjectWindow.once('ready-to-show', function () {
             newProjectWindow.show();
+            newProjectWindow.openDevTools();
         });
 
     });
