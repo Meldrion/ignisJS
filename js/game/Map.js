@@ -60,20 +60,49 @@ Map.prototype.render = function (ctx, activeLayer) {
 
         ctx.globalAlpha = 1;
 
-        if (i == activeLayer && i != 0) {
+        if (activeLayer != 3) {
+            if (i == activeLayer && i != 0) {
 
-            ctx.globalAlpha = 0.5;
-            ctx.fillStyle = "#000";
-            ctx.fillRect(0, 0, this.width * 32, this.height * 32);
+                ctx.globalAlpha = 0.5;
+                ctx.fillStyle = "#000";
+                ctx.fillRect(0, 0, this.width * 32, this.height * 32);
 
-            ctx.globalAlpha = 1;
+                ctx.globalAlpha = 1;
+            }
+
+            if (activeLayer < i) {
+                ctx.globalAlpha = 0.5;
+            }
+
+            this.layers[i].render(ctx);
+        } else {
+
+            this.layers[i].render(ctx);
+
+            var maxX = this.width * 32;
+            var maxY = this.height * 32;
+
+
+            for (var x=0;x<this.width;x++) {
+                var xi = x * 32;
+
+                ctx.beginPath();
+                ctx.moveTo(xi, 0);
+                ctx.lineTo(xi, maxY);
+                ctx.stroke();
+
+            }
+
+            for (var y=0;y<this.height;y++) {
+                var yi = y * 32;
+
+                ctx.beginPath();
+                ctx.moveTo(0, yi);
+                ctx.lineTo(maxX, yi);
+                ctx.stroke();
+            }
         }
 
-        if (activeLayer < i) {
-            ctx.globalAlpha = 0.5;
-        }
-
-        this.layers[i].render(ctx);
     }
 
     ctx.globalAlpha = 1;

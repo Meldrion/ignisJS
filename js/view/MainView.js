@@ -148,6 +148,7 @@ function btnLayer1Click() {
         mapCanvas.render();
         removeClass(document.getElementById("layer2"), "marked");
         removeClass(document.getElementById("layer3"), "marked");
+        removeClass(document.getElementById("layer4"), "marked");
         addClass(layer1, "marked");
     }
 }
@@ -160,6 +161,7 @@ function btnLayer2Click() {
         mapCanvas.render();
         removeClass(document.getElementById("layer1"), "marked");
         removeClass(document.getElementById("layer3"), "marked");
+        removeClass(document.getElementById("layer4"), "marked");
         addClass(layer2, "marked");
     }
 }
@@ -172,6 +174,20 @@ function btnLayer3Click() {
         mapCanvas.render();
         removeClass(document.getElementById("layer1"), "marked");
         removeClass(document.getElementById("layer2"), "marked");
+        removeClass(document.getElementById("layer4"), "marked");
         addClass(layer3, "marked");
+    }
+}
+
+function btnLayer4Click() {
+
+    var layer4 = document.getElementById("layer4");
+    if (!containsClass(layer4, "disabled-toolbutton")) {
+        mapCanvas.setActiveLayer(3);
+        mapCanvas.render();
+        removeClass(document.getElementById("layer1"), "marked");
+        removeClass(document.getElementById("layer2"), "marked");
+        removeClass(document.getElementById("layer3"), "marked");
+        addClass(layer4, "marked");
     }
 }
