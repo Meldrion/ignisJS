@@ -234,21 +234,51 @@ MapCanvas.prototype.renderCursor = function (x, y, width, height) {
 
         // Draw Cursor Selection
 
+        var i = 0;
+        var j = 0;
+        var tileset = this.map.getTileset();
+
         if (this.activeToolId == MapCanvas.TOOL_PEN ||
             (this.activeToolId == MapCanvas.TOOL_BRUSH && !this.mouseIsDown)) {
 
-            var tileset = this.map.getTileset();
-
-            for (var i = 0; i < this.tilesetSelectionEndX - this.tilesetSelectionStartX; i++) {
-                for (var j = 0; j < this.tilesetSelectionEndY - this.tilesetSelectionStartY; j++) {
+            for ( i = 0; i < this.tilesetSelectionEndX - this.tilesetSelectionStartX; i++) {
+                for (j = 0; j < this.tilesetSelectionEndY - this.tilesetSelectionStartY; j++) {
 
                     tileset.drawTileTo(this.tilesetSelectionStartX + i,
                         this.tilesetSelectionStartY + j, (x / 32) + i, (y / 32) + j, this.cursorCanvasCTX);
                 }
             }
+        } else {
+            if (this.activeToolId == MapCanvas.TOOL_BRUSH && this.mouseIsDown) {
+                var w = width / 32;
+                var h = height / 32;
+                var tsW = this.tilesetSelectionEndX - this.tilesetSelectionStartX;
+                var tsH = this.tilesetSelectionEndY - this.tilesetSelectionStartY;
+
+                var tsX = 0;
+                var tsY = 0;
+
+                for (i = 0; i <w; i++) {
+
+                    for (j = 0; j < h; j++) {
+                        tileset.drawTileTo(this.tilesetSelectionStartX + tsX,
+                            this.tilesetSelectionStartY + tsY, (x / 32) + i, (y / 32) + j, this.cursorCanvasCTX);
+                        tsY += 1;
+                        if (tsY == tsH) {
+                            tsY = 0;
+                        }
+                    }
+
+                    tsX += 1;
+                    tsY = 0;
+
+                    if (tsX == tsW) {
+                        tsX = 0;
+                    }
+                }
+
+            }
         }
-
-
 
         this.cursorCanvasCTX.globalAlpha = 1;
     }
