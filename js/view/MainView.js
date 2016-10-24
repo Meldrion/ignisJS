@@ -191,3 +191,7 @@ function btnLayer4Click() {
         addClass(layer4, "marked");
     }
 }
+
+function btnImportManagerClicked() {
+    ipc.send("openImportManagerWindow");
+}

@@ -70,6 +70,8 @@ function MapCanvas(canvas, cursorCanvas) {
                 case MapCanvas.TOOL_BRUSH:
                     self.brushStartX = x;
                     self.brushStartY = y;
+                    self.brushEndX = x;
+                    self.brushEndY = y;
                     break;
 
                 case MapCanvas.TOOL_ERASE:
@@ -231,6 +233,7 @@ MapCanvas.prototype.addSelectionRange = function (x1, y1,x2,y2, tsX1, tsY1, tsX2
             tsX = 0;
         }
     }
+
 };
 
 MapCanvas.prototype.removeAtCursor = function (x, y) {

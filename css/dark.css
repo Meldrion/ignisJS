@@ -124,6 +124,10 @@ canvas {
     background-image: url(../assets/icons/layer_top_24.png);
 }
 
+#importManager {
+    background-image: url(../assets/icons/import-icon-24.png);
+}
+
 .buttonGroupLayer {
 
 }
@@ -140,7 +144,7 @@ canvas {
 }
 
 .spacer {
-    width: 40px;
+    width: 25px;
     display: inline-block;
     position: relative;
     margin-top: 3px;

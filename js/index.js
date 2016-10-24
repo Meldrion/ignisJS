@@ -15,6 +15,7 @@ global.sharedObject = {projectManager : null};
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 var newProjectWindow = null;
+var importManagerWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -54,6 +55,7 @@ app.on('ready', function () {
         mainWindow = null;
     });
 
+    // New Project Window
     ipcMain.on("openNewProjectWindow", function () {
 
         newProjectWindow = new BrowserWindow({
@@ -81,11 +83,9 @@ app.on('ready', function () {
         });
 
 
-
         // Wait until the page is rendered before showing the window
         newProjectWindow.once('ready-to-show', function () {
             newProjectWindow.show();
-            newProjectWindow.openDevTools();
         });
 
     });
@@ -94,7 +94,36 @@ app.on('ready', function () {
         newProjectWindow.close();
     });
 
-    ipcMain.on("newProjectWindowOpenFolderDialog", function () {
-        newProjectWindow.close();
+
+    ipcMain.on("openImportManagerWindow",function() {
+        importManagerWindow = new BrowserWindow({
+            modal: true,
+            parent: mainWindow,
+            width: 480,
+            height: 670,
+            nodeIntegration: false,
+            title: "Import Manager",
+            resizable: false,
+            skipTaskbar: true,
+            show: false,
+            center: false
+        });
+
+        // No Menubar for this window
+        importManagerWindow.setMenu(null);
+
+        // HTML File used by the window
+        importManagerWindow.loadURL('file://' + __dirname + '/../view/ImportManagerView.html');
+
+        // The on close Event
+        importManagerWindow.on('closed', function () {
+            newProjectWindow = null;
+        });
+
+        // Wait until the page is rendered before showing the window
+        importManagerWindow.once('ready-to-show', function () {
+            importManagerWindow.show();
+        });
     });
+
 });
