@@ -30,8 +30,8 @@
         <script language="JavaScript" src="../js/game/Project.js"></script>
         <script language="JavaScript" src="../js/game/ProjectManager.js"></script>
         <script language="JavaScript" src="../js/os/FileSystemHandler.js"></script>
-
-        <script language="JavaScript" src="../js/view/CreateProjectView.js"></script>
+<!--
+        <script language="JavaScript" src="../js/view/CreateProjectView.js"></script>-->
 
         <!-- Insert this line after script imports -->
         <script>if (window.module) module = window.module;</script>
@@ -39,45 +39,37 @@
     </head>
 
     <body>
-        <div id="rootwizard" class="tabbable tabs-left">
-            <ul>
-                <li><a href="#tab1" data-toggle="tab">First</a></li>
-                <li><a href="#tab2" data-toggle="tab">Second</a></li>
-                <li><a href="#tab3" data-toggle="tab">Third</a></li>
-                <li><a href="#tab4" data-toggle="tab">Forth</a></li>
-                <li><a href="#tab5" data-toggle="tab">Fifth</a></li>
-                <li><a href="#tab6" data-toggle="tab">Sixth</a></li>
-                <li><a href="#tab7" data-toggle="tab">Seventh</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane" id="tab1">
-                    1
-                </div>
-                <div class="tab-pane" id="tab2">
-                    2
-                </div>
-                <div class="tab-pane" id="tab3">
-                    3
-                </div>
-                <div class="tab-pane" id="tab4">
-                    4
-                </div>
-                <div class="tab-pane" id="tab5">
-                    5
-                </div>
-                <div class="tab-pane" id="tab6">
-                    6
-                </div>
-                <div class="tab-pane" id="tab7">
-                    7
-                </div>
-                <ul class="pager wizard">
-                    <li class="previous first" style="display:none;"><a href="#">First</a></li>
-                    <li class="previous"><a href="#">Previous</a></li>
-                    <li class="next last" style="display:none;"><a href="#">Last</a></li>
-                    <li class="next"><a href="#">Next</a></li>
-                </ul>
+        <div class="tabbable tabs-left">
+            <ul class="nav nav-tabs" id="navBarImportManager" style="overflow-x:hidden; overflow-y: scroll;width:200px;height:500px;"></ul>
+            <div class="tab-content" id="navBarImportManagerContent">
+<!--                <div class="tab-pane" id="b">Secondo sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+                    Aliquam in felis sit amet augue.</div>
+                <div class="tab-pane" id="c">Thirdamuno, ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                    Quisque mauris augue, molestie tincidunt condimentum vitae. </div>-->
             </div>
+
+            <script>
+                var assetNames = AssetStructure.getAssetNames();
+                assetNames.forEach(function(element) {
+
+                    var li = document.createElement("li");
+                    var tabLink = document.createElement("a");
+                    tabLink.href = "#" + element;
+                    tabLink.className = "tab";
+                    tabLink.innerHTML = element;
+                    tabLink.setAttribute("data-toggle", "tab");
+                    li.appendChild(tabLink);
+                    document.getElementById("navBarImportManager").appendChild(li);
+
+                    var tabContent = document.createElement("div");
+                    tabContent.id = "#" + element;
+                    tabContent.className = "tab-pane";
+                    tabContent.innerHTML = "Hello World";
+
+                    document.getElementById("navBarImportManagerContent").appendChild(tabContent);
+
+                });
+            </script>
         </div>
     </body>
 

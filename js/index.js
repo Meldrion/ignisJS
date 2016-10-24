@@ -100,7 +100,7 @@ app.on('ready', function () {
             modal: true,
             parent: mainWindow,
             width: 480,
-            height: 670,
+            height: 500,//750,
             nodeIntegration: false,
             title: "Import Manager",
             resizable: false,
@@ -111,6 +111,7 @@ app.on('ready', function () {
 
         // No Menubar for this window
         importManagerWindow.setMenu(null);
+        importManagerWindow.openDevTools();
 
         // HTML File used by the window
         importManagerWindow.loadURL('file://' + __dirname + '/../view/ImportManagerView.html');
