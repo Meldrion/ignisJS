@@ -27,7 +27,10 @@ function MapCanvas(canvas, cursorCanvas) {
     this.lastCursorRegionHeight = -1;
 
     this.lastX = -1;
-    this.lastY = -2;
+    this.lastY = -1;
+
+    this.x = -1;
+    this.y = -1;
 
     this.canvas = canvas;
     this.cursorCanvas = cursorCanvas;
@@ -79,10 +82,11 @@ function MapCanvas(canvas, cursorCanvas) {
 
     this.cursorCanvas.addEventListener("mousemove", function (event) {
 
-        var x = parseInt(event.offsetX / 32);
-        var y = parseInt(event.offsetY / 32);
+        self.x = parseInt(event.offsetX / 32);
+        self.y = parseInt(event.offsetY / 32);
 
-        if (self.lastX != x || self.lastY != y) {
+
+        if (self.lastX != self.x || self.lastY != self.y) {
 
             if (self.tilesetSelectionStartX != -1 && self.tilesetSelectionStartY != -1) {
 
@@ -91,21 +95,37 @@ function MapCanvas(canvas, cursorCanvas) {
                     case MapCanvas.TOOL_PEN:
 
                         if (self.mouseIsDown == true) {
-                            self.addSelection(x, y,
+
+                            self.addSelection(self.x, self.y,
                                 self.tilesetSelectionStartX,
                                 self.tilesetSelectionStartY,
                                 self.tilesetSelectionEndX,
                                 self.tilesetSelectionEndY);
                         }
 
-                        self.renderCursor(x * 32, y * 32,
+                        self.renderCursor(self.x * 32, self.y * 32,
                             (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
                             (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
                         break;
 
                     case MapCanvas.TOOL_BRUSH:
-                        self.brushEndX = x;
-                        self.brushEndY = y;
+
+                        if (self.mouseIsDown == true) {
+                            self.brushEndX = self.x;
+                            self.brushEndY = self.y;
+
+                            var coords = fixCoords(self.brushStartX,self.brushStartY,self.brushEndX,self.brushEndY);
+
+                            self.renderCursor(coords.x1 * 32,coords.y1 * 32,
+                                (coords.x2 - coords.x1) * 32, (coords.y2 - coords.y1) * 32);
+                        } else {
+
+                            self.renderCursor(self.x * 32, self.y * 32,
+                                (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
+                                (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
+
+                        }
+
                         break;
 
                     case MapCanvas.TOOL_ERASE:
@@ -114,7 +134,7 @@ function MapCanvas(canvas, cursorCanvas) {
                             self.removeAtCursor(x, y);
                         }
 
-                        self.renderCursor(x * 32, y * 32, 32, 32);
+                        self.renderCursor(self.x * 32, self.y * 32, 32, 32);
 
                         break;
 
@@ -124,14 +144,20 @@ function MapCanvas(canvas, cursorCanvas) {
 
             }
 
-            self.lastX = x;
-            self.lastY = y;
+            self.lastX = self.x;
+            self.lastY = self.y;
         }
 
     }, false);
 
     this.cursorCanvas.addEventListener("mouseup", function (event) {
         self.mouseIsDown = false;
+
+        if (self.activeToolId == MapCanvas.TOOL_BRUSH) {
+            self.renderCursor(self.x * 32, self.y * 32,
+                (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
+                (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
+        }
     }, false);
 
 
@@ -190,6 +216,8 @@ MapCanvas.prototype.setActiveLayer = function (layerId) {
 };
 
 MapCanvas.prototype.renderCursor = function (x, y, width, height) {
+
+    console.log("Update cursor call");
 
     if (this.lastCursorRegionX > -1 && this.lastCursorRegionY > -1) {
 
