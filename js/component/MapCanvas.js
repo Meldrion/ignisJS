@@ -44,6 +44,9 @@ function MapCanvas(canvas, cursorCanvas) {
 
     var self = this;
 
+    /**
+     * Mouse Down Event
+     */
     this.cursorCanvas.addEventListener("mousedown", function (event) {
 
         if (self.tilesetSelectionStartX != -1 && self.tilesetSelectionStartY != -1) {
@@ -80,6 +83,9 @@ function MapCanvas(canvas, cursorCanvas) {
         self.mouseIsDown = true;
     }, false);
 
+    /**
+     * Mouse Move Event
+     */
     this.cursorCanvas.addEventListener("mousemove", function (event) {
 
         self.x = parseInt(event.offsetX / 32);
@@ -150,14 +156,23 @@ function MapCanvas(canvas, cursorCanvas) {
 
     }, false);
 
+    /**
+     * Mouse Up Event
+     */
     this.cursorCanvas.addEventListener("mouseup", function (event) {
+
         self.mouseIsDown = false;
 
         if (self.activeToolId == MapCanvas.TOOL_BRUSH) {
+            self.addSelectionRange(self.brushStartX,self.brushStartY,self.brushEndX,self.brushEndY,
+                                   self.tilesetSelectionStartX,self.tilesetSelectionStartY,
+                                   self.tilesetSelectionEndX,self.tilesetSelectionEndY);
+
             self.renderCursor(self.x * 32, self.y * 32,
                 (self.tilesetSelectionEndX - self.tilesetSelectionStartX) * 32,
                 (self.tilesetSelectionEndY - self.tilesetSelectionStartY) * 32);
         }
+
     }, false);
 
 
@@ -182,6 +197,38 @@ MapCanvas.prototype.addSelection = function (x, y, tsX1, tsY1, tsX2, tsY2) {
         for (var tY = 0; tY < h; tY++) {
             this.map.setTile(this.activeLayerId, x + tX, y + tY, tsX1 + tX, tsY1 + tY);
             this.map.renderPosition(this.ctx, x + tX, y + tY,this.activeLayerId);
+        }
+    }
+};
+
+MapCanvas.prototype.addSelectionRange = function (x1, y1,x2,y2, tsX1, tsY1, tsX2, tsY2) {
+
+    var w = x2 - x1;
+    var h = y2 - y1;
+
+    var tsW = tsX2 - tsX1;
+    var tsH = tsY2 - tsY1;
+
+    var tsX = 0;
+    var tsY = 0;
+
+    for (var cX = 0; cX <= w;cX++) {
+        for (var cY = 0; cY <= h; cY++) {
+
+            this.map.setTile(this.activeLayerId, x1 + cX, y1 + cY, tsX1 + tsX, tsY1 + tsY);
+            this.map.renderPosition(this.ctx, x1 + cX, y1 + cY,this.activeLayerId);
+
+            tsY += 1;
+            if (tsY == tsH) {
+                tsY = 0;
+            }
+        }
+
+        tsX += 1;
+        tsY = 0;
+
+        if (tsX == tsW) {
+            tsX = 0;
         }
     }
 };
@@ -217,8 +264,6 @@ MapCanvas.prototype.setActiveLayer = function (layerId) {
 
 MapCanvas.prototype.renderCursor = function (x, y, width, height) {
 
-    console.log("Update cursor call");
-
     if (this.lastCursorRegionX > -1 && this.lastCursorRegionY > -1) {
 
         // Add one pixel on each side of the rect, to avoid this strange line behaviour on windows
@@ -248,7 +293,9 @@ MapCanvas.prototype.renderCursor = function (x, y, width, height) {
                         this.tilesetSelectionStartY + j, (x / 32) + i, (y / 32) + j, this.cursorCanvasCTX);
                 }
             }
+
         } else {
+
             if (this.activeToolId == MapCanvas.TOOL_BRUSH && this.mouseIsDown) {
                 var w = width / 32;
                 var h = height / 32;
