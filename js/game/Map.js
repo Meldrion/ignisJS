@@ -75,9 +75,13 @@ Map.prototype.render = function (ctx, activeLayer) {
             }
 
             this.layers[i].render(ctx);
+
         } else {
 
             this.layers[i].render(ctx);
+
+            ctx.strokeStyle = '#333';
+            ctx.globalAlpha = 0.5;
 
             var maxX = this.width * 32;
             var maxY = this.height * 32;
@@ -101,6 +105,8 @@ Map.prototype.render = function (ctx, activeLayer) {
                 ctx.lineTo(maxX, yi);
                 ctx.stroke();
             }
+
+            ctx.globalAlpha = 1;
         }
 
     }
@@ -139,5 +145,27 @@ Map.prototype.renderPosition = function (ctx, x, y, activeLayer) {
 
     ctx.globalAlpha = 1;
 
+};
+
+/**
+ *
+ */
+Map.prototype.save =  function() {
+    var map = {name:"Hello World",
+               width:this.width,
+               heigt:this.height,
+               layer:[]
+              };
+    this.layers.forEach(function(layer) {
+        map.layer.push(layer.getJSON());
+    });
+    var fs = new FileSystemHandler();
+    fs.writeJSON("/home/fabien/Desktop/map.json",map);
+};
+
+/**
+ *
+ */
+Map.prototype.load = function() {
 
 };

@@ -35,3 +35,5 @@ Layer.prototype.setSize = function (width, height) {
     this.height = height;
     this.buildMatrix();
 };
+
+Layer.prototype.getJSON = function() {};

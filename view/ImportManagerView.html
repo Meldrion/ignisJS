@@ -40,7 +40,7 @@
 
     <body>
         <div class="tabbable tabs-left">
-            <ul class="nav nav-tabs" id="navBarImportManager" style="overflow-x:hidden; overflow-y: scroll;width:200px;height:500px;"></ul>
+            <ul class="nav nav-tabs" id="navBarImportManager" style="overflow-x:hidden; overflow-y: scroll;width:200px;height:440px;"></ul>
             <div class="tab-content" id="navBarImportManagerContent">
 <!--                <div class="tab-pane" id="b">Secondo sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
                     Aliquam in felis sit amet augue.</div>
@@ -49,10 +49,12 @@
             </div>
 
             <script>
+
                 var assetNames = AssetStructure.getAssetNames();
                 assetNames.forEach(function(element) {
 
                     var li = document.createElement("li");
+                    li.id = "li" + element;
                     var tabLink = document.createElement("a");
                     tabLink.href = "#" + element;
                     tabLink.className = "tab";
@@ -62,15 +64,27 @@
                     document.getElementById("navBarImportManager").appendChild(li);
 
                     var tabContent = document.createElement("div");
-                    tabContent.id = "#" + element;
+                    tabContent.id = element;
                     tabContent.className = "tab-pane";
-                    tabContent.innerHTML = "Hello World";
+                    tabContent.innerHTML = "Hello World - " + element;
 
                     document.getElementById("navBarImportManagerContent").appendChild(tabContent);
 
                 });
+
+                document.getElementById("li" + assetNames[0]).className = "active";
+                document.getElementById(assetNames[0]).className = "tab-pane active";
+
+
             </script>
         </div>
+
+        <footer id="footerButtons">
+            <div class="pull-right">
+                <button type="button" class="btn btn btn-default" onclick="createButtonClicked()">Create</button>
+                <button type="button" class="btn btn btn-default" onclick="cancelButtonClicked()">Cancel</button>
+            </div>
+        </footer>
     </body>
 
 </html>

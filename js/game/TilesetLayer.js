@@ -81,3 +81,22 @@ TileLayer.prototype.renderPosition = function (ctx, x, y) {
         tileset.drawTileTo(tile.getX(), tile.getY(), x, y, ctx);
     }
 };
+
+/**
+ *
+ */
+TileLayer.prototype.getJSON = function() {
+
+    var JSONLayer = {data:[]};
+    for (var i=0;i<this.layerMatrix.length;i++) {
+        for (var j=0;j<this.layerMatrix[0].length;j++) {
+            var element = this.layerMatrix[i][j];
+            if (element != null) {
+                var JSONLine = {x:i,y:j,tsX:element.getX(),tsY:element.getY()};
+                JSONLayer.data.push(JSONLine);
+            }
+        }
+    }
+
+    return JSONLayer;
+};

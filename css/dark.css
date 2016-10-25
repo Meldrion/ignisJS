@@ -289,3 +289,18 @@ canvas {
     border-color: #ddd #ddd #ddd transparent;
     *border-left-color: #ffffff;
 }
+
+#footerButtons {
+    border-top:1px solid orange;
+    position:fixed;
+    left:0;
+    bottom:0;
+    height:60px;
+    width:100%;
+    background:#333;
+}
+
+.pull-right button {
+    margin-right: 10px;
+    margin-top:12px;
+}

@@ -99,7 +99,7 @@ app.on('ready', function () {
         importManagerWindow = new BrowserWindow({
             modal: true,
             parent: mainWindow,
-            width: 480,
+            width: 800,
             height: 500,//750,
             nodeIntegration: false,
             title: "Import Manager",
