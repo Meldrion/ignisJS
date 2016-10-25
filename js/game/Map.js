@@ -176,6 +176,8 @@ Map.prototype.load = function() {
     this.width = map.width;
     this.height = map.height;
 
+    this.setSize(this.width,this.height);
+
     for (var index = 0;index < this.layers.length;index++) {
         this.layers[index].fromJSON(map.layer[index]);
     }
