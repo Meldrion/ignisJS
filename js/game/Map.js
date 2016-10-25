@@ -154,14 +154,14 @@ Map.prototype.renderPosition = function (ctx, x, y, activeLayer) {
 Map.prototype.save =  function() {
     var map = {name:"Hello World",
                width:this.width,
-               heigt:this.height,
+               height:this.height,
                layer:[]
               };
     this.layers.forEach(function(layer) {
         map.layer.push(layer.getJSON());
     });
     var fs = new FileSystemHandler();
-    fs.writeJSON("/home/fabien/Desktop/map.json",map);
+    fs.writeJSON(fs.toOSStylePath(fs.getUserHomeDir()+"/Desktop/map.json"),map);
 };
 
 /**
@@ -170,16 +170,16 @@ Map.prototype.save =  function() {
 Map.prototype.load = function() {
 
     var fs = new FileSystemHandler();
-    var map = fs.readJSON("/home/fabien/Desktop/map.json");
+    var mapJSON = fs.readJSON(fs.toOSStylePath(fs.getUserHomeDir()+"/Desktop/map.json"));
 
-    this.name = map.name;
-    this.width = map.width;
-    this.height = map.height;
+    this.name = mapJSON.name;
+    this.width = mapJSON.width;
+    this.height = mapJSON.height;
 
     this.setSize(this.width,this.height);
 
     for (var index = 0;index < this.layers.length;index++) {
-        this.layers[index].fromJSON(map.layer[index]);
+        this.layers[index].fromJSON(mapJSON.layer[index]);
     }
 
 };

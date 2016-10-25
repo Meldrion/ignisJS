@@ -109,8 +109,8 @@ TileLayer.prototype.fromJSON = function(layerData) {
 
     this.wipeLayerData();
 
-    for (var lineId = 0; lineId < layerData.length;lineId++) {
-        var layerLine = layerData[lineId];
+    for (var lineId = 0; lineId < layerData.data.length;lineId++) {
+        var layerLine = layerData.data[lineId];
         this.layerMatrix[layerLine.x][layerLine.y] =
             new TilesetLayerCell(layerLine.tsX,layerLine.tsY);
     }
