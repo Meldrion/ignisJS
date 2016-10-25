@@ -100,3 +100,19 @@ TileLayer.prototype.getJSON = function() {
 
     return JSONLayer;
 };
+
+/**
+ *
+ * @param layerData
+ */
+TileLayer.prototype.fromJSON = function(layerData) {
+
+    this.wipeLayerData();
+
+    for (var lineId; lineId < layerData.length;lineId++) {
+        var layerLine = layerData[lineId];
+        this.layerMatrix[layerLine.x][layerLine.y] =
+            new TilesetLayerCell(layerLine.tsX,layerLine.tsY);
+    }
+
+};

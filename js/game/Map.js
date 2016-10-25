@@ -7,6 +7,7 @@
  * */
 
 function Map() {
+    this.name = "Untitled";
     this.width = 20;
     this.height = 15;
     this.tileset = null;
@@ -167,5 +168,16 @@ Map.prototype.save =  function() {
  *
  */
 Map.prototype.load = function() {
+
+    var fs = new FileSystemHandler();
+    var map = fs.readJSON("/home/fabien/Desktop/map.json");
+
+    this.name = map.name;
+    this.width = map.width;
+    this.height = map.height;
+
+    for (var index = 0;index < this.layers.length;index++) {
+        this.layers[index].fromJSON(map.layer[index]);
+    }
 
 };

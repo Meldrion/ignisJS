@@ -27,6 +27,17 @@ Layer.prototype.buildMatrix = function () {
 
 /**
  *
+ */
+Layer.prototype.wipeLayerData = function() {
+    for (var w = 0;w <  this.width;w++) {
+        for (var h = 0;h <  this.height;h++) {
+            this.layerMatrix[w][h] = null;
+        }
+    }
+};
+
+/**
+ *
  * @param width
  * @param height
  */
@@ -37,3 +48,5 @@ Layer.prototype.setSize = function (width, height) {
 };
 
 Layer.prototype.getJSON = function() {};
+
+Layer.prototype.fromJSON = function(layerData) {};

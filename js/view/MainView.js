@@ -195,3 +195,13 @@ function btnLayer4Click() {
 function btnImportManagerClicked() {
     ipc.send("openImportManagerWindow");
 }
+
+function btnLoadClicked() {
+    map.load();
+    mapCanvas.render();
+}
+
+function btnSaveClicked() {
+    map.save();
+
+}
