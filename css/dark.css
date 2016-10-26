@@ -6,14 +6,18 @@ html body {
     background-color: rgb(96,96,96);
 }
 
-/*            canvas {
-                image-rendering: optimizeSpeed;             !* Older versions of FF          *!
-                image-rendering: -moz-crisp-edges;          !* FF 6.0+                       *!
-                image-rendering: -webkit-optimize-contrast; !* Safari                        *!
-                image-rendering: -o-crisp-edges;            !* OS X & Windows Opera (12.02+) *!
-                image-rendering: pixelated;                 !* Awesome future-browsers       *!
-                -ms-interpolation-mode: nearest-neighbor;   !* IE                            *!
-            }*/
+/*
+
+canvas {
+    image-rendering: optimizeSpeed;             !* Older versions of FF          *!
+    image-rendering: -moz-crisp-edges;          !* FF 6.0+                       *!
+    image-rendering: -webkit-optimize-contrast; !* Safari                        *!
+    image-rendering: -o-crisp-edges;            !* OS X & Windows Opera (12.02+) *!
+    image-rendering: pixelated;                 !* Awesome future-browsers       *!
+    -ms-interpolation-mode: nearest-neighbor;   !* IE                            *!
+}
+
+*/
 
 
 #leftSection {
@@ -303,4 +307,15 @@ canvas {
 .pull-right button {
     margin-right: 10px;
     margin-top:12px;
+}
+
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+input, button, textarea, :focus {
+    outline: none; // You should add some other style for :focus to help UX/a11y
 }
