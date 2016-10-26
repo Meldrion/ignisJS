@@ -78,6 +78,9 @@ $(document).ready(function () {
         showTags: true,
         selectedBackColor: "orange",
         highlightSelected: true,
+        expandIcon: 'glyphicon glyphicon-chevron-right',
+        collapseIcon: 'glyphicon glyphicon-chevron-down',
+        nodeIcon: 'glyphicon glyphicon-bookmark',
         data: mapTree.getTree()
     });
 });
@@ -203,5 +206,4 @@ function btnLoadClicked() {
 
 function btnSaveClicked() {
     map.save();
-
 }

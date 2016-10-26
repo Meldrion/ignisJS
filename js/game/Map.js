@@ -152,7 +152,7 @@ Map.prototype.renderPosition = function (ctx, x, y, activeLayer) {
  *
  */
 Map.prototype.save =  function() {
-    var map = {name:"Hello World",
+    var map = {name:this.name,
                width:this.width,
                height:this.height,
                layer:[]
