@@ -206,7 +206,8 @@
 
         this.unsubscribeEvents();
 
-        this.$element.on('click', $.proxy(this.clickHandler, this));
+
+        this.$element.on('click',$.proxy(this.clickHandler, this));
 
         if (typeof (this.options.onNodeChecked) === 'function') {
             this.$element.on('nodeChecked', this.options.onNodeChecked);
@@ -323,27 +324,44 @@
         var node = this.findNode(target);
         if (!node || node.state.disabled) return;
 
-        var classList = target.attr('class') ? target.attr('class').split(' ') : [];
-        if ((classList.indexOf('expand-icon') !== -1)) {
+        var classList;
+        // Check on Double Click or normal click
+        if (event.detail == 2) {
 
-            this.toggleExpandedState(node, _default.options);
-            this.render();
-        }
-        else if ((classList.indexOf('check-icon') !== -1)) {
-
-            this.toggleCheckedState(node, _default.options);
-            this.render();
-        }
-        else {
-
-            if (node.selectable) {
-                this.toggleSelectedState(node, _default.options);
-            } else {
+            // Double click on the expand icon does not do anything
+            classList = target.attr('class') ? target.attr('class').split(' ') : [];
+            if ((classList.indexOf('expand-icon') === -1)) {
+                // Double click triggers expanded state
                 this.toggleExpandedState(node, _default.options);
+                this.render();
             }
 
-            this.render();
+        } else {
+            classList = target.attr('class') ? target.attr('class').split(' ') : [];
+            if ((classList.indexOf('expand-icon') !== -1)) {
+
+                this.toggleExpandedState(node, _default.options);
+                this.render();
+            }
+            else if ((classList.indexOf('check-icon') !== -1)) {
+
+                this.toggleCheckedState(node, _default.options);
+                this.render();
+            }
+
+            else {
+
+                if (node.selectable) {
+                    this.toggleSelectedState(node, _default.options);
+                } else {
+                    this.toggleExpandedState(node, _default.options);
+                }
+
+                this.render();
+            }
         }
+
+
     };
 
     // Looks up the DOM for the closest parent list item to retrieve the
@@ -904,7 +922,7 @@
         options = $.extend({}, _default.options, options);
 
         $.each(nodes, $.proxy(function (index, node) {
-            this.setExpandedState(node, (level > 0) ? true : false, options);
+            this.setExpandedState(node, (level > 0), options);
             if (node.nodes) {
                 this.expandLevels(node.nodes, level-1, options);
             }
