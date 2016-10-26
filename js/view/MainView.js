@@ -80,7 +80,7 @@ $(document).ready(function () {
         highlightSelected: true,
         expandIcon: 'glyphicon glyphicon-chevron-right',
         collapseIcon: 'glyphicon glyphicon-chevron-down',
-        nodeIcon: 'glyphicon glyphicon-bookmark',
+        nodeIcon: 'glyphicon glyphicon-file',
         data: mapTree.getTree()
     });
 });
