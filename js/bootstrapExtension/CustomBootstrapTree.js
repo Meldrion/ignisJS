@@ -189,6 +189,7 @@
     Tree.prototype.unsubscribeEvents = function () {
 
         this.$element.off('click');
+        this.$element.off('keydown');
         this.$element.off('nodeChecked');
         this.$element.off('nodeCollapsed');
         this.$element.off('nodeDisabled');
@@ -206,8 +207,8 @@
 
         this.unsubscribeEvents();
 
-
         this.$element.on('click',$.proxy(this.clickHandler, this));
+        this.$element.on('keydown',$.proxy(this.keyHandler, this));
 
         if (typeof (this.options.onNodeChecked) === 'function') {
             this.$element.on('nodeChecked', this.options.onNodeChecked);
@@ -315,6 +316,22 @@
             }
         });
     };
+
+
+    Tree.prototype.keyHandler = function(event) {
+
+        if (!this.options.enableLinks) event.preventDefault();
+
+        var node = this.getSelected();
+
+        if (event.keyCode == 32 || event.keyCode == 39 || event.keyCode == 37) {
+
+            // Double click triggers expanded state
+            this.setExpandedState(node[0], event.keyCode != 37, _default.options);
+            this.render();
+
+        }
+    }
 
     Tree.prototype.clickHandler = function (event) {
 
