@@ -333,7 +333,7 @@
             this.render();
         }
 
-        // Down
+        // Arrow Down
         if (event.keyCode == 40 ) {
 
             if (node.state && node.state.expanded) {
@@ -367,7 +367,7 @@
 
         }
 
-        // Up
+        // Arrow Up
         if (event.keyCode == 38 ) {
 
             if (node.parentId !== undefined) {
@@ -380,11 +380,19 @@
                 if (index == 0) {
                     this.setSelectedState(pNode, true, _default.options);
                 } else {
-                    this.setSelectedState(pNode.nodes[index - 1],true,_default.options);
+                    this.setSelectedState(this.getLastExpandedNode(pNode.nodes[index - 1]),true,_default.options);
                 }
 
                 this.render();
             }
+        }
+    };
+
+    Tree.prototype.getLastExpandedNode = function(node) {
+        if (node.state && node.state.expanded) {
+            return this.getLastExpandedNode(node.nodes[node.nodes.length - 1]);
+        } else {
+            return node;
         }
     };
 
