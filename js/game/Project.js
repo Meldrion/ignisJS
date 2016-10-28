@@ -25,6 +25,7 @@ Project.prototype.create = function(rootPath,projectName,projectTitle,author,dev
 
     if (this.filesystem.createFolder(projRoot,false)) {
 
+        var allOk = true;
         this.assetStructure = new AssetStructure(projRoot);
 
         // Create the Project JSON File
@@ -35,15 +36,21 @@ Project.prototype.create = function(rootPath,projectName,projectTitle,author,dev
         };
 
         // Write the Project JSON to Disk
-        this.filesystem.writeJSON(this.filesystem.concat(rootPath,
+        allOk &= this.filesystem.writeJSON(this.filesystem.concat(rootPath,
             this.filesystem.concat(projectName,"project.json")),projectJSON);
 
         // Create the Base Structure of the Project
-        this.filesystem.createFolder(this.assetStructure.asset());
+        allOk &= this.filesystem.createFolder(this.assetStructure.asset());
         var assetNames = AssetStructure.getAssetNames();
         for (var i = 0;i<assetNames.length;i++) {
-            this.filesystem.createFolder(this.assetStructure.getPath(assetNames[i]));
+            allOk &= this.filesystem.createFolder(this.assetStructure.getPath(assetNames[i]));
         }
+
+        return allOk;
+
+    } else {
+
+        return false;
     }
 
 };

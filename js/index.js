@@ -71,6 +71,8 @@ app.on('ready', function () {
             center: false
         });
 
+        newProjectWindow.openDevTools();
+
         // No Menubar for this window
         newProjectWindow.setMenu(null);
 

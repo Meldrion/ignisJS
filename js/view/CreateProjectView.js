@@ -14,7 +14,11 @@ function createButtonClicked() {
     var author = document.getElementById("author").value;
     var company = document.getElementById("companyName").value;
 
-    projectManager.createProject(rootPath,projectName,projectTitle,author,company);
+    if (projectManager.createProject(rootPath,projectName,projectTitle,author,company)) {
+        ipc.send("closeProjectWindow");
+    } else {
+        alert("Error during project creation: " + projectName);
+    }
 }
 
 function cancelButtonClicked() {
@@ -37,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var jsonProjectManager = remote.getGlobal('sharedObject').projectManager;
     var projectManager = ProjectManager.getInstance(jsonProjectManager);
 
-    console.log(projectManager);
     projectRootPath.value = projectManager.getRootFolder();
 
 });

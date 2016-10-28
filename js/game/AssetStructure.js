@@ -32,8 +32,6 @@ AssetStructure.getAssetNames = function() {
     assetNames.push(AssetStructure.TILESET);
     assetNames.push(AssetStructure.TERRAIN);
     assetNames.push(AssetStructure.TITLE);
-    assetNames.push(AssetStructure.TERRAIN);
-    assetNames.push(AssetStructure.TITLE);
     assetNames.push(AssetStructure.UI);
 
     return assetNames;
