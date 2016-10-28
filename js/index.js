@@ -15,6 +15,7 @@ global.sharedObject = {projectManager : null};
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 var newProjectWindow = null;
+var openProjectWindow = null;
 var importManagerWindow = null;
 
 // Quit when all windows are closed.
@@ -93,6 +94,43 @@ app.on('ready', function () {
 
     ipcMain.on("closeProjectWindow", function () {
         newProjectWindow.close();
+    });
+
+
+    ipcMain.on("openOpenProjectWindow",function() {
+        openProjectWindow = new BrowserWindow({
+            modal: true,
+            parent: mainWindow,
+            width: 400,
+            height: 350,
+            nodeIntegration: false,
+            title: "Open Project",
+            resizable: false,
+            skipTaskbar: true,
+            show: false,
+            center: false
+        });
+
+        // No Menubar for this window
+        openProjectWindow.setMenu(null);
+
+        // HTML File used by the window
+        openProjectWindow.loadURL('file://' + __dirname + '/../view/LoadProjectView.html');
+
+        // The on close Event
+        openProjectWindow.on('closed', function () {
+            openProjectWindow = null;
+        });
+
+        // Wait until the page is rendered before showing the window
+        openProjectWindow.once('ready-to-show', function () {
+            openProjectWindow.show();
+        });
+    });
+
+
+    ipcMain.on("closeOpenProjectWindow",function() {
+        openProjectWindow.close();
     });
 
 

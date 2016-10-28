@@ -200,8 +200,11 @@ function btnImportManagerClicked() {
 }
 
 function btnLoadClicked() {
-    map.load();
-    mapCanvas.render();
+
+    ipc.send("openOpenProjectWindow");
+
+/*    map.load();
+    mapCanvas.render();*/
 }
 
 function btnSaveClicked() {

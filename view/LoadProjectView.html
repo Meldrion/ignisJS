@@ -1,0 +1,39 @@
+<html>
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <link href="../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="../css/dark.css" rel="stylesheet">
+
+        <!-- Insert this line above script imports  -->
+        <script>if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }</script>
+
+        <!-- Include -->
+        <script language="JavaScript" src="../node_modules/jquery/dist/jquery.js"></script>
+        <script language="JavaScript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+        <script language="JavaScript" src="../js/view/LoadProjectView.js"></script>
+
+        <!-- Insert this line after script imports -->
+        <script>if (window.module) module = window.module;</script>
+
+        <title>Load Project</title>
+    </head>
+
+    <body>
+
+        <footer id="footerButtons">
+            <div class="pull-right">
+                <button type="button" class="btn btn btn-default" onclick="loadButtonClicked()">Create</button>
+                <button type="button" class="btn btn btn-default" onclick="cancelButtonClicked()">Cancel</button>
+            </div>
+        </footer>
+
+    </body>
+
+</html>
