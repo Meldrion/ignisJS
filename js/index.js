@@ -70,7 +70,8 @@ app.on('ready', function () {
             resizable: false,
             skipTaskbar: true,
             show: false,
-            center: false
+            center: false,
+            useContentSize: true
         });
 
         // No Menubar for this window
@@ -108,7 +109,8 @@ app.on('ready', function () {
             resizable: false,
             skipTaskbar: true,
             show: false,
-            center: false
+            center: false,
+            useContentSize: true
         });
 
         // No Menubar for this window
@@ -141,13 +143,14 @@ app.on('ready', function () {
             modal: true,
             parent: mainWindow,
             width: 800,
-            height: 500,//750,
+            height: 480,//750,
             nodeIntegration: false,
             title: "Import Manager",
             resizable: false,
             skipTaskbar: true,
             show: false,
-            center: false
+            center: false,
+            useContentSize: true
         });
 
         // No Menubar for this window
