@@ -396,6 +396,10 @@
         }
     };
 
+    Tree.prototype.getNextNode = function(node) {
+
+    };
+
     Tree.prototype.getArrayIndexOf = function(node,aNodes) {
 
         var max = aNodes.length;

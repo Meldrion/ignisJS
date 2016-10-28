@@ -33,7 +33,15 @@ MapTree.prototype.getTree = function () {
                 text: "Map 0001",
                 nodes: [
                     {
-                        text: "SupMap"
+                        text: "Map 0003",
+                        nodes: [{
+                            text: "Map 0004",
+                            nodes: [{
+                                text: "Map 0005"
+                            }]
+                        },{
+                            text: "Map 0006"
+                        }]
                     }
                 ]
             },

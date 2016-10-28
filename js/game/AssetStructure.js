@@ -8,10 +8,10 @@ AssetStructure.prototype.asset = function() {
         this.projectRoot,AssetStructure.ASSET));
 };
 
-AssetStructure.prototype.tileset = function() {
+AssetStructure.prototype.getPath = function(assetName) {
     return this.filesystem.toOSStylePath(this.filesystem.concat(
         this.projectRoot,
-        this.filesystem.concat(AssetStructure.ASSET,AssetStructure.TILESET)));
+        this.filesystem.concat(AssetStructure.ASSET,assetName)));
 };
 
 AssetStructure.getAssetNames = function() {
@@ -22,6 +22,7 @@ AssetStructure.getAssetNames = function() {
     assetNames.push(AssetStructure.BACKGROUNDMUSIC);
     assetNames.push(AssetStructure.BATTLESPRITE);
     assetNames.push(AssetStructure.CHARACTER);
+    assetNames.push(AssetStructure.JSON);
     assetNames.push(AssetStructure.OVERLAY);
     assetNames.push(AssetStructure.MAP);
     assetNames.push(AssetStructure.GAMEOVER);
@@ -34,7 +35,6 @@ AssetStructure.getAssetNames = function() {
     assetNames.push(AssetStructure.TERRAIN);
     assetNames.push(AssetStructure.TITLE);
     assetNames.push(AssetStructure.UI);
-    assetNames.push(AssetStructure.XML);
 
     return assetNames;
 };
@@ -47,6 +47,7 @@ AssetStructure.getAssetNames = function() {
  BATTLEBACKGROUND,
  BATTLESPRITE,
  CHARACTER,
+ JSON,
  OVERLAY,
  MAP,
  GAMEOVER,
@@ -56,8 +57,7 @@ AssetStructure.getAssetNames = function() {
  TILESET,
  TERRAIN,
  TITLE,
- UI,
- XML
+ UI
  */
 
 
@@ -67,6 +67,7 @@ AssetStructure.BACKGROUNDMUSIC = "bgm";
 AssetStructure.BATTLEBACKGROUND = "battlebackground";
 AssetStructure.BATTLESPRITE = "battlesprite";
 AssetStructure.CHARACTER = "character";
+AssetStructure.JSON = "json";
 AssetStructure.OVERLAY  = "overlay";
 AssetStructure.MAP = "map";
 AssetStructure.GAMEOVER = "gameover";
@@ -77,4 +78,3 @@ AssetStructure.TILESET = "tileset";
 AssetStructure.TERRAIN = "terrain";
 AssetStructure.TITLE = "title";
 AssetStructure.UI = "ui";
-AssetStructure.XML = "xml";
