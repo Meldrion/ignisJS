@@ -102,7 +102,7 @@ app.on('ready', function () {
             modal: true,
             parent: mainWindow,
             width: 450,
-            height: 400,
+            height: 510,
             nodeIntegration: false,
             title: "Open Project",
             resizable: false,
@@ -123,7 +123,7 @@ app.on('ready', function () {
         });
 
 
-        openProjectWindow.openDevTools();
+        //openProjectWindow.openDevTools();
         // Wait until the page is rendered before showing the window
         openProjectWindow.once('ready-to-show', function () {
             openProjectWindow.show();
