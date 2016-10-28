@@ -323,6 +323,8 @@
         if (!this.options.enableLinks) event.preventDefault();
 
         var node = this.getSelected()[0];
+        var pNode;
+        var index;
 
         if (event.keyCode == 32 || event.keyCode == 39 || event.keyCode == 37) {
 
@@ -331,12 +333,34 @@
             this.render();
         }
 
-        // Node
+        // Down
         if (event.keyCode == 40 ) {
 
             if (node.state && node.state.expanded) {
                 this.setSelectedState(node, false, _default.options);
                 this.setSelectedState(node.nodes[0], true, _default.options);
+            } else {
+
+                pNode = this.nodes[node.parentId];
+                index = this.getArrayIndexOf(node, pNode.nodes);
+
+                if (index == pNode.nodes.length - 1) {
+
+                    if (pNode.parentId !== undefined) {
+
+                        this.setSelectedState(node, false, _default.options);
+
+                        var ppNode = this.nodes[pNode.parentId];
+                        var pIndex = this.getArrayIndexOf(pNode,ppNode.nodes);
+                        this.setSelectedState(ppNode.nodes[pIndex + 1], true, _default.options);
+
+                    }
+
+                } else {
+                    this.setSelectedState(node, false, _default.options);
+                    this.setSelectedState(pNode.nodes[index + 1],true,_default.options);
+                }
+
             }
 
             this.render();
@@ -350,10 +374,13 @@
 
                 this.setSelectedState(node, false, _default.options);
 
-                var pNode = this.nodes[node.parentId];
-                var index = this.getArrayIndexOf(node, pNode.nodes);
+                pNode = this.nodes[node.parentId];
+                index = this.getArrayIndexOf(node, pNode.nodes);
+
                 if (index == 0) {
                     this.setSelectedState(pNode, true, _default.options);
+                } else {
+                    this.setSelectedState(pNode.nodes[index - 1],true,_default.options);
                 }
 
                 this.render();
