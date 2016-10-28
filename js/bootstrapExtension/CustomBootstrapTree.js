@@ -322,16 +322,64 @@
 
         if (!this.options.enableLinks) event.preventDefault();
 
-        var node = this.getSelected();
+        var node = this.getSelected()[0];
 
         if (event.keyCode == 32 || event.keyCode == 39 || event.keyCode == 37) {
 
             // Double click triggers expanded state
-            this.setExpandedState(node[0], event.keyCode != 37, _default.options);
+            this.setExpandedState(node, event.keyCode != 37, _default.options);
+            this.render();
+        }
+
+        // Node
+        if (event.keyCode == 40 ) {
+
+            if (node.state && node.state.expanded) {
+                this.setSelectedState(node, false, _default.options);
+                this.setSelectedState(node.nodes[0], true, _default.options);
+            }
+
             this.render();
 
         }
-    }
+
+        // Up
+        if (event.keyCode == 38 ) {
+
+            if (node.parentId !== undefined) {
+
+                this.setSelectedState(node, false, _default.options);
+
+                var pNode = this.nodes[node.parentId];
+                var index = this.getArrayIndexOf(node, pNode.nodes);
+                if (index == 0) {
+                    this.setSelectedState(pNode, true, _default.options);
+                }
+
+                this.render();
+            }
+        }
+    };
+
+    Tree.prototype.getArrayIndexOf = function(node,aNodes) {
+
+        var max = aNodes.length;
+        var index = 0;
+        var found = false;
+        while (!found && index < max) {
+            if (node === aNodes[index]) {
+                found = true;
+            } else {
+                index++;
+            }
+        }
+
+        if (found) {
+            return index;
+        } else {
+            return -1;
+        }
+    };
 
     Tree.prototype.clickHandler = function (event) {
 
@@ -673,6 +721,7 @@
         }
 
         if (this.options.highlightSearchResults && node.searchResult && !node.state.disabled) {
+
             if (this.options.searchResultColor) {
                 color = this.options.searchResultColor;
             }
