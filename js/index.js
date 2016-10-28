@@ -101,8 +101,8 @@ app.on('ready', function () {
         openProjectWindow = new BrowserWindow({
             modal: true,
             parent: mainWindow,
-            width: 400,
-            height: 350,
+            width: 450,
+            height: 400,
             nodeIntegration: false,
             title: "Open Project",
             resizable: false,
@@ -122,6 +122,8 @@ app.on('ready', function () {
             openProjectWindow = null;
         });
 
+
+        openProjectWindow.openDevTools();
         // Wait until the page is rendered before showing the window
         openProjectWindow.once('ready-to-show', function () {
             openProjectWindow.show();
