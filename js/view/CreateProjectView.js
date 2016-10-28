@@ -15,9 +15,17 @@ function createButtonClicked() {
     var company = document.getElementById("companyName").value;
 
     if (projectManager.createProject(rootPath,projectName,projectTitle,author,company)) {
+
+        dialog.showMessageBox({
+                               type:"info",
+                               buttons:["Ok"],
+                               message:"Project created successfully",
+                               title:"Success"
+                              });
+
         ipc.send("closeProjectWindow");
     } else {
-        alert("Error during project creation: " + projectName);
+        dialog.showErrorBox("Create Project Error", "Error during project creation: " + projectName);
     }
 }
 

@@ -35,6 +35,7 @@ app.on('ready', function () {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        icon:"assets/calci-64x64.png",
         nodeIntegration: false
     });
 
@@ -70,8 +71,6 @@ app.on('ready', function () {
             show: false,
             center: false
         });
-
-        newProjectWindow.openDevTools();
 
         // No Menubar for this window
         newProjectWindow.setMenu(null);
