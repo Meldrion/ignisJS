@@ -294,6 +294,16 @@ canvas {
     *border-left-color: #ffffff;
 }
 
+#footerMap {
+    border-top:1px solid orange;
+    position:fixed;
+    left:0;
+    bottom:0;
+    height:25px;
+    width:100%;
+    background:#333;
+}
+
 #footerButtons {
     border-top:1px solid orange;
     position:fixed;

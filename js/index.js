@@ -63,7 +63,7 @@ app.on('ready', function () {
             modal: true,
             parent: mainWindow,
             width: 480,
-            height: 670,
+            height: 650,
             nodeIntegration: false,
             title: "New Project",
             resizable: false,
@@ -76,7 +76,7 @@ app.on('ready', function () {
         newProjectWindow.setMenu(null);
 
         // HTML File used by the window
-        newProjectWindow.loadURL('file://' + __dirname + '/../view/newproject.html');
+        newProjectWindow.loadURL('file://' + __dirname + '/../view/NewProjectView.html');
 
         // The on close Event
         newProjectWindow.on('closed', function () {

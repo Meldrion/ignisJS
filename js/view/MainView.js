@@ -63,12 +63,12 @@ window.onload = function () {
 window.onresize = function () {
     var ms = document.getElementById("mapCanvasScroller");
     ms.style.width = window.innerWidth - 300;
-    ms.style.height = window.innerHeight - 40;
+    ms.style.height = window.innerHeight - 40 - 25;
     var tsScroller = document.getElementById("tilesetCanvasScroller");
     tsScroller.style.height = window.innerHeight * 0.6;
     var mtScroller = document.getElementById("mapTree");
-    mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight - 48;
-    mtScroller.style.minHeight = window.innerHeight - tsScroller.clientHeight - 48;
+    mtScroller.style.maxHeight = window.innerHeight - tsScroller.clientHeight - 48 - 25;
+    mtScroller.style.minHeight = window.innerHeight - tsScroller.clientHeight - 48 - 25;
 
 };
 
