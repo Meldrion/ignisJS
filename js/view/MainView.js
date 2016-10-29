@@ -1,12 +1,13 @@
 // Instance of Layer
 
 // In renderer process (web page).
-const ipc = require('electron').ipcRenderer;
+//const ipc = require('electron').ipcRenderer;
 const remote = require('electron').remote;
+var windowManager = remote.require('../js/npm/electron-window-manager');
 
 // Init the Project Manager
 ProjectManager.getInstance().init();
-remote.getGlobal('sharedObject').projectManager = ProjectManager.getInstance();
+//remote.getGlobal('sharedObject').projectManager = ProjectManager.getInstance();
 
 var img = new Image();
 var tileset = new Tileset();
@@ -17,9 +18,10 @@ var mapCanvas = new MapCanvas(document.getElementById("mapCanvas"), document.get
 var mapTree = new MapTree();
 
 
-
 function openNewProjectWindow() {
-    ipc.send("openNewProjectWindow");
+    var newProjectWindow = windowManager.
+        createNew('newProjectWindow', 'New Project',"/view/NewProjectView.html","newProjectWindow");
+    newProjectWindow.open();
 }
 
 window.onload = function () {
@@ -196,17 +198,22 @@ function btnLayer4Click() {
 }
 
 function btnImportManagerClicked() {
-    ipc.send("openImportManagerWindow");
+    var loadProjectWindow = windowManager.
+    createNew('importManagerWindow', 'Import Manager',"/view/ImportManagerView.html","importManagerWindow");
+    loadProjectWindow.open();
 }
 
 function btnLoadClicked() {
-
-    ipc.send("openOpenProjectWindow");
-
-/*    map.load();
-    mapCanvas.render();*/
+    var loadProjectWindow = windowManager.
+    createNew('loadProjectWindow', 'Load Project',"/view/LoadProjectView.html","loadProjectWindow");
+    loadProjectWindow.open();
 }
 
 function btnSaveClicked() {
     map.save();
 }
+
+windowManager.bridge.on("activeProjectChanged",function(event) {
+    console.log("WORKS");
+    console.log(event);
+});

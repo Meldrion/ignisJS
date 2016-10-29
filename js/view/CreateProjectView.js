@@ -1,8 +1,7 @@
 "use strict";
-
-const ipc = require('electron').ipcRenderer;
 const {dialog} = require('electron').remote;
 const remote = require('electron').remote;
+var windowManager = remote.require('../js/npm/electron-window-manager');
 
 function createButtonClicked() {
 
@@ -23,14 +22,17 @@ function createButtonClicked() {
                                title:"Success"
                               });
 
-        ipc.send("closeProjectWindow");
+        //remote.getGlobal('sharedObject').currentProject = projectManager.getProject();
+        windowManager.bridge.emit("activeProjectChanged",projectManager.getProject());
+        //ipc.send("closeProjectWindow");
     } else {
         dialog.showErrorBox("Create Project Error", "Error during project creation: " + projectName);
     }
 }
 
 function cancelButtonClicked() {
-    ipc.send("closeProjectWindow");
+    windowManager.bridge.emit("activeProjectChanged",{project : "Hello World"});
+    windowManager.windows["newProjectWindow"].close();
 }
 
 function lookForProjectRootClicked() {

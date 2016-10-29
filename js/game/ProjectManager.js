@@ -17,6 +17,10 @@ ProjectManager.prototype.setProject = function(project) {
     this.currentProject = project;
 };
 
+ProjectManager.prototype.getProject = function() {
+    return this.currentProject;
+};
+
 ProjectManager.prototype.createProject = function(rootPath,projectName,projectTitle,devName,devCompany) {
     var project = new Project();
     var worked = project.create(rootPath,projectName,projectTitle,devName,devCompany);
