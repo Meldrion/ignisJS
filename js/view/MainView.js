@@ -7,7 +7,7 @@ var windowManager = remote.require('../js/npm/electron-window-manager');
 
 // Init the Project Manager
 ProjectManager.getInstance().init();
-//remote.getGlobal('sharedObject').projectManager = ProjectManager.getInstance();
+windowManager.sharedData.set("projectManager", ProjectManager.getInstance() );
 
 var img = new Image();
 var tileset = new Tileset();
@@ -16,7 +16,6 @@ var map = new Map();
 var tilesetCanvas = new TilesetCanvas(document.getElementById("tilesetCanvas"));
 var mapCanvas = new MapCanvas(document.getElementById("mapCanvas"), document.getElementById("mapTopCanvas"));
 var mapTree = new MapTree();
-
 
 function openNewProjectWindow() {
     var newProjectWindow = windowManager.
@@ -213,7 +212,29 @@ function btnSaveClicked() {
     map.save();
 }
 
-windowManager.bridge.on("activeProjectChanged",function(event) {
-    console.log("WORKS");
-    console.log(event);
+windowManager.bridge.on("activeProjectChanged",function(project) {
+
+    if (project != null && project != undefined) {
+        removeClass(document.getElementById("saveProjectButton"),"disabled-toolbutton");
+        removeClass(document.getElementById("penButton"),"disabled-toolbutton");
+        removeClass(document.getElementById("brushButton"),"disabled-toolbutton");
+        removeClass(document.getElementById("fillButton"),"disabled-toolbutton");
+        removeClass(document.getElementById("eraseButton"),"disabled-toolbutton");
+        removeClass(document.getElementById("layer1"),"disabled-toolbutton");
+        removeClass(document.getElementById("layer2"),"disabled-toolbutton");
+        removeClass(document.getElementById("layer3"),"disabled-toolbutton");
+        removeClass(document.getElementById("layer4"),"disabled-toolbutton");
+        removeClass(document.getElementById("importManager"),"disabled-toolbutton");
+    } else {
+        addClass(document.getElementById("saveProjectButton"),"disabled-toolbutton");
+        addClass(document.getElementById("penButton"),"disabled-toolbutton");
+        addClass(document.getElementById("brushButton"),"disabled-toolbutton");
+        addClass(document.getElementById("fillButton"),"disabled-toolbutton");
+        addClass(document.getElementById("eraseButton"),"disabled-toolbutton");
+        addClass(document.getElementById("layer1"),"disabled-toolbutton");
+        addClass(document.getElementById("layer2"),"disabled-toolbutton");
+        addClass(document.getElementById("layer3"),"disabled-toolbutton");
+        addClass(document.getElementById("layer4"),"disabled-toolbutton");
+        addClass(document.getElementById("importManager"),"disabled-toolbutton");
+    }
 });

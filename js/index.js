@@ -1,9 +1,10 @@
 "use strict";
 
-
 const electron = require('electron');
 const application = electron.app;
+//const menu = electron.menu;
 const windowManager = require('./npm/electron-window-manager');
+
 
 application.on('ready', function(){
     windowManager.init();
@@ -13,9 +14,9 @@ application.on('ready', function(){
         height: 600,
         resizable: true,
         showDevTools: true,
-        title: 'Ignis', // Yeah, even the window title!
-        menu: null,
-        icon:"assets/calci-64x64.png"
+        title: 'Ignis',
+        icon:"assets/calci-64x64.png",
+        menu: null
     });
 
     windowManager.open("mainWindow","Ignis","/index.html","main");
@@ -26,10 +27,13 @@ application.on('ready', function(){
         width: 480,
         height: 650,
         resizable: false,
-        showDevTools: false,
+        showDevTools: true,
         menu: null,
         modal: true,
-        parent: windowManager.windows["mainWindow"].object
+        minimizable: false,
+        parent: windowManager.windows["mainWindow"].object,
+        icon:"assets/calci-64x64.png"
+
     });
 
     windowManager.templates.set("loadProjectWindow", {
@@ -39,7 +43,9 @@ application.on('ready', function(){
         showDevTools: false,
         menu: null,
         modal: true,
-        parent: windowManager.windows["mainWindow"].object
+        minimizable: false,
+        parent: windowManager.windows["mainWindow"].object,
+        icon:"assets/calci-64x64.png"
     });
 
     windowManager.templates.set("importManagerWindow", {
@@ -49,7 +55,9 @@ application.on('ready', function(){
         showDevTools: false,
         menu: null,
         modal: true,
-        parent: windowManager.windows["mainWindow"].object
+        minimizable: false,
+        parent: windowManager.windows["mainWindow"].object,
+        icon:"assets/calci-64x64.png"
     });
 
 

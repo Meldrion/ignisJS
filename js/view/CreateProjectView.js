@@ -3,6 +3,9 @@ const {dialog} = require('electron').remote;
 const remote = require('electron').remote;
 var windowManager = remote.require('../js/npm/electron-window-manager');
 
+/**
+ *
+ */
 function createButtonClicked() {
 
     var projectManager = ProjectManager.getInstance();
@@ -22,19 +25,23 @@ function createButtonClicked() {
                                title:"Success"
                               });
 
-        //remote.getGlobal('sharedObject').currentProject = projectManager.getProject();
         windowManager.bridge.emit("activeProjectChanged",projectManager.getProject());
-        //ipc.send("closeProjectWindow");
+        windowManager.windows["newProjectWindow"].close();
     } else {
         dialog.showErrorBox("Create Project Error", "Error during project creation: " + projectName);
     }
 }
 
+/**
+ *
+ */
 function cancelButtonClicked() {
-    windowManager.bridge.emit("activeProjectChanged",{project : "Hello World"});
     windowManager.windows["newProjectWindow"].close();
 }
 
+/**
+ *
+ */
 function lookForProjectRootClicked() {
     var projectRootPath = document.getElementById("projectRootPath");
     var folder = dialog.showOpenDialog({title:"Select Project Root",
@@ -48,7 +55,8 @@ function lookForProjectRootClicked() {
 document.addEventListener("DOMContentLoaded", function(event) {
 
     var projectRootPath = document.getElementById("projectRootPath");
-    var jsonProjectManager = remote.getGlobal('sharedObject').projectManager;
+
+    var jsonProjectManager = windowManager.sharedData.fetch("projectManager");
     var projectManager = ProjectManager.getInstance(jsonProjectManager);
 
     projectRootPath.value = projectManager.getRootFolder();
