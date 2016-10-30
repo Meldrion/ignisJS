@@ -16,11 +16,10 @@ application.on('ready', function(){
         showDevTools: true,
         title: 'Ignis',
         icon:"assets/calci-64x64.png",
-        menu: null
     });
 
-    windowManager.open("mainWindow","Ignis","/index.html","main");
-
+    var main = windowManager.open("mainWindow","Ignis","/index.html","main");
+    main.object.setMenu(null);
     // Sub Windows
 
     windowManager.templates.set("newProjectWindow", {
@@ -31,7 +30,7 @@ application.on('ready', function(){
         menu: null,
         modal: true,
         minimizable: false,
-        parent: windowManager.windows["mainWindow"].object,
+        parent: main.object,
         icon:"assets/calci-64x64.png"
 
     });
@@ -44,7 +43,7 @@ application.on('ready', function(){
         menu: null,
         modal: true,
         minimizable: false,
-        parent: windowManager.windows["mainWindow"].object,
+        parent: main.object,
         icon:"assets/calci-64x64.png"
     });
 
@@ -56,7 +55,7 @@ application.on('ready', function(){
         menu: null,
         modal: true,
         minimizable: false,
-        parent: windowManager.windows["mainWindow"].object,
+        parent: main.object,
         icon:"assets/calci-64x64.png"
     });
 
