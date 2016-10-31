@@ -298,7 +298,6 @@ Window.prototype.loadURL = function(url, options){
 
     }else{
 
-        console.log("LOAD URL ");
         // Load the passed url
         instance.content().loadURL(url, options);
     }
