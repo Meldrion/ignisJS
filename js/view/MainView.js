@@ -237,6 +237,8 @@ windowManager.bridge.on("activeProjectChanged",function(project) {
         addClass(document.getElementById("layer4"),"disabled-toolbutton");
         addClass(document.getElementById("importManager"),"disabled-toolbutton");
     }
+
+    ProjectManager.getInstance().setProject(project);
 });
 
 windowManager.bridge.on("projectManagerChanged",function(projectManagerJSON) {

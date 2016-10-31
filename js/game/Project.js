@@ -7,8 +7,9 @@
 function Project() {
     this.filesystem = new FileSystemHandler();
     this.mapTree = new MapTree();
-
     this.assetStructure = null;
+    this.projectRoot = "";
+    this.projectDetails = {};
 }
 
 /**
@@ -21,23 +22,22 @@ function Project() {
  */
 Project.prototype.create = function(rootPath,projectName,projectTitle,author,devCompany) {
 
-    var projRoot = this.filesystem.toOSStylePath(this.filesystem.concat(rootPath,projectName));
+    this.projectRoot = this.filesystem.toOSStylePath(this.filesystem.concat(rootPath,projectName));
 
-    if (this.filesystem.createFolder(projRoot,false)) {
+    if (this.filesystem.createFolder(this.projectRoot,false)) {
 
         var allOk = true;
-        this.assetStructure = new AssetStructure(projRoot);
+        this.assetStructure = new AssetStructure(this.projectRoot);
 
         // Create the Project JSON File
-        var projectJSON = {
+        this.projectDetails = {
             title: projectTitle,
             author: author,
             company: devCompany
         };
 
         // Write the Project JSON to Disk
-        allOk &= this.filesystem.writeJSON(this.filesystem.concat(rootPath,
-            this.filesystem.concat(projectName,"project.json")),projectJSON);
+        allOk &= this.filesystem.writeJSON(this.assetStructure.getProjectJSON(),this.projectDetails);
 
         // Create the Base Structure of the Project
         allOk &= this.filesystem.createFolder(this.assetStructure.asset());
@@ -58,8 +58,10 @@ Project.prototype.create = function(rootPath,projectName,projectTitle,author,dev
 /**
  *
  */
-Project.prototype.load = function() {
-
+Project.prototype.load = function(projectRoot) {
+    this.projectRoot = projectRoot;
+    this.assetStructure = new AssetStructure(this.projectRoot);
+    this.projectDetails = this.filesystem.readJSON(this.assetStructure.getProjectJSON());
 };
 
 

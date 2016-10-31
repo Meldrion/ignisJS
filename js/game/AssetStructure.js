@@ -14,6 +14,11 @@ AssetStructure.prototype.getPath = function(assetName) {
         this.filesystem.concat(AssetStructure.ASSET,assetName)));
 };
 
+AssetStructure.prototype.getProjectJSON = function() {
+    return this.filesystem.toOSStylePath(this.filesystem.concat(
+        this.projectRoot,"project.json"));
+};
+
 AssetStructure.getAssetNames = function() {
 
     var assetNames = [];

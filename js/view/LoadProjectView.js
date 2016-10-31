@@ -8,6 +8,23 @@ var projectManager = ProjectManager.getInstance(pM);
 
 function loadButtonClicked() {
 
+    var projectsTable = $('#projects');
+    var selections = projectsTable.bootstrapTable('getSelections');
+
+    if (selections.length > 0) {
+
+        var project = selections[0].folderName;
+        var loadedProject = new Project();
+        loadedProject.load(project);
+        ProjectManager.getInstance().setProject(loadedProject);
+
+        windowManager.bridge.emit("activeProjectChanged",projectManager.getProject());
+        windowManager.getCurrent().close();
+
+    }  else {
+        dialog.showErrorBox("Bad load request","You need to select a project first");
+    }
+
 }
 
 function cancelButtonClicked() {

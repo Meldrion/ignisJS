@@ -43,7 +43,9 @@ application.on('ready', function(){
     fileSubMenu.append(new MenuItem({label: 'New Project'}));
     fileSubMenu.append(new MenuItem({label: 'Load Project'}));
     fileSubMenu.append(new MenuItem({label: 'Save'}));
-    fileSubMenu.append(new MenuItem({label: 'Close Project'}));
+    fileSubMenu.append(new MenuItem({label: 'Close Project',
+        click:function() {windowManager.bridge.emit("activeProjectChanged", null)}}));
+
     fileSubMenu.append(new MenuItem({type: 'separator'}));
     fileSubMenu.append(new MenuItem({label: 'Exit',click: function() {application.quit();}}));
 
