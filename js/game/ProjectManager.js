@@ -59,14 +59,17 @@ ProjectManager.instance = null;
 ProjectManager.getInstance = function(otherInstance) {
     if (ProjectManager.instance == null ) {
         ProjectManager.instance = new ProjectManager();
-
-        if (otherInstance !== undefined && otherInstance != null) {
-            ProjectManager.instance.currentProject = otherInstance.currentProject;
-            ProjectManager.instance.rootFolder = otherInstance.rootFolder;
-        }
+        ProjectManager.instance.syncData(otherInstance);
     }
 
     return ProjectManager.instance;
+};
+
+ProjectManager.prototype.syncData = function(otherInstance) {
+    if (otherInstance !== undefined && otherInstance != null) {
+        ProjectManager.instance.currentProject = otherInstance.currentProject;
+        ProjectManager.instance.rootFolder = otherInstance.rootFolder;
+    }
 };
 
 ProjectManager.prototype.init = function() {
@@ -83,7 +86,9 @@ ProjectManager.prototype.init = function() {
 
 
 ProjectManager.prototype.getRootFolder = function() {
-
-    console.log(this.rootFolder);
     return this.rootFolder;
+};
+
+ProjectManager.prototype.setRootFolder = function(rootPath) {
+    this.rootFolder = rootPath;
 };

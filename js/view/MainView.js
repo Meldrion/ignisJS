@@ -239,6 +239,12 @@ windowManager.bridge.on("activeProjectChanged",function(project) {
     }
 });
 
+windowManager.bridge.on("projectManagerChanged",function(projectManagerJSON) {
+
+    ProjectManager.getInstance().syncData(projectManagerJSON);
+    windowManager.sharedData.set("projectManager",ProjectManager.getInstance());
+});
+
 
 // Dynamic Menu for right click
 const {Menu, MenuItem} = remote;
