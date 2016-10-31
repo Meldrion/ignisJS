@@ -225,6 +225,8 @@ windowManager.bridge.on("activeProjectChanged",function(project) {
         removeClass(document.getElementById("layer3"),"disabled-toolbutton");
         removeClass(document.getElementById("layer4"),"disabled-toolbutton");
         removeClass(document.getElementById("importManager"),"disabled-toolbutton");
+        removeClass(document.getElementById("mapCanvasScroller"),"hiddenClass");
+        removeClass(document.getElementById("leftSection"),"hiddenClass");
     } else {
         addClass(document.getElementById("saveProjectButton"),"disabled-toolbutton");
         addClass(document.getElementById("penButton"),"disabled-toolbutton");
@@ -236,6 +238,7 @@ windowManager.bridge.on("activeProjectChanged",function(project) {
         addClass(document.getElementById("layer3"),"disabled-toolbutton");
         addClass(document.getElementById("layer4"),"disabled-toolbutton");
         addClass(document.getElementById("importManager"),"disabled-toolbutton");
+        addClass(document.getElementById("leftSection"),"hiddenClass");
     }
 
     ProjectManager.getInstance().setProject(project);

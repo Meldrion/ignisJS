@@ -76,7 +76,7 @@ application.on('ready', function(){
         width: 450,
         height: 510,
         resizable: false,
-        showDevTools: true,
+        showDevTools: false,
         menu: null,
         modal: true,
         minimizable: false,
