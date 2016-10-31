@@ -3,7 +3,8 @@
 const {dialog} = require('electron').remote;
 const remote = require('electron').remote;
 var windowManager = remote.require('../js/npm/electron-window-manager');
-
+var pM = windowManager.sharedData.fetch("projectManager");
+var projectManager = ProjectManager.getInstance(pM);
 
 function loadButtonClicked() {
 
@@ -19,16 +20,14 @@ function lookForProjectRootClicked() {
     var folder = dialog.showOpenDialog({title:"Select Project Root",
         defaultPath:projectRootPath.value, properties: ['openDirectory']});
 
-    if (folder != null) {
-        projectRootPath.value = folder;
+    if (folder != null && folder.length >= 0) {
+        projectRootPath.value = folder[0];
+        projectManager.setRootFolder(folder[0]);
+        windowManager.bridge.emit("projectManagerChanged",projectManager);
     }
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-
-    var pM = windowManager.sharedData.fetch("projectManager");
-
-    var projectManager = ProjectManager.getInstance(pM);
 
     $("#projectRootPath").val(projectManager.getRootFolder());
 

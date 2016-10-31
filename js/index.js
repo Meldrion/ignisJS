@@ -30,7 +30,7 @@ application.on('ready', function(){
         width: 800,
         height: 600,
         resizable: true,
-        showDevTools: true,
+        showDevTools: false,
         title: 'Ignis',
         icon:"assets/calci-64x64.png"
     });
@@ -61,7 +61,7 @@ application.on('ready', function(){
         width: 480,
         height: 650,
         resizable: false,
-        showDevTools: true,
+        showDevTools: false,
         menu: null,
         modal: true,
         minimizable: false,
@@ -74,7 +74,7 @@ application.on('ready', function(){
         width: 450,
         height: 510,
         resizable: false,
-        showDevTools: true,
+        showDevTools: false,
         menu: null,
         modal: true,
         minimizable: false,
