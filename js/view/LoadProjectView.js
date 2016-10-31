@@ -14,7 +14,6 @@ function cancelButtonClicked() {
     windowManager.getCurrent().close();
 }
 
-
 function deleteButtonClicked() {
 
     var projectsTable = $('#projects');
@@ -40,6 +39,8 @@ function deleteButtonClicked() {
             values: ids
         });
 
+    } else {
+        dialog.showErrorBox("Bad delete request","You need to select a project first");
     }
 
 }
@@ -57,10 +58,16 @@ function lookForProjectRootClicked() {
 }
 
 function buildTable() {
-    $('#projects').bootstrapTable({
-        data: projectManager.listAllProjectsInFolder(projectManager.getRootFolder()),
+
+    var pList = projectManager.listAllProjectsInFolder(projectManager.getRootFolder());
+    var projectsTable = $('#projects');
+    projectsTable.bootstrapTable({
+        data: pList,
         striped: true
     });
+
+    if (pList.length > 0)
+        projectsTable.bootstrapTable("check",0);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {

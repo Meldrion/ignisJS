@@ -61,7 +61,7 @@ application.on('ready', function(){
         width: 480,
         height: 650,
         resizable: false,
-        showDevTools: true,
+        showDevTools: false,
         menu: null,
         modal: true,
         minimizable: false,

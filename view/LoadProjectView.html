@@ -57,40 +57,30 @@
     <body class="container">
 
 
-    <div class="row">
-
-        <div class="col-sm-4" style="margin-top:20px;">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Basic Details</h3>
-                </div>
-
-                <div class="panel-body">
-
-                    <div>
-                        <label for="projectRootPath">Project Root Path</label>
-                        <div class="input-group">
-
-                            <input id="projectRootPath" type="text" class="form-control" placeholder="">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" onclick="lookForProjectRootClicked()">...</button>
-                            </span>
-                        </div><!-- /input-group -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
         <div class="row">
-            <div class="col-sm-4">
 
+            <div class="col-sm-4" style="margin-top:20px;">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Project List</h3>
+                        <h3 class="panel-title">Basic Details</h3>
                     </div>
+
                     <div class="panel-body">
-                        <table data-toggle="table" data-height="150" id="projects" data-click-to-select="true"
+
+                        <div>
+                            <label for="projectRootPath">Project Root Path</label>
+                            <div class="input-group">
+
+                                <input id="projectRootPath" type="text" class="form-control" placeholder="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="lookForProjectRootClicked()">...</button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+
+                        <br/>
+                        <label for="projects">Projects in Path:</label>
+                        <table data-toggle="table" data-height="180" id="projects" data-click-to-select="true"
                                data-select-item-name="radioName">
                             <thead>
                             <tr>
@@ -106,10 +96,13 @@
                                 Delete
                             </button>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
+
+
 
         <footer id="footerButtons">
             <div class="pull-right">
