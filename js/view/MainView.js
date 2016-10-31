@@ -19,7 +19,7 @@ var mapTree = new MapTree();
 
 function openNewProjectWindow() {
     var newProjectWindow = windowManager.
-        createNew('newProjectWindow', 'New Project',"/view/NewProjectView.html","newProjectWindow");
+        createNew('newProjectWindow', 'New Project',windowManager.convert("view/NewProjectView.html"),"newProjectWindow");
     newProjectWindow.open();
 }
 
@@ -57,7 +57,7 @@ window.onload = function () {
         tilesetCanvas.addSelectionListener(mapCanvas);
     };
 
-    img.src = 'assets/cave.png';
+    img.src = '../assets/cave.png';
     onresize();
 };
 
@@ -198,13 +198,13 @@ function btnLayer4Click() {
 
 function btnImportManagerClicked() {
     var loadProjectWindow = windowManager.
-    createNew('importManagerWindow', 'Import Manager',"/view/ImportManagerView.html","importManagerWindow");
+    createNew('importManagerWindow', 'Import Manager',windowManager.convert("view/ImportManagerView.html"),"importManagerWindow");
     loadProjectWindow.open();
 }
 
 function btnLoadClicked() {
     var loadProjectWindow = windowManager.
-    createNew('loadProjectWindow', 'Load Project',"/view/LoadProjectView.html","loadProjectWindow");
+    createNew('loadProjectWindow', 'Load Project',windowManager.convert("view/LoadProjectView.html"),"loadProjectWindow");
     loadProjectWindow.open();
 }
 

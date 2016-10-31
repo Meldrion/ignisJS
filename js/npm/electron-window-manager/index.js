@@ -246,12 +246,16 @@ Window.prototype.focus = function(){
  * Load a URL into the window
  * */
 Window.prototype.loadURL = function(url, options){
+
+    console.log(this.setup.layout);
+
     // Ready the url
     url = utils.readyURL(url || this.setup.url);
 
     var instance = this,
         layout = this.setup.layout !== false
             ?(this.setup.layout || windowManager.config.defaultLayout) :false;
+
 
     // If a layout is specified
     var layoutFile = layouts.get(layout);
@@ -293,6 +297,8 @@ Window.prototype.loadURL = function(url, options){
         });
 
     }else{
+
+        console.log("LOAD URL ");
         // Load the passed url
         instance.content().loadURL(url, options);
     }
@@ -871,6 +877,7 @@ var windowManager = {
      * Opens a new window
      * */
     'open': function(name, title, content, setupTemplate, setup, showDevTools){
+
         var window = this.createNew(name, title, content, setupTemplate, setup, showDevTools);
         if(window) window.open();
         return window;
@@ -1073,7 +1080,16 @@ var windowManager = {
                 'data': data
             });
         }
+    },
+
+    'getFolderRoot': function() {
+        return __dirname + "/../../../";
+    },
+
+    'convert': function(filePath) {
+        return "file://" + this.getFolderRoot() + filePath;
     }
+
 };
 
 module.exports = windowManager;

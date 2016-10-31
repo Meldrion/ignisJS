@@ -15,10 +15,11 @@ application.on('ready', function(){
         resizable: true,
         showDevTools: true,
         title: 'Ignis',
-        icon:"assets/calci-64x64.png",
+        icon:"assets/calci-64x64.png"
     });
-
-    var main = windowManager.open("mainWindow","Ignis","/index.html","main");
+    var main = windowManager.open("mainWindow","Ignis",windowManager.convert("view/MainView.html"),"main");
+    //console.log(__dirname);
+    //main.object.loadURL();
     main.object.setMenu(null);
     // Sub Windows
 
