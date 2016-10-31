@@ -238,6 +238,7 @@ windowManager.bridge.on("activeProjectChanged",function(project) {
         addClass(document.getElementById("layer3"),"disabled-toolbutton");
         addClass(document.getElementById("layer4"),"disabled-toolbutton");
         addClass(document.getElementById("importManager"),"disabled-toolbutton");
+        addClass(document.getElementById("mapCanvasScroller"),"hiddenClass");
         addClass(document.getElementById("leftSection"),"hiddenClass");
     }
 

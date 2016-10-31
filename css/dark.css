@@ -342,5 +342,5 @@ a[href^="ftp://"] {
 }
 
 .hiddenClass {
-    display:none;
+    visibility: hidden;
 }
