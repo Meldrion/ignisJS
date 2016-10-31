@@ -19,7 +19,7 @@ function createButtonClicked() {
 
     if (projectManager.createProject(rootPath,projectName,projectTitle,author,company)) {
 
-        dialog.showMessageBox({
+        dialog.showMessageBox(windowManager.getCurrent().object,{
                                type:"info",
                                buttons:["Ok"],
                                message:"Project created successfully",

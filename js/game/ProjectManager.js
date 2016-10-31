@@ -28,6 +28,11 @@ ProjectManager.prototype.createProject = function(rootPath,projectName,projectTi
     return worked;
 };
 
+ProjectManager.prototype.deleteProject = function(rootPath,projectName) {
+    var path = this.filesystem.toOSStylePath(this.filesystem.concat(rootPath,projectName));
+    this.filesystem.deleteFolder(path);
+};
+
 ProjectManager.prototype.loadProject = function(path) {
     var project = new Project();
     project.load();
@@ -51,7 +56,7 @@ ProjectManager.prototype.listAllProjectsInFolder = function(folder) {
 };
 
 ProjectManager.prototype.isValidProject = function(path) {
-    return true;
+    return this.filesystem.isFolder(path);
 };
 
 ProjectManager.instance = null;

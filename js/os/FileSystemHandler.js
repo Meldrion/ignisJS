@@ -71,6 +71,28 @@ FileSystemHandler.prototype.createFolder = function(folder,ignoreFolderAlreadyEx
     }
 };
 
+FileSystemHandler.prototype.deleteFolder = function(path) {
+
+    if (path == null || path == undefined || path == "")
+        return;
+
+    if( fs.existsSync(path) ) {
+
+        var folders = fs.readdirSync(path);
+        for (var index = 0;index < folders.length;index++) {
+            var currentPath = this.toOSStylePath(path + "/" + folders[index]);
+
+            if(fs.lstatSync(currentPath).isDirectory()) { // recurse
+                this.deleteFolder(currentPath);
+            } else { // delete file
+                fs.unlinkSync(currentPath);
+            }
+        }
+
+        fs.rmdirSync(path);
+    }
+};
+
 FileSystemHandler.prototype.readFolderContent = function(folder) {
     return fs.readdirSync(folder);
 };
