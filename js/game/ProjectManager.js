@@ -36,7 +36,22 @@ ProjectManager.prototype.loadProject = function(path) {
 };
 
 ProjectManager.prototype.listAllProjectsInFolder = function(folder) {
+    var projectList = [
 
+    ];
+
+    var folders = this.filesystem.readFolderContent(folder);
+    for (var i=0;i<folders.length;i++) {
+        if (this.isValidProject(folder)) {
+            projectList.push({folderName: folders[i] , projectTitle: "1234566"});
+        }
+    }
+
+    return projectList;
+};
+
+ProjectManager.prototype.isValidProject = function(path) {
+    return true;
 };
 
 ProjectManager.instance = null;

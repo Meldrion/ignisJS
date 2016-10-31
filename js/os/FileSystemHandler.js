@@ -70,3 +70,20 @@ FileSystemHandler.prototype.createFolder = function(folder,ignoreFolderAlreadyEx
         }
     }
 };
+
+FileSystemHandler.prototype.readFolderContent = function(folder) {
+    return fs.readdirSync(folder);
+};
+
+FileSystemHandler.prototype.isFolder = function (folderPath) {
+    return fs.statSync(folderPath).isDirectory();
+};
+
+FileSystemHandler.prototype.isFile = function (filePath) {
+    return fs.statSync(filePath).isFile();
+};
+
+FileSystemHandler.prototype.doesExist = function (path) {
+    return fs.existsSync(path);
+};
+

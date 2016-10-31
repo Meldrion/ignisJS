@@ -26,7 +26,7 @@ function createButtonClicked() {
                               });
 
         windowManager.bridge.emit("activeProjectChanged",projectManager.getProject());
-        windowManager.windows["newProjectWindow"].close();
+        windowManager.getCurrent().close();
     } else {
         dialog.showErrorBox("Create Project Error", "Error during project creation: " + projectName);
     }
@@ -36,7 +36,7 @@ function createButtonClicked() {
  *
  */
 function cancelButtonClicked() {
-    windowManager.windows["newProjectWindow"].close();
+    windowManager.getCurrent().close();
 }
 
 /**

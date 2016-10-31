@@ -29,6 +29,22 @@
         <script language="JavaScript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
         <script language="JavaScript" src="../node_modules/bootstrap-table/dist/bootstrap-table.js"></script>
 
+
+        <script language="JavaScript" src="../js/game/Globals.js"></script>
+        <script language="JavaScript" src="../js/game/Globals.js"></script>
+        <script language="JavaScript" src="../js/game/Tileset.js"></script>
+        <script language="JavaScript" src="../js/game/TilesetCell.js"></script>
+        <script language="JavaScript" src="../js/game/Layer.js"></script>
+        <script language="JavaScript" src="../js/game/TilesetLayer.js"></script>
+        <script language="JavaScript" src="../js/game/Map.js"></script>
+        <script language="JavaScript" src="../js/component/TilesetCanvas.js"></script>
+        <script language="JavaScript" src="../js/game/MapTree.js"></script>
+        <script language="JavaScript" src="../js/component/MapCanvas.js"></script>
+        <script language="JavaScript" src="../js/game/AssetStructure.js"></script>
+        <script language="JavaScript" src="../js/game/Project.js"></script>
+        <script language="JavaScript" src="../js/game/ProjectManager.js"></script>
+        <script language="JavaScript" src="../js/os/FileSystemHandler.js"></script>
+
         <script language="JavaScript" src="../js/view/LoadProjectView.js"></script>
 
         <!-- Insert this line after script imports -->
@@ -74,7 +90,7 @@
                         <h3 class="panel-title">Project List</h3>
                     </div>
                     <div class="panel-body">
-                        <table data-toggle="table" data-height="150" id="testTable" data-click-to-select="true"
+                        <table data-toggle="table" data-height="150" id="projects" data-click-to-select="true"
                                data-select-item-name="radioName">
                             <thead>
                             <tr>
@@ -85,7 +101,7 @@
                             </thead>
                         </table>
                         <div class="pull-right">
-                            <button type="button" class="btn btn btn-danger" style="width:150px; margin-right:0px;">
+                            <button type="button" class="btn btn btn-danger" style="width:150px; margin-right:0;">
                                 <span class="glyphicon glyphicon-trash"></span>
                                 Delete
                             </button>
@@ -101,19 +117,6 @@
                 <button type="button" class="btn btn btn-default" onclick="cancelButtonClicked()">Cancel</button>
             </div>
         </footer>
-
-
-        <script>
-            $('#testTable').bootstrapTable({
-                data: [
-                    {folderName:"EndlessSorrow",projectTitle:"Endless Sorrow"},
-                    {folderName:"EndlessSorrow",projectTitle:"Endless Sorrow"},
-                    {folderName:"EndlessSorrow",projectTitle:"Endless Sorrow"},
-                    {folderName:"EndlessSorrow",projectTitle:"Endless Sorrow"}
-                ],
-                striped: true
-            });
-        </script>
 
     </body>
 

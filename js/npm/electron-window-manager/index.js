@@ -247,8 +247,6 @@ Window.prototype.focus = function(){
  * */
 Window.prototype.loadURL = function(url, options){
 
-    console.log(this.setup.layout);
-
     // Ready the url
     url = utils.readyURL(url || this.setup.url);
 

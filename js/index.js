@@ -20,7 +20,7 @@ application.on('window-all-closed', function () {
 });
 
 application.on("before-quit",function (event) {
-    console.log(event);
+    //console.log(event);
 });
 
 application.on('ready', function(){
@@ -52,9 +52,9 @@ application.on('ready', function(){
     mainMenu.append(fileMenu);
     mainMenu.append(new MenuItem({label: 'Edit'}));
 
-    //console.log(__dirname);
-    //main.object.loadURL();
     main.object.setMenu(mainMenu);
+
+
     // Sub Windows
 
     windowManager.templates.set("newProjectWindow", {
@@ -74,7 +74,7 @@ application.on('ready', function(){
         width: 450,
         height: 510,
         resizable: false,
-        showDevTools: false,
+        showDevTools: true,
         menu: null,
         modal: true,
         minimizable: false,
