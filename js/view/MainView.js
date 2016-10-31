@@ -250,6 +250,14 @@ windowManager.bridge.on("projectManagerChanged",function(projectManagerJSON) {
     windowManager.sharedData.set("projectManager",ProjectManager.getInstance());
 });
 
+windowManager.bridge.on("newProjectMenuClicked",function() {
+    openNewProjectWindow();
+});
+
+windowManager.bridge.on("loadProjectMenuClicked",function() {
+    btnLoadClicked();
+});
+
 
 // Dynamic Menu for right click
 const {Menu, MenuItem} = remote;

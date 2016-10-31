@@ -10,13 +10,11 @@ const windowManager = require('./npm/electron-window-manager');
 
 // Quit when all windows are closed.
 application.on('window-all-closed', function () {
-
     // On OS X it is common for applications and their menu bar
         // to stay active until the user quits explicitly with Cmd   Q
     if (process.platform != 'darwin') {
         application.quit();
     }
-
 });
 
 application.on("before-quit",function (event) {
@@ -40,8 +38,8 @@ application.on('ready', function(){
     const mainMenu = new Menu();
 
     const fileSubMenu = new Menu();
-    fileSubMenu.append(new MenuItem({label: 'New Project'}));
-    fileSubMenu.append(new MenuItem({label: 'Load Project'}));
+    fileSubMenu.append(new MenuItem({label: 'New Project',click: function() {windowManager.bridge.emit("newProjectMenuClicked")}}));
+    fileSubMenu.append(new MenuItem({label: 'Load Project',click: function() {windowManager.bridge.emit("loadProjectMenuClicked")}}));
     fileSubMenu.append(new MenuItem({label: 'Save'}));
     fileSubMenu.append(new MenuItem({label: 'Close Project',
         click:function() {windowManager.bridge.emit("activeProjectChanged", null)}}));

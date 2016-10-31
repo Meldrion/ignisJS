@@ -7,12 +7,23 @@
  * */
 
 function Map() {
+    this.filename = "";
     this.name = "Untitled";
     this.width = 20;
     this.height = 15;
     this.tileset = null;
     this.layers = [new TileLayer(), new TileLayer(), new TileLayer()];
+    this.subMaps = [];
 }
+
+Map.prototype.addMap = function(map) {
+    if (this.subMaps.indexOf(map) == -1)
+        this.subMaps.push(map);
+};
+
+Map.prototype.findMap = function(mapId) {
+
+};
 
 Map.prototype.setTile = function (layer, x, y, tX, tY) {
     this.layers[layer].setTile(x, y, new TilesetLayerCell(tX, tY));
