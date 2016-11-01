@@ -139,7 +139,7 @@ function MapCanvas(canvas, cursorCanvas) {
                     case MapCanvas.TOOL_ERASE:
 
                         if (self.mouseIsDown == true) {
-                            self.removeAtCursor(x, y);
+                            self.removeAtCursor(self.x, self.y);
                         }
 
                         self.renderCursor(self.x * 32, self.y * 32, 32, 32);
