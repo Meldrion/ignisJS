@@ -202,6 +202,12 @@ function btnImportManagerClicked() {
     loadProjectWindow.open();
 }
 
+function btnAudioManagerClicked() {
+    var audioWindow = windowManager.
+    createNew('audioManagerWindow', 'Audio Manager',windowManager.convert("view/AudioView.html"),"audioManagerWindow");
+    audioWindow.open();
+}
+
 function btnLoadClicked() {
     var loadProjectWindow = windowManager.
     createNew('loadProjectWindow', 'Load Project',windowManager.convert("view/LoadProjectView.html"),"loadProjectWindow");
@@ -225,6 +231,7 @@ windowManager.bridge.on("activeProjectChanged",function(project) {
         removeClass(document.getElementById("layer3"),"disabled-toolbutton");
         removeClass(document.getElementById("layer4"),"disabled-toolbutton");
         removeClass(document.getElementById("importManager"),"disabled-toolbutton");
+        removeClass(document.getElementById("audioManager"),"disabled-toolbutton");
         removeClass(document.getElementById("mapCanvasScroller"),"hiddenClass");
         removeClass(document.getElementById("leftSection"),"hiddenClass");
     } else {
@@ -238,6 +245,7 @@ windowManager.bridge.on("activeProjectChanged",function(project) {
         addClass(document.getElementById("layer3"),"disabled-toolbutton");
         addClass(document.getElementById("layer4"),"disabled-toolbutton");
         addClass(document.getElementById("importManager"),"disabled-toolbutton");
+        addClass(document.getElementById("audioManager"),"disabled-toolbutton");
         addClass(document.getElementById("mapCanvasScroller"),"hiddenClass");
         addClass(document.getElementById("leftSection"),"hiddenClass");
     }

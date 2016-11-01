@@ -1,0 +1,42 @@
+<html>
+
+    <head>
+        <title>Play Audio</title>
+
+        <link href="../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="../node_modules/bootstrap-slider/dist/css/bootstrap-slider.css" rel="stylesheet">
+        <link href="../css/dark.css" rel="stylesheet">
+
+        <!-- Insert this line above script imports  -->
+        <script>if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }</script>
+
+        <!-- Include -->
+        <script language="JavaScript" src="../node_modules/jquery/dist/jquery.js"></script>
+        <script language="JavaScript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <script language="JavaScript" src="../node_modules/bootstrap-slider/dist/bootstrap-slider.js"></script>
+
+        <script language="JavaScript" src="../js/view/AudioView.js"></script>
+
+        <!-- Insert this line after script imports -->
+        <script>if (window.module) module = window.module;</script>
+
+
+    </head>
+
+    <body>
+        <audio controls id="audioPlayer">
+            <source src="../assets/audio/templeLevel.ogg" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <br/>
+
+        <input id="ex1" data-slider-id='ex1Slider' type="text"
+               data-slider-min="50" data-slider-max="200"
+               data-slider-step="10" data-slider-value="100"/>
+    </body>
+
+</html>

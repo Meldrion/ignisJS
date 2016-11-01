@@ -132,6 +132,10 @@ canvas {
     background-image: url(../assets/icons/import-icon-24.png);
 }
 
+#audioManager {
+    background-image: url(../assets/icons/audioManager22.png);
+}
+
 .buttonGroupLayer {
 
 }

@@ -94,4 +94,16 @@ application.on('ready', function(){
         icon:"assets/calci-64x64.png"
     });
 
+    windowManager.templates.set("audioManagerWindow", {
+        width: 800,
+        height: 480,
+        resizable: false,
+        showDevTools: true,
+        menu: null,
+        modal: true,
+        minimizable: false,
+        parent: main.object,
+        icon:"assets/calci-64x64.png"
+    });
+
 });
