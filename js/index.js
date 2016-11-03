@@ -95,8 +95,8 @@ application.on('ready', function(){
     });
 
     windowManager.templates.set("audioManagerWindow", {
-        width: 350,
-        height: 400,
+        width: 400,
+        height: 450,
         resizable: false,
         showDevTools: false,
         menu: null,

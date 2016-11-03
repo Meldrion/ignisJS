@@ -338,6 +338,7 @@ a:not([draggable=true]), img:not([draggable=true]) {
     -webkit-user-drag: none;
     user-drag: none; /* Technically not supported in Electron yet */
 }
+
 a[href^="http://"],
 a[href^="https://"],
 a[href^="ftp://"] {
@@ -347,4 +348,11 @@ a[href^="ftp://"] {
 
 .hiddenClass {
     visibility: hidden;
+}
+
+.fixed-table-container tbody .selected td {
+    background-color: darkorange;
+}
+.bs-checkbox {
+    display:none;
 }

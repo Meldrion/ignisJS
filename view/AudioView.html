@@ -29,31 +29,83 @@
     </head>
 
     <body>
-        <audio controls id="audioPlayer" class = "hiddenClass">
+
+        <audio controls id="audioPlayer" style="display:none;">
             <source src="../assets/audio/templeLevel.ogg" type="audio/ogg">
             Your browser does not support the audio element.
         </audio>
 
-        <br/>
+        <div class="panel with-nav-tabs panel-default" style="margin:10px;">
 
-        <table data-toggle="table" data-height="180" id="bgm" data-click-to-select="true"
-               data-select-item-name="radioName">
-            <thead>
-            <tr>
-                <th data-field="state" data-radio="true"></th>
-                <th data-field="name">Folder Name</th>
-                <th data-field="name">Folder Name</th>
-            </tr>
-            </thead>
-        </table>
+            <div class="panel-heading" style="padding-bottom: 0; !important;">
+                <ul class="nav nav-tabs" style="border:0;">
+                    <li class="active"><a href="#tab1default" data-toggle="tab">BGM</a></li>
+                    <li class=""><a href="#tab2default" data-toggle="tab">SoundEffect</a></li>
+                </ul>
+            </div>
 
-        <input id="ex1" data-slider-id='ex1Slider' type="text"
-               data-slider-min="50" data-slider-max="200"
-               data-slider-step="10" data-slider-value="100"/>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="tab1default">
+
+                        <table data-toggle="table" data-height="230" id="bgm" data-click-to-select="true"
+                               data-select-item-name="radioName">
+                            <thead>
+                            <tr>
+                                <th data-field="state" data-radio="true"></th>
+                                <th data-field="name">Name</th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                    <div class="tab-pane fade" id="tab2default">
+
+                        <table data-toggle="table" data-height="230" id="soundEffect" data-click-to-select="true"
+                               data-select-item-name="radioName">
+                            <thead>
+                            <tr>
+                                <th data-field="state" data-radio="true"></th>
+                                <th data-field="name">Name</th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+
+            <button type="button" onclick="playButtonClicked()" class="btn btn">
+                <span class="glyphicon glyphicon-trash"></span>
+                Play
+            </button>
+
+            <button type="button" onclick="pauseButtonClicked()" class="btn btn">
+                <span class="glyphicon glyphicon-trash"></span>
+                Pause
+            </button>
+
+            <button type="button" onclick="stopButtonClicked()" class="btn btn">
+                <span class="glyphicon glyphicon-trash"></span>
+                Stop
+            </button>
+
+        </div>
+
+        <!-- For now this is hidden an disabled -->
+        <div class="text-center" style="display:none">
+            <input id="ex1" data-slider-id='ex1Slider' type="text"
+                   data-slider-min="50" data-slider-max="200"
+                   data-slider-step="10" data-slider-value="100"/>
+        </div>
+
 
         <footer id="footerButtons">
-            <div class="pull-right">
-                <button type="button" class="btn btn btn-default" onclick="closeButtonClicked()">Close</button>
+            <div class="text-center">
+                <button type="button" class="btn btn btn-default" style="margin-top: 12px; width: 150px;" onclick="closeButtonClicked()">Close</button>
             </div>
         </footer>
 

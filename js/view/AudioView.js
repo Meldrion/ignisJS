@@ -24,8 +24,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
     player = document.getElementById("audioPlayer");
     player.playbackRate = 1.0;
     player.loop = true;
-    player.play();
+    //player.play();
 });
+
+function playButtonClicked() {
+    player.play();
+}
+
+function pauseButtonClicked() {
+    player.pause();
+}
+
+function stopButtonClicked() {
+    player.stop();
+}
 
 
 function closeButtonClicked() {
