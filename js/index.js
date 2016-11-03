@@ -95,10 +95,10 @@ application.on('ready', function(){
     });
 
     windowManager.templates.set("audioManagerWindow", {
-        width: 800,
-        height: 480,
+        width: 350,
+        height: 400,
         resizable: false,
-        showDevTools: true,
+        showDevTools: false,
         menu: null,
         modal: true,
         minimizable: false,

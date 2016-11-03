@@ -1,5 +1,12 @@
+"use strict";
+const {dialog} = require('electron').remote;
+const remote = require('electron').remote;
+var windowManager = remote.require('../js/npm/electron-window-manager');
+
 var player = null;
 document.addEventListener("DOMContentLoaded", function(event) {
+
+    buildTable();
 
     var speedSlider = $('#ex1');
 
@@ -21,3 +28,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 
+function closeButtonClicked() {
+    windowManager.getCurrent().close();
+}
+
+function buildTable() {
+
+    var bgmTable = $('#bgm');
+    bgmTable.bootstrapTable({
+        data: [],
+        striped: true
+    });
+
+}
