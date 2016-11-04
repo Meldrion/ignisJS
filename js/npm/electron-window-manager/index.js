@@ -227,9 +227,12 @@ Window.prototype.open = function(url, hide){
     // Create the window
     this.create(url);
 
+    var ref = this.object;
     // Show the window
     if(!hide){
-        this.object.show();
+        this.object.on("ready-to-show", function() {
+            ref.show();
+        });
     }
 };
 

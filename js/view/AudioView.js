@@ -36,7 +36,8 @@ function pauseButtonClicked() {
 }
 
 function stopButtonClicked() {
-    player.stop();
+    player.pause();
+    player.currentTime = 0;
 }
 
 

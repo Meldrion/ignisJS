@@ -197,9 +197,9 @@ function btnLayer4Click() {
 }
 
 function btnImportManagerClicked() {
-    var loadProjectWindow = windowManager.
+    var importManagerWindow = windowManager.
     createNew('importManagerWindow', 'Import Manager',windowManager.convert("view/ImportManagerView.html"),"importManagerWindow");
-    loadProjectWindow.open();
+    importManagerWindow.open();
 }
 
 function btnAudioManagerClicked() {
